@@ -1,0 +1,23 @@
+.login-form {
+    padding: 20px 10px;
+    background-color: #cfcfcf;
+    border-radius: 12px;
+
+    .logo {
+        width: 220px;
+        margin-bottom: 30px;
+
+        a {
+            display: block;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    h2 {
+        // color: #233977;
+    }
+}
