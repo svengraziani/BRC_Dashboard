@@ -1,10 +1,11 @@
-import { Container } from "react-bootstrap";
 import "./login.scss";
 
 export default function Login() {
   return (
-    <Container>
-      <h1>h</h1>
-    </Container>
+    <div className="container">
+      <a href="index.jsx">
+        <img src="" alt="./"></img>
+      </a>
+    </div>
   );
 }
