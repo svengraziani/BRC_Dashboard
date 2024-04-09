@@ -1,5 +1,5 @@
-import Footer from "@/common/Footer";
-import Header from "@/common/Header";
+import Footer from "../shared/Footer";
+import Header from "../shared/Header";
 import { Container } from "react-bootstrap";
 import Login from "./login/page";
 
