@@ -57,7 +57,7 @@ pipeline {
                     sh 'git config git-ftp.url "ftp://10.0.3.4/CSS8212"'
                     sh 'git config git-ftp.user ${DEVUSER}'
                     sh 'git config git-ftp.password ${DEVPASS}'
-                    sh '/usr/local/bin/git-ftp push'
+                    sh '/usr/local/bin/git-ftp init'
                 }
             }
         }
