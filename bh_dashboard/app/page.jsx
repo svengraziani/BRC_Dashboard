@@ -1,6 +1,6 @@
 import Footer from "@/common/Footer";
 import Header from "@/common/Header";
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 export default function Home() {
   return (
