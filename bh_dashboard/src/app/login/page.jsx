@@ -11,7 +11,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <section className="form-bg">
-    <div className="login-form">
+    <div className="form-wrap">
       <div className="logo">
         <Link href={'#'}>
         <Image src={logoImg} />
