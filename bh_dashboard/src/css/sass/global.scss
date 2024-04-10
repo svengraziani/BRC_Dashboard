@@ -9,6 +9,10 @@
 }
 
 .form-bg {
-  background: url('../../../public/background.jpg') top center;
+  background: $black;
   background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

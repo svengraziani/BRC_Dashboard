@@ -1,24 +1,31 @@
 @import '../../css/sass/global.scss';
 
 .login-form {
-    padding: 20px 10px;
-    background-color: #cfcfcf;
+    padding: 20px;
+    background-color: $white;
     border-radius: 12px;
     color: $dark-blue;
     font-family: "Ubuntu", sans-serif;
 
     @include mediaQuery(mobile-view) {
-        padding: 40px 30px;
+        padding: 40px;
     }
 
     @include mediaQuery(tablet-view) {
-        width: 480px;
+        max-width: 480px;
+        width: 100%;
         margin: 0 auto;
+        padding: 80px;
     }
 
     .logo {
-        width: 220px;
+        width: 150px;
         margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            width: 220px;
+            margin-bottom: 60px;
+        }
 
         a {
             display: block;
@@ -32,9 +39,18 @@
 
     form {
         margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+        
         a {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: block;
+
+            @include mediaQuery(tablet-view) {
+                margin-bottom: 40px;
+            }
         }
     }
 
@@ -46,20 +62,54 @@
     h2 {
         font-weight: 700;
         margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 60px;
+        }
     }
 
     .form-block {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        position: relative;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
     }
 
     .form-control {
         border: none;
-        border-bottom: 1px solid #D6D6D6;
+        border-bottom: 1px solid $border-color;
         border-radius: 0;
+        position: relative;
+        color: $dark-blue;
+        padding: 5px 10px 5px 0px;
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:focus~label, &:not(:placeholder-shown)~label {
+            top: -20px;
+            left: 0;
+            z-index: 1;
+        }
+
+        &::-webkit-input-placeholder{
+            color:transparent;
+        }
+
+        &::-moz-placeholder{
+            color:transparent;
+        }
     }
 
-    ::placeholder {
-        color: $dark-blue;
+    .form-label {
+        position: absolute;
+        top: 6px;
+        left: 0;
+        transition: all 300ms ease-in-out;
+        pointer-events: none;
         font-weight: 500;
     }
 
@@ -68,5 +118,10 @@
         border-radius: 26px;
         background-color: $dark-blue;
         border-color: $dark-blue;
+
+        &:hover {
+            background-color: $light-blue;
+            border-color: $light-blue;
+        }
     }
 }
