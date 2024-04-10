@@ -1,11 +1,15 @@
 "use client";
-import "./login.scss";
+
 import Image from "next/image";
-import logoImg from "@/Assets/images/logo.svg";
+import logoImg from "../../assets/images/logo.svg";
+import "./login.scss";
+import "../../css/sass/global.scss";
+
 import Link from "next/link";
 
 export default function Login() {
   return (
+    <section className="form-bg">
     <div className="login-form">
       <div className="logo">
         <Link href={'#'}>
@@ -18,12 +22,13 @@ export default function Login() {
           <input type="email" placeholder="E-mail" className="form-control"></input>
         </div>
         <div className="form-block">
-          <input type="text" placeholder="Name" className="form-control"></input>
+          <input type="password" placeholder="Passwort" className="form-control"></input>
         </div>
-        <Link href={"/register"} style={{display: "block"}}>Passwort vergessen</Link>
+        <Link href={"/register"}>Passwort vergessen</Link>
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
       <p>Neu hier? <Link href={"/register"}>Jetzt registrieren</Link></p>
     </div>
+    </section>
   )
 }

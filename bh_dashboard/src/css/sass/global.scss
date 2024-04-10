@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap');
+@import 'variable';
+@import 'mixin';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.form-bg {
+  background: url('../../../public/background.jpg') top center;
+  background-size: cover;
+}
