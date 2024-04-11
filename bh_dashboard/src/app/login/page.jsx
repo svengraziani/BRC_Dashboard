@@ -7,11 +7,23 @@ import "./login.scss";
 import "../../css/sass/global.scss";
 import { Form, Row, Button, Col } from "react-bootstrap";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import SharedModal from "../../shared/Modal";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [forgetPasswordModal, setForgetPasswordModal] = useState(false)
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
+
+  const router = useRouter()
+
+  const submitHandler = useCallback((e)=> {
+    e.preventDefault();
+    
+    // @ API Calls
+    router.push("/loginpath")
+  }, [email, password])
 
   return (
     <section className="form-bg">
@@ -26,13 +38,13 @@ export default function Login() {
             <Image src={logoImg} />
         </div>
         <h2>Login</h2>
-        <Form>
+        <Form onSubmit={submitHandler}>
           <Form.Group className="form-block">
-            <Form.Control type="email" placeholder="E-mail" />
+            <Form.Control type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)}/>
             <Form.Label>E-mail</Form.Label>
           </Form.Group>
           <Form.Group className="form-block">
-            <Form.Control type="password" placeholder="Passwort" />
+            <Form.Control type="password" placeholder="Passwort" value={password} onChange={e => setPassword(e.target.value)}/>
             <Form.Label>Passwort</Form.Label>
           </Form.Group>
           <p onClick={()=> setForgetPasswordModal(true)}>Passwort vergessen</p> <br></br>
