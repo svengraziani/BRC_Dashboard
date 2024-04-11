@@ -6,10 +6,15 @@ import "./login.scss";
 import "../../css/sass/global.scss";
 import { Form, Row, Button, Col } from "react-bootstrap";
 import Link from "next/link";
+import { useState } from "react";
+import SharedModal from "../../shared/Modal";
 
 export default function Login() {
+  const [forgetPasswordModal, setForgetPasswordModal] = useState(false)
+
   return (
     <section className="form-bg">
+      <SharedModal show={forgetPasswordModal} onHide={()=> setForgetPasswordModal(false)}/>
       <div className="form-wrap">
       <Row>
         <Col xs>
@@ -28,7 +33,7 @@ export default function Login() {
             <Form.Control type="password" placeholder="Passwort" />
             <Form.Label>Passwort</Form.Label>
           </Form.Group>
-          <Link href={"/forgetpassword"}>Passwort vergessen</Link> <br></br>
+          <p onClick={()=> setForgetPasswordModal(true)}>Passwort vergessen</p> <br></br>
           <Button variant="primary" type="submit">
             Login
           </Button>
