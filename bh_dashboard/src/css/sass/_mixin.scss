@@ -1,0 +1,59 @@
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+//font size
+@function calculateRem($size) {
+    $remSize: calc($size / 16px);
+    @return #{$remSize}rem;
+}
+
+@mixin fontsize($size) {
+    font-size: calculateRem($size);
+}
+
+@mixin mediaQuery ($size) {
+    @if $size==mobile-view {
+        @media (min-width: 480px) {
+            @content;
+        }
+    }
+
+    @else if $size==tablet-view {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $size==tabletLarge-view {
+        @media (min-width: 992px) {
+          @content;
+        }
+      }
+
+    @else if $size==laptop-view {
+        @media (min-width: 1200px) {
+          @content;
+        }
+    }
+
+    @else if $size==desktop-view {
+        @media (min-width: 1440px) {
+          @content;
+        }
+    }
+    
+    @else if $size==desktopXl-view {
+        @media (min-width: 1600px) {
+          @content;
+        }
+    }
+
+    @else if $size==desktopXXl-view {
+        @media (min-width: 1800px) {
+          @content;
+        }
+    }
+}

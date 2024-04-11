@@ -1,0 +1,41 @@
+@import '../../css/sass/global.scss';
+
+.form-wrap {
+
+    form {
+        margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+        
+        a {
+            margin-bottom: 30px;
+
+            @include mediaQuery(tablet-view) {
+                margin-bottom: 40px;
+            }
+        }
+
+        p {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    h2 {
+        margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 60px;
+        }
+    }
+
+    .form-block {
+        margin-bottom: 30px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+    }
+}

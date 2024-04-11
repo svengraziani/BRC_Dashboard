@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap');
+@import 'variable';
+@import 'mixin';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: $white;
+  border-radius: 12px;
+  color: $dark-blue;
+  font-family: "Ubuntu", sans-serif;
+
+  @include mediaQuery(mobile-view) {
+    padding: 40px 28px;
+  }
+
+  @include mediaQuery(tablet-view) {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+
+  .logo {
+    width: 150px;
+    margin-bottom: 30px;
+
+    @include mediaQuery(tablet-view) {
+        width: 220px;
+        margin-bottom: 60px;
+    }
+
+    a {
+        display: block;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+    }
+  }
+}
+
+.form-bg {
+  background: url('https://i.postimg.cc/j5Q8PLG4/background.jpg') no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-block {
+  position: relative;
+
+  .form-control {
+    border: none;
+    border-bottom: 1px solid $border-color;
+    border-radius: 0;
+    position: relative;
+    color: $dark-blue;
+    padding: 5px 10px 5px 0px;
+    font-weight: 500;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &:focus~label, &:not(:placeholder-shown)~label {
+        top: -20px;
+        left: 0;
+        z-index: 1;
+        @include fontsize(13px);
+    }
+
+    &::-webkit-input-placeholder{
+        color:transparent;
+    }
+
+    &::-moz-placeholder{
+        color:transparent;
+    }
+  }
+
+  .form-label {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    transition: all 300ms ease-in-out;
+    pointer-events: none;
+    font-weight: 500;
+  }
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: $dark-blue;
+  border-color: $dark-blue;
+  width: 100%;
+
+  &:hover {
+    background-color: $light-blue;
+    border-color: $light-blue;
+  }
+}
+
+.icon-back {
+  display: inline-block;
+  background: url('../../Assets/images/icon-back.svg') no-repeat center;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+}
+
+a {
+  color: $dark-blue;
+  font-weight: 700;
+  display: inline-block;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  @include fontsize(16px);
+}
