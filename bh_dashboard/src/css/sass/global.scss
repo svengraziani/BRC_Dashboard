@@ -16,19 +16,38 @@
   font-family: "Ubuntu", sans-serif;
 
   @include mediaQuery(mobile-view) {
-    padding: 40px;
+    padding: 40px 28px;
   }
 
   @include mediaQuery(tablet-view) {
     max-width: 480px;
     width: 100%;
     margin: 0 auto;
-    padding: 80px;
+    padding: 80px 68px;
+  }
+
+  .logo {
+    width: 150px;
+    margin-bottom: 30px;
+
+    @include mediaQuery(tablet-view) {
+        width: 220px;
+        margin-bottom: 60px;
+    }
+
+    a {
+        display: block;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+    }
   }
 }
 
 .form-bg {
-  background: $black;
+  background: url('https://i.postimg.cc/j5Q8PLG4/background.jpg') no-repeat;
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -78,11 +97,36 @@
   }
 }
 
+.btn-primary {
+  border-radius: 26px;
+  background-color: $dark-blue;
+  border-color: $dark-blue;
+  width: 100%;
+
+  &:hover {
+    background-color: $light-blue;
+    border-color: $light-blue;
+  }
+}
+
+.icon-back {
+  display: inline-block;
+  background: url('../../assets/images/icon-back.svg') no-repeat center;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+}
+
 a {
   color: $dark-blue;
   font-weight: 700;
+  display: inline-block;
 }
 
 h2 {
   font-weight: 700;
+}
+
+h3 {
+  @include fontsize(16px);
 }

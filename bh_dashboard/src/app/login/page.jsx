@@ -4,13 +4,15 @@ import Image from "next/image";
 import logoImg from "../../Assets/images/logo.svg";
 import "./login.scss";
 import "../../css/sass/global.scss";
-import { Form, Button } from "react-bootstrap";
+import { Form, Row, Button, Col } from "react-bootstrap";
 import Link from "next/link";
 
 export default function Login() {
   return (
     <section className="form-bg">
-      <div className="login-form">
+      <div className="form-wrap">
+      <Row>
+        <Col xs>
         <div className="logo">
           <Link href={"#"}>
             <Image src={logoImg} />
@@ -26,7 +28,7 @@ export default function Login() {
             <Form.Control type="password" placeholder="Passwort" />
             <Form.Label>Passwort</Form.Label>
           </Form.Group>
-          <Link href={"/forgetpassword"}>Passwort vergessen</Link>
+          <Link href={"/forgetpassword"}>Passwort vergessen</Link> <br></br>
           <Button variant="primary" type="submit">
             Login
           </Button>
@@ -34,6 +36,8 @@ export default function Login() {
         <p>
           Neu hier? <Link href={"/signup"}>Jetzt registrieren</Link>
         </p>
+        </Col>
+      </Row>
       </div>
     </section>
   );

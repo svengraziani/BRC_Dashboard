@@ -2,25 +2,6 @@
 
 .form-wrap {
 
-    .logo {
-        width: 150px;
-        margin-bottom: 30px;
-
-        @include mediaQuery(tablet-view) {
-            width: 220px;
-            margin-bottom: 60px;
-        }
-
-        a {
-            display: block;
-        }
-
-        img {
-            display: block;
-            width: 100%;
-        }
-    }
-
     form {
         margin-bottom: 30px;
 
@@ -30,17 +11,11 @@
         
         a {
             margin-bottom: 30px;
-            display: block;
 
             @include mediaQuery(tablet-view) {
                 margin-bottom: 40px;
             }
         }
-    }
-
-    a {
-        font-weight: 700;
-        color: $dark-blue;
     }
 
     h2 {
@@ -56,18 +31,6 @@
 
         @include mediaQuery(tablet-view) {
             margin-bottom: 40px;
-        }
-    }
-
-    .btn-primary {
-        width: 100%;
-        border-radius: 26px;
-        background-color: $dark-blue;
-        border-color: $dark-blue;
-
-        &:hover {
-            background-color: $light-blue;
-            border-color: $light-blue;
         }
     }
 }
