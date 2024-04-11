@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import arrowImg from '../../assets/images/icon-back.svg';
+import sectionImg from "../../Assets/images/section-logo.png";
 import Link from "next/link";
 import "./register.scss";
 import "../../css/sass/global.scss";
@@ -8,10 +11,15 @@ import { Button, Row, Col } from "react-bootstrap";
 
 export default function Register() {
   return(
-    <section className="form-bg">
+    <section className="form-bg register">
+      <div className="section-logo">
+            <Image src={sectionImg} />
+      </div>
       <div className="form-wrap register-form">
             <Row>
-            <Link href={"/login"}><i className="icon-back"></i>Zurück zum Login</Link>
+            <Link href={"/signup"} style={{display: "flex", gap: "5px", alignItems: "center"}}><i className="icon-back">
+              <Image src={arrowImg} />
+              </i>Zurück zum Login</Link>
             </Row>
             <h2>Registrierung Einzelaccount</h2>
               <Form>
@@ -40,7 +48,7 @@ export default function Register() {
                         <Row>
                         <Col md="4">
                         <Form.Group className="form-block">
-                              <Form.Control type="text" placeholder="Nr.*" />
+                              <Form.Control type="number" placeholder="Nr.*" />
                               <Form.Label>Nr.*</Form.Label>
                         </Form.Group>
                         </Col>
@@ -56,7 +64,7 @@ export default function Register() {
                   <Row>
                     <Col md="6">
                         <Form.Group className="form-block">
-                              <Form.Control type="text" placeholder="PLZ*" />
+                              <Form.Control type="number" placeholder="PLZ*" />
                               <Form.Label>PLZ*</Form.Label>
                           </Form.Group>
                     </Col>
@@ -72,15 +80,15 @@ export default function Register() {
                         <Form.Group className="form-block">
                         <Form.Select aria-label="Dropdown">
                           <option>Land*</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          <option value="India">India</option>
+                          <option value="Russia">Russia</option>
+                          <option value="Brazil">Brazil</option>
                         </Form.Select>
                           </Form.Group>
                     </Col>
                     <Col md="6">
                         <Form.Group className="form-block">
-                              <Form.Control type="text" placeholder="Telefonnummer*" />
+                              <Form.Control type="tel" placeholder="Telefonnummer*" />
                               <Form.Label>Telefonnummer*</Form.Label>
                           </Form.Group>
                     </Col>

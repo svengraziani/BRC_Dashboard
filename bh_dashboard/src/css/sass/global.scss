@@ -49,13 +49,32 @@
 .form-bg {
   background: url('https://i.postimg.cc/j5Q8PLG4/background.jpg') no-repeat;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   @include mediaQuery(mobile-view) {
-    padding: 0px 20px;
+    padding: 30px 20px;
+  }
+
+  .section-logo {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 121px;
+    height: 48px;
+
+    @include mediaQuery(tabletLarge-view) {
+      left: 20px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -115,10 +134,32 @@
 
 .icon-back {
   display: inline-block;
-  background: url('../../Assets/images/icon-back.svg') no-repeat center;
-  background-size: cover;
   width: 20px;
   height: 20px;
+
+  img {
+    display: block;
+  }
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+
+  img {
+    display: block;
+  }
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: $dark-blue;
+  border-color: $dark-blue;
+  color: $dark-blue
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
 }
 
 a {

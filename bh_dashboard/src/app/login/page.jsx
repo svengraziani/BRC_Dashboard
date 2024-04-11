@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import logoImg from "../../Assets/images/logo.svg";
+import sectionImg from "../../Assets/images/section-logo.png";
 import "./login.scss";
 import "../../css/sass/global.scss";
 import { Form, Row, Button, Col } from "react-bootstrap";
@@ -14,14 +15,15 @@ export default function Login() {
 
   return (
     <section className="form-bg">
+      <div className="section-logo">
+            <Image src={sectionImg} />
+      </div>
       <SharedModal show={forgetPasswordModal} onHide={()=> setForgetPasswordModal(false)}/>
       <div className="form-wrap">
       <Row>
         <Col xs>
         <div className="logo">
-          <Link href={"#"}>
             <Image src={logoImg} />
-          </Link>
         </div>
         <h2>Login</h2>
         <Form>

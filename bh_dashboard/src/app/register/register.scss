@@ -1,6 +1,11 @@
 @import '../../css/sass/global.scss';
 
 .form-wrap.register-form {
+    border-radius: 0;
+    @include mediaQuery(mobile-view) {
+        border-radius: 12px;
+    }
+
     @include mediaQuery(tablet-view) {
         max-width: 100%;
     }
@@ -64,9 +69,8 @@
             margin: 0;
         }
     }
+}
 
-    input[type="checkbox"] {
-        accent-color: red;
-        color: red;
-    }
+.form-bg.register {
+    padding: 30px 0px;
 }
