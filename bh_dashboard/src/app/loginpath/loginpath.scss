@@ -1,0 +1,72 @@
+@import '../../css/sass/global.scss';
+
+.navigation-wrap {
+    text-align: center;
+
+    h2 {
+        margin: 0;
+
+        @include mediaQuery(tablet-view) {
+            @include fontsize(48px);
+        }
+    }
+
+    .not-part {
+        display: block;
+        margin-bottom: 20px;
+        color: $light-grey;
+
+        @include mediaQuery(tablet-view) {
+            @include fontsize(24px);
+            margin-bottom: 50px;
+        }
+    }
+
+    p {
+        margin-bottom: 20px;
+        color: $black;
+
+        @include mediaQuery(tablet-view) {
+            @include fontsize(24px);
+            margin-bottom: 60px;
+        }
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    li {
+        list-style-type: none;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: $dark-blue;
+
+            @include mediaQuery(tablet-view) {
+                @include fontsize(30px);
+            }
+        }
+    }
+
+    .icon-back {
+        transform: rotate(180deg);
+
+        @include mediaQuery(tablet-view) {
+            width: 31px;
+            height: 31px;
+        }
+    }
+}

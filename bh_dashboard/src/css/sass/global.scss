@@ -8,12 +8,17 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+}
+
 .form-wrap {
   padding: 20px;
   background-color: $white;
   border-radius: 12px;
   color: $dark-blue;
-  font-family: "Ubuntu", sans-serif;
+  width: 100%;
 
   @include mediaQuery(mobile-view) {
     padding: 40px 28px;
@@ -54,6 +59,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  padding: 0px 20px;
 
   @include mediaQuery(mobile-view) {
     padding: 30px 20px;
@@ -63,17 +69,19 @@
     position: absolute;
     top: 20px;
     left: 0;
-    width: 121px;
-    height: 48px;
+    right: 0;
+    margin: auto;
+    width: 90px;
 
-    @include mediaQuery(tabletLarge-view) {
+    @include mediaQuery(tablet-view) {
+      margin: 0;
       left: 20px;
     }
 
     img {
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
     }
   }
 }
@@ -139,6 +147,8 @@
 
   img {
     display: block;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -150,6 +160,14 @@
   img {
     display: block;
   }
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: $dark-blue
 }
 
 input[type=checkbox]:checked, input[type=radio]:checked {
