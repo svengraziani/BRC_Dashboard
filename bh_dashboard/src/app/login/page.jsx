@@ -28,14 +28,14 @@ export default function Login() {
   return (
     <section className="form-bg">
       <div className="section-logo">
-            <Image src={sectionImg} />
+            <Image src={sectionImg} alt="Section-Logo" />
       </div>
       <SharedModal show={forgetPasswordModal} onHide={()=> setForgetPasswordModal(false)}/>
       <div className="form-wrap">
       <Row>
         <Col xs>
         <div className="logo">
-            <Image src={logoImg} />
+            <Image src={logoImg} alt="Logo" />
         </div>
         <h2>Login</h2>
         <Form onSubmit={submitHandler}>

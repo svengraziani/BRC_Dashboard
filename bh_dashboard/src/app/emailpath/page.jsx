@@ -11,7 +11,7 @@ export default function Emailpath() {
             <div className="navigation-wrap">
             <h2>Kunde klickt auf den Link in der E-Mail</h2>
             <i className="icon-back">
-                <Image src={arrowImg} />
+                <Image src={arrowImg} alt="Icon" />
             </i>
             </div>
         </section>

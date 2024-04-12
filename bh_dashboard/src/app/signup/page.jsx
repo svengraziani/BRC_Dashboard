@@ -24,7 +24,7 @@ export default function Signup() {
   return(
     <section className="form-bg">
       <div className="section-logo">
-            <Image src={sectionImg} />
+            <Image src={sectionImg} alt="Section-Logo" />
       </div>
       <div className="form-wrap">
         <Row>
@@ -34,7 +34,7 @@ export default function Signup() {
               <Image src={arrowImg}></Image>
               </i>Zurück zum Login</Link>
             <div className="logo">
-                <Image src={logoImg} />
+                <Image src={logoImg} alt="Logo" />
             </div>
             <h2>Registrierung</h2>
             <Form onSubmit={submitHandler}>
@@ -43,7 +43,7 @@ export default function Signup() {
                 name={"registration"}
                 id={`einzelaccount`}
                 label={<div style={{display: "flex", gap: "10px"}}><span>Einzelaccount</span><i className="icon-circle">
-                  <Image src={circleImg} />
+                  <Image src={circleImg} alt="Icon" />
                 </i></div>} />
 
               <Form.Check
@@ -51,7 +51,7 @@ export default function Signup() {
                 name={"registration"}
                 id={`unternehmensaccount`}
                 label={<div style={{display: "flex", gap: "10px"}}><span>Unternehmensaccount</span><i className="icon-circle">
-                  <Image src={circleImg} />
+                  <Image src={circleImg} alt="Icon" />
                 </i></div>} />
               <Button type="submit">Weiter</Button>
             </Form>

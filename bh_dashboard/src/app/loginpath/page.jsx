@@ -15,11 +15,11 @@ export default function Loginpath () {
             <p>Je nach Benutzerrolle wird der User auf das jeweilige Dashboard weitergeleteitet</p>
             <ul>
                 <li><Link href={"#"}>Dashboard Handwerksbetrieb</Link><i className="icon-back">
-                    <Image src={arrowImg} /></i></li>
+                    <Image src={arrowImg} alt="Icon" /></i></li>
                 <li><Link href={"#"}>Dashboard Servicetechniker</Link><i className="icon-back">
-                <Image src={arrowImg} /></i></li>
+                <Image src={arrowImg} alt="Icon" /></i></li>
                 <li><Link href={"#"}>Dashboard Endkunde</Link><i className="icon-back">
-                <Image src={arrowImg} /></i></li>
+                <Image src={arrowImg} alt="Icon" /></i></li>
             </ul>
             </div>
         </section>

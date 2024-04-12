@@ -13,12 +13,12 @@ export default function Register() {
   return(
     <section className="form-bg register">
       <div className="section-logo">
-            <Image src={sectionImg} />
+            <Image src={sectionImg} alt="Section-Logo" />
       </div>
       <div className="form-wrap register-form">
             <Row>
             <Link href={"/signup"} style={{display: "flex", gap: "5px", alignItems: "center"}}><i className="icon-back">
-              <Image src={arrowImg} />
+              <Image src={arrowImg} alt="Icon" />
               </i>Zurück zum Login</Link>
             </Row>
             <h2>Registrierung Einzelaccount</h2>
