@@ -6,7 +6,6 @@ import '../../css/sass/global.scss';
 import Sidebar from "../../shared/Sidebar";
 import Image from "next/image";
 import imgAnlagen from '../../Assets/images/icon-anlagen.svg';
-import { Col, Form, Row } from "react-bootstrap";
 import DashboardTable from "../../shared/Table";
 
 export default function Dashboard() {

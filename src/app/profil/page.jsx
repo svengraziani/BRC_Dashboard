@@ -110,7 +110,7 @@ function Profil() {
         <div className='notice-primary'>
         <span className='notice-head'>HINWEIS</span>
         </div>
-        <p>Feld "Firmenname" ist hier noch enthalten, kann aber entfernt werden falls er nicht angezeigt werden 
+        <p>Feld Firmenname ist hier noch enthalten, kann aber entfernt werden falls er nicht angezeigt werden 
         soll</p>
     </div>
     </div>
