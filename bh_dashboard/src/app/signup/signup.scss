@@ -1,0 +1,39 @@
+@import '../../css/sass/global.scss';
+
+.form-wrap {
+    a {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+
+        @include mediaQuery(tabletLarge-view) {
+            margin-bottom: 60px;
+        }
+    }
+
+    h2 {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+    }
+
+    form {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+    }
+
+    .form-check {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 30px;
+        }
+    }
+}

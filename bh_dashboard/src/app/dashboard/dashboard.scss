@@ -1,0 +1,45 @@
+@import '../../css/sass/global.scss';
+
+.dashboard {
+    background-color: $dashboard-bg;
+    color: $dark-blue;
+
+    .dashboard-wrap {
+        display: flex;
+    }
+
+    .dashboard-block {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .icon-anlagen {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .heading-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+
+        h2 {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 0;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+}

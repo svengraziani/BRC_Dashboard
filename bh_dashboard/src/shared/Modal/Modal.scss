@@ -1,0 +1,52 @@
+@import '../../css/sass/global.scss';
+
+.modal-content {
+    padding: 20px;
+    background-color: $white;
+    border-radius: 12px;
+    color: $dark-blue;
+    font-family: "Ubuntu", sans-serif;
+  
+    @include mediaQuery(tablet-view) {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+  
+    .modal-header {
+      padding: 0;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tabletLarge-view) {
+            margin-bottom: 40px;
+        }
+    }
+
+    p {
+        margin-bottom: 20px;
+        font-weight: 500;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    .form-block {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            margin-bottom: 40px;
+        }
+    }
+}
