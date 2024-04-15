@@ -15,8 +15,8 @@ pipeline {
 
                 withCredentials([usernamePassword(credentialsId: 'f5364b10-1009-4dff-b0f2-3be5a016f19b', usernameVariable: 'DEVUSER', passwordVariable: 'DEVPASS')]) {
                     sh 'echo Deploying....'
-                    sh 'git config git-ftp.url "ftp://10.0.2.53:21/"'
-                    sh 'git config git-ftp.user "css8212"'
+                    sh 'git config git-ftp.url "ftp://10.0.3.5:21/"'
+                    sh 'git config git-ftp.user "css8212-dev"'
                     sh 'git config git-ftp.password "css8212aaccda1"'
                     sh '/usr/local/bin/git-ftp init'
                 }
