@@ -5,10 +5,16 @@ import imgProfil from '../../Assets/images/icon-user.svg';
 import './profil.scss';
 import '../../css/sass/global.scss';
 import { Button, Row, Col, Form } from 'react-bootstrap';
+import Header from '../../shared/Header';
+import Sidebar from '../../shared/Sidebar';
 
 function Profil() {
   return (
+    <section className='profil'>
+        <Header />
     <div className='profile-wrap'>
+        <Sidebar />
+      <div className='profile-block'>
       <div className='heading-wrap'>
         <h2><i className='icon-profil'>
             <Image src={imgProfil} alt='Icon' /> 
@@ -113,7 +119,9 @@ function Profil() {
         <p>Feld Firmenname ist hier noch enthalten, kann aber entfernt werden falls er nicht angezeigt werden 
         soll</p>
     </div>
+      </div>
     </div>
+    </section>
   )
 }
 

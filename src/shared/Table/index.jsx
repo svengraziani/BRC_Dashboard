@@ -7,6 +7,8 @@ import imgSearch from '../../Assets/images/icon-search.svg';
 import imgSynch from '../../Assets/images/icon-synch.svg';
 import imgPlus from '../../Assets/images/icon-plus.svg';
 import imgRepair from '../../Assets/images/icon-inbetrieb.svg';
+import imgError from '../../Assets/images/icon-error.svg';
+import imgWarning from '../../Assets/images/icon-warning.svg';
 import { BsFunnel } from 'react-icons/bs';
 import { MdNavigateNext } from 'react-icons/md';
 import { FaSortAlphaDown } from 'react-icons/fa';
@@ -68,7 +70,7 @@ function DashboardTable() {
     </thead>
     <tbody>
         <tr className='error'>
-            <td>Satteldachanlage C</td>
+            <td><i className='icon-error'><Image src={imgError} alt='Icon' /></i>Satteldachanlage C</td>
             <td>45465</td>
             <td>Anlage C</td>
             <td>Karina Drehmann</td>
@@ -83,7 +85,7 @@ function DashboardTable() {
             <td colSpan={7} height={12} className='empty-td'></td>
         </tr>
         <tr className='warning'>
-            <td>Satteldachanlage D</td>
+            <td><i className='icon-warning'><Image src={imgWarning} alt='Icon' /></i>Satteldachanlage D</td>
             <td>45465</td>
             <td>Anlage D</td>
             <td>Lukas Brunner</td>

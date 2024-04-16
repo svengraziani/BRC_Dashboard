@@ -1,13 +1,9 @@
 {
-  "/_not-found": "app/_not-found.js",
-  "/dashboard/page": "app/dashboard/page.js",
+  "/not-found": "app/not-found.js",
   "/einstellungen/page": "app/einstellungen/page.js",
-  "/emailpath/page": "app/emailpath/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/login/page": "app/login/page.js",
+  "/signup/page": "app/signup/page.js",
   "/loginpath/page": "app/loginpath/page.js",
-  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/profil/page": "app/profil/page.js",
-  "/register/page": "app/register/page.js",
-  "/signup/page": "app/signup/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }
