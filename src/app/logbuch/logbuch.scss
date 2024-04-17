@@ -1,0 +1,26 @@
+@import '../../css/sass/global.scss';
+
+.logbuch {
+    background-color: $dashboard-bg;
+    color: $dark-blue;
+
+    .logbuch-wrap {
+        display: flex;
+    }
+
+    .logbuch-block {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .heading-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+
+    .form-select {
+        padding: 5px 5px 5px 25px;
+    }
+}

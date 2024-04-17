@@ -1,0 +1,70 @@
+@import '../../css/sass/global.scss';
+
+.support {
+    background-color: $dashboard-bg;
+    color: $dark-blue;
+
+    .heading-wrap {
+        margin-bottom: 50px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .support-wrap {
+        display: flex;
+    }
+
+    .support-block {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .icon-support {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .contact {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 40px;
+        width: 70%;
+    }
+
+    .contact-card {
+        padding: 20px;
+        background-color: $white;
+        border-radius: 10px;
+        box-shadow: 0px 1px 4px $shadow-color;
+        max-height: 79px;
+        height: 100%;
+    }
+
+    .hotline, .email {
+        width: 100%;
+    }
+
+    .head {
+        @include fontsize(18px);
+        font-weight: 700;
+    }
+
+    .timing {
+        display: block;
+    }
+}

@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 20px;
+    min-height: calc(100vh - 58px);
 
     ul {
         padding: 0;
@@ -23,6 +24,7 @@
         color: $dark-blue;
         border-color: $white;
         width: 100%;
+        position: relative;
 
         &:hover {
             color: $dark-blue;
@@ -31,6 +33,22 @@
         &:active {
             background-color: $dashboard-bg;
             border-color: transparent;
+        }
+
+        &.active {
+            background-color: $dashboard-bg;
+            border-color: $dashboard-bg;
+
+            &::before {
+                content: '';
+                width: 4px;
+                height: 100%;
+                background-color: $dark-blue;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 10px;
+            }
         }
     }
 

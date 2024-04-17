@@ -3,15 +3,26 @@
 import Image from "next/image";
 import arrowImg from '../../assets/images/icon-back.svg';
 import sectionImg from "../../Assets/images/section-logo.png";
+import backgroundImage from '../../Assets/images/background.jpg';
 import Link from "next/link";
 import "./register.scss";
-import "../../css/sass/global.scss";
-import Form from 'react-bootstrap/Form';
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Form } from "react-bootstrap";
 
 export default function Register() {
   return(
     <section className="form-bg register">
+    <Image
+      alt="backgroun-image"
+      src={backgroundImage}
+      placeholder="blur"
+      fill
+      quality={100}
+      sizes="100vw"
+      style={{
+        objectFit:"cover",
+        zIndex:"-1"
+      }}
+    />
       <div className="section-logo">
             <Image src={sectionImg} alt="Section-Logo" />
       </div>

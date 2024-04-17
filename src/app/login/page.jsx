@@ -4,12 +4,12 @@ import Image from "next/image";
 import logoImg from "../../Assets/images/logo.svg";
 import sectionImg from "../../Assets/images/section-logo.png";
 import "./login.scss";
-import "../../css/sass/global.scss";
 import { Form, Row, Button, Col } from "react-bootstrap";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import SharedModal from "../../shared/Modal";
 import { useRouter } from "next/navigation";
+import backgroundImage from '../../Assets/images/background.jpg'
 
 export default function Login() {
   const [forgetPasswordModal, setForgetPasswordModal] = useState(false)
@@ -27,6 +27,18 @@ export default function Login() {
 
   return (
     <section className="form-bg">
+    <Image
+      alt="backgroun-image"
+      src={backgroundImage}
+      placeholder="blur"
+      fill
+      quality={100}
+      sizes="100vw"
+      style={{
+        objectFit:"cover",
+        zIndex:"-1"
+      }}
+    />
       <div className="section-logo">
             <Image src={sectionImg} alt="Section-Logo" />
       </div>

@@ -11,6 +11,7 @@
 body {
   font-family: "Ubuntu", sans-serif;
   font-weight: 500;
+  background-color: $dashboard-bg
 }
 
 .form-wrap {
@@ -52,8 +53,6 @@ body {
 }
 
 .form-bg {
-  background: url('https://i.postimg.cc/j5Q8PLG4/background.jpg') no-repeat;
-  background-size: cover;
   min-height: 100vh;
   display: flex;
   justify-content: center;

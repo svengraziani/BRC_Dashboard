@@ -3,7 +3,6 @@
 import Image from "next/image";
 import arrowImg from '../../assets/images/icon-back.svg';
 import './emailpath.scss';
-import "../../css/sass/global.scss";
 
 export default function Emailpath() {
     return (

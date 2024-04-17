@@ -1,15 +1,20 @@
 @import '../../css/sass/global.scss';
 
 .profile-wrap {
-    padding: 20px;
     color: $dark-blue;
     background-color: $dashboard-bg;
+    display: flex;
 
     .heading-wrap {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 40px;
+    }
+
+    .profile-block {
+        padding: 20px;
+        width: 100%;
     }
 
     .icon-profil {

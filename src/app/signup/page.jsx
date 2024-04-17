@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import "./signup.scss";
-import "../../css/sass/global.scss";
 import Image from "next/image";
 import logoImg from "../../Assets/images/logo.svg";
 import arrowImg from '../../assets/images/icon-back.svg';
 import circleImg from '../../assets/images/icon-circle.svg';
 import sectionImg from "../../Assets/images/section-logo.png";
+import backgroundImage from '../../Assets/images/background.jpg';
 import Form from 'react-bootstrap/Form';
 import { Button, Row, Col } from "react-bootstrap";
 import { useCallback } from "react";
@@ -23,6 +23,18 @@ export default function Signup() {
 
   return(
     <section className="form-bg">
+    <Image
+      alt="backgroun-image"
+      src={backgroundImage}
+      placeholder="blur"
+      fill
+      quality={100}
+      sizes="100vw"
+      style={{
+        objectFit:"cover",
+        zIndex:"-1"
+      }}
+    />
       <div className="section-logo">
             <Image src={sectionImg} alt="Section-Logo" />
       </div>

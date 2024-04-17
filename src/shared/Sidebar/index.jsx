@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import '../../css/sass/global.scss';
 import './sidebar.scss';
@@ -11,42 +11,61 @@ import imgEinstellungen from "../../Assets/images/icon-setting.svg";
 import imgSupport from "../../Assets/images/icon-support.svg";
 import imgPlus from "../../Assets/images/icon-plus.svg";
 import { Button, Row, Col } from "react-bootstrap";
+import Link from "next/link";
 
 function Sidebar() {
+  const [activeStatus, setActiveStatus] = useState("Dashboard")
+
+  const links = [
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: imgDashboard,
+      iClass: "icons"
+    },
+    {
+      name: "Logbuch",
+      href: "/logbuch",
+      icon: imgLogbuch,
+      iClass: "icons"
+    },
+    {
+      name: "Mein Profil",
+      href: "/profil",
+      icon: imgUser,
+      iClass: "icons icon-profile"
+    },
+    {
+      name: "Benutzer",
+      href: "/benutzer",
+      icon: imgMultiUser,
+      iClass: "icons"
+    },
+    {
+      name: "Einstellungen",
+      href: "/einstellungen",
+      icon: imgEinstellungen,
+      iClass: "icons"
+    },
+    {
+      name: "Support",
+      href: "/support",
+      icon: imgSupport,
+      iClass: "icons"
+    },
+  ]
+
   return <div className="sidebar">
     <div className="sidebar-menu">
     <ul>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-dashboard icons"><Image src={imgDashboard} alt="icon" /></i>Dashboard
-        </Button>
+      {links.map((item, index) => (
+        <li key={index} onClick={()=> setActiveStatus(item.name)}>
+        <Link href={item.href} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
+        <i className={item.iClass}><Image src={item.icon} alt="icon" /></i>{item.name}
+        </Link>
       </li>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-logbuch icons"><Image src={imgLogbuch} alt="icon" /></i>Logbuch
-        </Button>
-      </li>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-profile icons"><Image src={imgUser} alt="icon" /></i>Mein Profil
-        </Button>
-      </li>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-benutzer icons"><Image src={imgMultiUser} alt="icon" /></i>Benutzer
-        </Button>
-      </li>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-einstellungen icons"><Image src={imgEinstellungen} alt="icon" /> 
-        </i>Einstellungen
-        </Button>
-      </li>
-      <li>
-        <Button type="button" variant="nav">
-        <i className="icon-support icons"><Image src={imgSupport} alt="icon" /></i>Support
-        </Button>
-      </li>
+      ))}
+
     </ul>
     </div>
     <Row>

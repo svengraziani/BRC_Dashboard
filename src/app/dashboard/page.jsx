@@ -9,6 +9,8 @@ import imgAnlagen from '../../Assets/images/icon-anlagen.svg';
 import DashboardTable from "../../shared/Table";
 
 export default function Dashboard() {
+    const statusFilter = ["Warnung", "Felher", "Offene Inbetriebnahme"]
+
     return (
         <section className="dashboard">
             <Header />
@@ -23,7 +25,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Table component */}
-                <DashboardTable />
+                <DashboardTable statusFilter={statusFilter} filterName="Status Filter"/>
                 
                 <div className="filter-wrap"></div>
             </div>

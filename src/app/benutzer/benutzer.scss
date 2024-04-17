@@ -1,0 +1,44 @@
+@import '../../css/sass/global.scss';
+
+.benutzer {
+    background-color: $dashboard-bg;
+    color: $dark-blue;
+
+    .benutzer-wrap {
+        display: flex;
+    }
+
+    .benutzer-block {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .heading-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .btn-primary {
+            width: auto;
+        }
+    }
+
+    .icon-multiuser {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+    }
+}
