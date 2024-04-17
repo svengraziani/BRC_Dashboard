@@ -24,8 +24,8 @@ function Sidebar() {
       iClass: "icons"
     },
     {
-      name: "Logbush",
-      href: "/logbush",
+      name: "Logbuch",
+      href: "/logbuch",
       icon: imgLogbuch,
       iClass: "icons"
     },

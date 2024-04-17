@@ -7,7 +7,8 @@
         .form-control {
             width: 100%;
             border-radius: 26px;
-            padding: 10px 24px;
+            padding: 10px 40px 10px 24px;
+            border: 2px solid $light-border;
             
             &::placeholder {
                 color: $dark-blue;
@@ -17,6 +18,10 @@
 
     .filter-wrap {
         margin-bottom: 50px;
+    }
+
+    .filter-secondary {
+        margin-bottom: 40px;
     }
     
     .icon-search {
@@ -70,6 +75,8 @@
         bottom: 0;
         left: 0;
         margin: auto;
+        filter: brightness(0) saturate(100%) invert(15%) sepia(73%) saturate(1506%) hue-rotate(206deg) 
+        brightness(98%) contrast(90%);
 
         svg {
             display: block;
@@ -134,7 +141,8 @@
         td:not(.empty-td) {
             @include fontsize(12px);
             background-color: $white;
-            padding: 20px 6px;
+            padding: 10px 25px;
+            height: 70px;
 
             &:first-child {
                 border-radius: 10px 0px 0px 10px;

@@ -1,5 +1,4 @@
 import './Table.scss';
-import '../../css/sass/global.scss';
 import React from 'react';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import Image from 'next/image';
@@ -12,14 +11,18 @@ import imgWarning from '../../Assets/images/icon-warning.svg';
 import { BsFunnel } from 'react-icons/bs';
 import { MdNavigateNext } from 'react-icons/md';
 import { FaSortAlphaDown } from 'react-icons/fa';
+import SelectBox from '../SelectBox';
+import { useRouter } from 'next/navigation';
 
-function DashboardTable() {
+function DashboardTable({statusFilter, filterName}) {
+    const router = useRouter();
+
   return (
     <div className='dashboard-table'>
       <Row className='filter-wrap'>
         <Col md="6">
         <Form.Group className="form-block block">
-        <Form.Control type="search" placeholder="Suche"></Form.Control>
+        <Form.Control type="search" placeholder="Suche" spellCheck="false"></Form.Control>
         <i className='icon-search'>
             <Image src={imgSearch} alt='Icon' />
         </i>
@@ -28,15 +31,9 @@ function DashboardTable() {
         <Col md="6">
             <Row>
                 <Col md="8">
-                    <Form.Group className="form-block">
-                    <i className='icon-filter'><BsFunnel size={10} /></i>
-                        <Form.Select aria-label="Dropdown">
-                          <option>Status Filter</option>
-                          <option value="India">India</option>
-                          <option value="Russia">Russia</option>
-                          <option value="Brazil">Brazil</option>
-                        </Form.Select>
-                    </Form.Group>
+                    {statusFilter && (
+                        <SelectBox statusFilter={statusFilter} isIconVisible={true} filterName={filterName} isSearchable={false}/>
+                    )}
                 </Col>
                 <Col md="2">
                     <i className='icon-synch'>
@@ -51,6 +48,34 @@ function DashboardTable() {
                     </Button>
                 </Col>
             </Row>
+        </Col>
+      </Row>
+      <Row className='filter-secondary'>
+        <Col md="6">
+        <Row>
+            <Col md="5">
+                <SelectBox filterName={"Alias-Name Filter"} isIconVisible={true} statusFilter={["Satteldachanlage C","Satteldachanlage D","Satteldachanlage F"]} isSearchable={true} />
+            </Col>
+        <Col md="3">
+        <SelectBox filterName={"Anlagen-ID"} isIconVisible={false} statusFilter={["987","123","754"]} isSearchable={true} />
+        </Col>
+        <Col md="4">
+        <SelectBox filterName={"Gateway Filter"} isIconVisible={false} statusFilter={["67890","23244","67891"]} isSearchable={true} />
+        </Col>
+        </Row>
+        </Col>
+        <Col md="6">
+        <Row>
+        <Col md="4">
+        <SelectBox filterName={"String"} isIconVisible={false} statusFilter={["Warnung","Felher"]} isSearchable={false} />
+        </Col>
+        <Col md="4">
+        <SelectBox filterName={"Optimierer"} isIconVisible={false} statusFilter={["Warnung","Felher"]} isSearchable={false} />
+        </Col>
+        <Col md="4">
+        <SelectBox filterName={"Status Filter"} isIconVisible={false} statusFilter={["Warnung","Felher"]} isSearchable={false} />
+        </Col>
+        </Row>
         </Col>
       </Row>
       <table className='table-wrap'>
@@ -77,7 +102,7 @@ function DashboardTable() {
             <td>Handwerksbetrieb Solar GmbH</td>
             <td>Beispielstraße 13, 53111 Bonn</td>
             <td></td>
-            <td><Button type='button' variant='details'>Details <i className='icon-back'>
+            <td><Button type='button' variant='details' onClick={()=> router.push(`/dashboard/details/Anlage C`)}>Details <i className='icon-back'>
                 <MdNavigateNext size={20} />    
             </i></Button></td>
         </tr>

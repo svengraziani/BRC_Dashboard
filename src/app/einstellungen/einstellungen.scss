@@ -2,8 +2,13 @@
 
 .einstellungen-wrap {
     background-color: $dashboard-bg;
-    padding: 20px;
     color: $dark-blue;
+    display: flex;
+
+    .einstellungen-block {
+        padding: 20px;
+        width: 100%;
+    }
 
     .heading-wrap {
         margin-bottom: 50px;
@@ -28,6 +33,10 @@
         }
     }
 
+    .email-wrap {
+        margin-bottom: 50px;
+    }
+
     .email-notification {
         display: block;
         margin-bottom: 20px;
@@ -35,5 +44,47 @@
 
     p {
         margin-bottom: 20px;
+    }
+
+    .toggle-wrap {
+        display: flex;
+        justify-content: space-between;
+        border-radius: 10px;
+        background-color: $white;
+        padding: 20px 16px;
+        width: calc(100% - 150px);
+    }
+
+    .form-check-input {
+        width: 50px;
+        height: 22px;
+        margin-right: 10px;
+    }
+
+    .notice-primary {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .notice {
+        border-radius: 10px;
+        border: 2px dashed $light-grey;
+        padding: 30px 0px;
+        text-align: center;
+
+        p {
+            color: $black;
+            @include fontsize(25px);
+            margin: 0;
+        }
+    }
+
+    .notice-head {
+        text-transform: uppercase;
+        color: $white;
+        background-color: $yellow-color;
+        @include fontsize(27px);
+        padding: 5px 15px;
     }
 }
