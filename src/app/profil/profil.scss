@@ -6,9 +6,6 @@
     display: flex;
 
     .heading-wrap {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         margin-bottom: 40px;
     }
 
@@ -38,11 +35,11 @@
         margin: 0;
     }
 
-    .buttons-wrap {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
+    // .buttons-wrap {
+    //     display: flex;
+    //     align-items: center;
+    //     gap: 20px;
+    // }
 
     .profile-card {
         padding: 20px;

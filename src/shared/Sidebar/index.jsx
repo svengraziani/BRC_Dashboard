@@ -70,7 +70,7 @@ function Sidebar() {
     </div>
     <Row>
       <Col md="10">
-      <Button type="button" className="facility"><i className="icon-plus">
+      <Button className="facility"><i className="icon-plus">
       <Image src={imgPlus} alt="Icon" />
       </i>Neue Anlage</Button>
       </Col>

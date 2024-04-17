@@ -41,16 +41,14 @@
         }
     }
 
-    .icon-synch {
-        display: inline-block;
+    .btn-synch {
         width: 48px;
         height: 48px;
+        padding: 0;
+    }
 
-        img {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+    .select-box {
+        width: 100%;
     }
 
     .icon-plus {

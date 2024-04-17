@@ -25,21 +25,19 @@
         }
     }
 
-    .heading-wrap {
+    h2 {
         display: flex;
-        justify-content: space-between;
+        gap: 10px;
         align-items: center;
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+        text-align: right;
+    }
+
+    .heading-wrap {
         margin-bottom: 40px;
-
-        h2 {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 0;
-        }
-
-        p {
-            margin: 0;
-        }
     }
 }

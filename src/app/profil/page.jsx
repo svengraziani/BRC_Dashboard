@@ -15,15 +15,17 @@ function Profil() {
     <div className='profile-wrap'>
         <Sidebar />
       <div className='profile-block'>
-      <div className='heading-wrap'>
-        <h2><i className='icon-profil'>
+        <Row className='heading-wrap'>
+            <Col md="6">
+            <h2><i className='icon-profil'>
             <Image src={imgProfil} alt='Icon' /> 
-        </i>Mein Profil</h2>
-        <div className='buttons-wrap'>
+            </i>Mein Profil</h2>
+            </Col>
+            <Col md="6" className='d-flex gap-4 justify-content-end'>
             <Button>Änderungen Speichern</Button>
             <Button>Account löschen</Button>
-        </div>
-      </div>
+            </Col>
+        </Row>
     <Form>
       <div className='profile-card'>
         <Row>

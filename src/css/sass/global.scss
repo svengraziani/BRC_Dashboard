@@ -46,7 +46,6 @@ body {
     }
 
     img {
-        display: block;
         width: 100%;
     }
   }
@@ -78,7 +77,6 @@ body {
     }
 
     img {
-      display: block;
       width: 100%;
       height: auto;
     }
@@ -143,7 +141,6 @@ body {
   border-radius: 26px;
   background-color: $dark-blue;
   border-color: $dark-blue;
-  width: 100%;
 
   &:hover {
     background-color: $light-blue;
@@ -155,22 +152,16 @@ body {
   display: inline-block;
   width: 20px;
   height: 20px;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .icon-circle {
   display: inline-block;
   width: 24px;
   height: 24px;
+}
 
-  img {
-    display: block;
-  }
+.btn {
+  padding: 13px 26px;
 }
 
 .navigation {
@@ -195,6 +186,14 @@ a {
   color: $dark-blue;
   font-weight: 700;
   display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
 }
 
 li {

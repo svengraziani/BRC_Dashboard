@@ -8,7 +8,6 @@ import imgPlus from '../../Assets/images/icon-plus.svg';
 import imgRepair from '../../Assets/images/icon-inbetrieb.svg';
 import imgError from '../../Assets/images/icon-error.svg';
 import imgWarning from '../../Assets/images/icon-warning.svg';
-import { BsFunnel } from 'react-icons/bs';
 import { MdNavigateNext } from 'react-icons/md';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import SelectBox from '../SelectBox';
@@ -30,23 +29,26 @@ function DashboardTable({statusFilter, filterName}) {
         </Col>
         <Col md="6">
             <Row>
-                <Col md="8">
-                    {statusFilter && (
+                <Col xs className='d-flex align-items-center justify-content-end'>
+            {statusFilter && (
+                  
                         <SelectBox statusFilter={statusFilter} isIconVisible={true} filterName={filterName} isSearchable={false}/>
+                   
                     )}
+                      <div className='d-flex align-items-center justify-content-end gap-4'>
+                              <Button variant='synch'>
+                                  <i className='icon-synch'>
+                                      <Image src={imgSynch} alt='Icon' />
+                                  </i>
+                              </Button>
+                              <Button>
+                                  <i className='icon-plus'>
+                                      <Image src={imgPlus} alt='Icon' />
+                                  </i>
+                              </Button>
+                          </div>
                 </Col>
-                <Col md="2">
-                    <i className='icon-synch'>
-                    <Image src={imgSynch} alt='Icon' />
-                    </i>
-                </Col>
-                <Col md="2">
-                    <Button>
-                        <i className='icon-plus'>
-                            <Image src={imgPlus} alt='Icon' />
-                        </i>
-                    </Button>
-                </Col>
+               
             </Row>
         </Col>
       </Row>
