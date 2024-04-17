@@ -19,7 +19,7 @@ pipeline {
                     sh 'git config git-ftp.user "css8212-dev"'
                     sh 'git config git-ftp.password "css8212aaccda1"'
                     sh '/usr/local/bin/git-ftp push'
-					sh 'ssh -T css8212-dev@10.0.3.5 "cd /home/sis1167/public_html/ && npm install && pm2 restart CSS8212-UAT"'
+					sh 'ssh -T css8212-dev@10.0.3.5 "cd /home/css8212-dev/public_html/ && npm install && pm2 restart CSS8212-UAT"'
                 }
             }
         }  
