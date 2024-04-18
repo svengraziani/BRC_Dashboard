@@ -1,1 +1,100 @@
 @import '../../../../css/sass/global.scss';
+
+.user-details {
+    color: $dark-blue;
+
+    .details-wrap {
+        display: flex;
+    }
+
+    .details-block {
+        width: 100%;
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .details-primary {
+        padding: 20px 20px 0;
+        background-color: $white;
+        border-bottom: 2px solid $light-border;
+    }
+    
+    .details-secondary {
+        padding: 20px;
+    }
+
+    .heading-wrap {
+        margin-bottom: 30px;
+
+        .btn {
+            padding: 8px 17px;
+        }
+    }
+
+    .btn-prev {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        position: relative;
+        background-color: $dark-blue;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-anlagen {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .heading {
+        width: 100%;
+    }
+
+    h2 {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .icon-back {
+        width: 22px;
+        height: 22px;
+    }
+
+    .btn-tab {
+        padding: 19px 24px;
+        color: $dark-blue;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+
+        &.active {
+            border-color: transparent;
+
+            &::after {
+                content: "";
+                width: 100%;
+                height: 5px;
+                background-color: $dark-blue;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-radius: 5px;
+            }
+        }
+    }
+}
