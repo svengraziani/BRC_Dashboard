@@ -1,0 +1,184 @@
+@import '../../css/sass/global.scss';
+
+.dashboard-table {
+    .table-block {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+    
+        .tableRow {
+            box-shadow: 0px 1px 4px $shadow-color;
+            border-radius: 10px;
+        }
+    
+        th {
+            @include fontsize(13px);
+            color: $black;
+            white-space: nowrap;
+        }
+    
+        td {
+            background-color: $white;
+            @include fontsize(13px);
+            font-weight: 700;
+            padding: 10px 25px;
+            height: 70px;
+    
+            &:first-child {
+                border-radius: 10px 0px 0px 10px;
+                padding: 10px 5px 10px 15px;
+            }
+    
+            &:last-child {
+                border-radius: 0px 10px 10px 0px;
+            }
+        }
+    
+        .btn-filter {
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+    
+            &:active {
+                border: transparent;
+            }
+        }
+    
+        .icon-alpha {
+            display: block;
+            filter: brightness(0) saturate(100%) invert(25%) sepia(14%) saturate(2798%) hue-rotate(186deg) 
+            brightness(89%) contrast(100%);
+    
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    
+        .btn-details {
+            padding: 0;
+            color: $dark-blue;
+            @include fontsize(12px);
+            font-weight: 700;
+    
+            &:active {
+                border: transparent;
+            }
+        }
+    
+        .form-check-input {
+            width: 50px;
+            height: 22px;
+        }
+    
+        .btn-trash {
+            width: 36px;
+            height: 36px;
+            background-color: $dashboard-bg;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .icon-trash {
+            display: block;
+    
+            svg {
+                width: 20px;
+                height: 20px;
+                display: block;
+            }
+        }
+    }
+    
+    .filter-wrap {
+        margin-bottom: 40px;
+
+        .dropdown-data {
+            width: 100%;
+        }
+    }
+
+    .filter-secondary {
+        margin-bottom: 40px;
+    }
+    
+    .form-block.block {
+        width: 381px;
+        
+        .form-control {
+            width: 100%;
+            border-radius: 26px;
+            padding: 10px 40px 10px 24px;
+            border: 2px solid $light-border;
+            
+            &::placeholder {
+                color: $dark-blue;
+            }
+        }
+    }
+    
+    .icon-search {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 20px;
+        margin: auto;
+    }
+    
+    .btn.btn-synch {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+    }
+    
+    .select-box {
+        width: 100%;
+        margin-right: 10px;
+    }
+    
+    .icon-plus {
+        width: 18px;
+        height: 18px;
+    
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+    .icon-filter {
+        width: 18px;
+        height: 17px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        filter: brightness(0) saturate(100%) invert(15%) sepia(73%) saturate(1506%) hue-rotate(206deg) 
+        brightness(98%) contrast(90%);
+    
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+    .btn.btn-primary {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    
+    .icon-synch {
+        display: block;
+    }
+}

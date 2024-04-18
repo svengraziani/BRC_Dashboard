@@ -3,7 +3,7 @@
 import Link from "next/link";
 import './loginpath.scss';
 import Image from "next/image";
-import arrowImg from '../../assets/images/icon-back.svg';
+import arrowImg from '../../Assets/images/icon-back.svg';
 
 export default function Loginpath () {
     return (

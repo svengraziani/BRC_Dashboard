@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import arrowImg from '../../assets/images/icon-back.svg';
+import arrowImg from '../../Assets/images/icon-back.svg';
 import sectionImg from "../../Assets/images/section-logo.png";
 import backgroundImage from '../../Assets/images/background.jpg';
 import Link from "next/link";
