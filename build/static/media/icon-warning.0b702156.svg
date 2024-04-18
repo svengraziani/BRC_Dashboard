@@ -1,0 +1,10 @@
+<svg id="icon_warning-circle" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Rechteck_2198" data-name="Rechteck 2198" width="20" height="20" fill="none"/>
+  <g id="Icon_feather-alert-circle" data-name="Icon feather-alert-circle" transform="translate(-0.514 -0.504)">
+    <g id="Gruppe_411" data-name="Gruppe 411">
+      <path id="Pfad_385" data-name="Pfad 385" d="M10.514,18.883A8.379,8.379,0,1,1,18.9,10.5,8.394,8.394,0,0,1,10.514,18.883Zm0-15.008A6.629,6.629,0,1,0,17.154,10.5,6.642,6.642,0,0,0,10.514,3.875Z" fill="#ff9f1c"/>
+      <path id="Pfad_386" data-name="Pfad 386" d="M18,15.881a.875.875,0,0,1-.875-.875V12a.875.875,0,0,1,1.75,0v3.006A.875.875,0,0,1,18,15.881Z" transform="translate(-7.486 -4.499)" fill="#ff9f1c"/>
+      <path id="Pfad_386-2" data-name="Pfad 386" d="M18.01,12.884a.875.875,0,0,1-.875-.875A.832.832,0,0,1,18,11.125a.848.848,0,0,1,.885.884A.875.875,0,0,1,18.01,12.884Z" transform="translate(-7.486 1.501)" fill="#ff9f1c"/>
+    </g>
+  </g>
+</svg>
