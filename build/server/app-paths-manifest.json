@@ -1,17 +1,17 @@
 {
   "/_not-found": "app/_not-found.js",
-  "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js",
-  "/emailpath/page": "app/emailpath/page.js",
-  "/einstellungen/page": "app/einstellungen/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/benutzer/page": "app/benutzer/page.js",
+  "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/einstellungen/page": "app/einstellungen/page.js",
+  "/emailpath/page": "app/emailpath/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
   "/logbuch/page": "app/logbuch/page.js",
   "/login/page": "app/login/page.js",
   "/loginpath/page": "app/loginpath/page.js",
-  "/signup/page": "app/signup/page.js",
+  "/page": "app/page.js",
   "/profil/page": "app/profil/page.js",
-  "/support/page": "app/support/page.js",
-  "/register/page": "app/register/page.js"
+  "/register/page": "app/register/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/support/page": "app/support/page.js"
 }
