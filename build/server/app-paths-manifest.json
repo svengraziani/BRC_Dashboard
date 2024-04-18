@@ -1,9 +1,0 @@
-{
-  "/not-found": "app/not-found.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/logbuch/page": "app/logbuch/page.js",
-  "/support/page": "app/support/page.js",
-  "/einstellungen/page": "app/einstellungen/page.js",
-  "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
-}

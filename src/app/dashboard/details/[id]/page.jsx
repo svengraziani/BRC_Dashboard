@@ -42,7 +42,7 @@ function DashboardDetails(){
                                 <Button>Anlage löschen</Button>
                             </Col>
                         </Row>
-                        <ul className='d-flex'>
+                        <ul className='d-md-flex'>
                             <li><Button variant='tab' className='active'><i><Image src={imgInfo} alt='Icon' /></i>Informationen</Button></li>
                             <li><Button variant='tab'><i><Image src={imgLive} alt='Icon' /></i>Livedaten</Button></li>
                             <li><Button variant='tab'><i><Image src={imgLogbuch} alt='Icon' /></i>Logbuch</Button></li>
