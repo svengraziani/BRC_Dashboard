@@ -16,6 +16,7 @@ import imgLogbuch from '../../../../Assets/images/icon-logbuch.svg';
 import Informationen from '../../Components/Informationen';
 import Komponenten from '../../Components/Komponenten';
 import { useState } from 'react';
+import Livedaten from '../../Components/Livedaten';
 
 function DashboardDetails(){
   const [activeStatus, setActiveStatus] = useState("Informationen")
@@ -51,7 +52,7 @@ function DashboardDetails(){
           <div className="details-block">
             <div className="details-primary">
               <Row className="heading-wrap align-items-center">
-                <Col md="6" className="d-flex">
+                <Col md="6" className="d-flex align-items-center">
                   <Col md="1">
                     <Button variant="prev">
                       <i className="icon-back">
@@ -93,6 +94,10 @@ function DashboardDetails(){
             <div className='details-secondary'>
             {activeStatus === "Komponenten" && (
               <Komponenten />
+            )}
+
+            {activeStatus === "Livedaten" && (
+              <Livedaten />
             )}
 
             {activeStatus === "Informationen" && (

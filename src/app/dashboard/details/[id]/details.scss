@@ -32,6 +32,7 @@
             background-color: $white;
             padding: 20px;
             border-radius: 10px;
+            box-shadow: 0px 1px 4px $shadow-color;
         }
 
         .primary-block {
@@ -80,6 +81,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        &:active {
+            background-color: $dark-blue;
+        }
     }
 
     .icon-anlagen {

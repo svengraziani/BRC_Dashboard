@@ -1,0 +1,1813 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/app/dashboard/details/[id]/details.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.user-details {
+  color: #233977;
+}
+.user-details .details-wrap {
+  display: flex;
+}
+.user-details .details-block {
+  width: 100%;
+}
+.user-details .details-block ul {
+  padding: 0;
+  margin: 0;
+}
+.user-details .details-primary {
+  padding: 20px 20px 0;
+  background-color: #ffffff;
+  border-bottom: 2px solid rgba(110, 171, 222, 0.2509803922);
+}
+.user-details .details-secondary h2 {
+  font-size: 1.125rem;
+  margin-bottom: 12px;
+}
+.user-details .details-secondary .general-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px rgba(192, 208, 222, 0.5019607843);
+}
+.user-details .details-secondary .primary-block {
+  margin-bottom: 25px;
+}
+.user-details .details-secondary .form-block {
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .user-details .details-secondary .form-block {
+    margin-bottom: 40px;
+  }
+}
+.user-details .details-secondary .form-check {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.user-details .details-secondary .form-check-input {
+  width: 30px;
+  height: 30px;
+}
+.user-details .details-secondary .form-label {
+  margin-bottom: 15px;
+}
+.user-details .heading-wrap {
+  margin-bottom: 30px;
+}
+.user-details .heading-wrap .btn {
+  padding: 8px 17px;
+}
+.user-details .btn-prev {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #233977;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-details .btn-prev:active {
+  background-color: #233977;
+}
+.user-details .icon-anlagen {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+.user-details .icon-anlagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.user-details .heading {
+  width: 100%;
+}
+.user-details h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-details .icon-head {
+  width: 28px;
+  height: 28px;
+}
+.user-details .icon-head img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.user-details .icon-back {
+  width: 22px;
+  height: 22px;
+}
+.user-details .btn-tab {
+  padding: 19px 24px;
+  color: #233977;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+.user-details .btn-tab:active {
+  border-color: transparent;
+}
+.user-details .btn-tab.active::after {
+  content: "";
+  width: 100%;
+  height: 5px;
+  background-color: #233977;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 5px;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/shared/Header/header.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #233977;
+  color: #ffffff;
+}
+.header .menu {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+.header .menu:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+.header .menu:active {
+  background-color: transparent;
+  border-color: transparent;
+}
+.header .lines {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.header .lines:not(:last-child) {
+  margin-bottom: 6px;
+}
+.header .user {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 10px;
+}
+.header .logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #162961;
+  border-radius: 0;
+  padding: 10px 20px;
+}
+.header .logout:hover {
+  background-color: #162961;
+  border-color: transparent;
+}
+.header .icon-user {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+.header .icon-user img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.header .icon-logout {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+}
+.header .icon-logout img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.header .logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+.header .user-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/css/sass/global.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/shared/Sidebar/sidebar.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.sidebar {
+  background-color: #ffffff;
+  box-shadow: 0px 1px 4px rgba(192, 208, 222, 0.5019607843);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 78px;
+  height: 100vh;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+.sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+.sidebar .btn-nav[data-showSidebar=true] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 72px 15px 20px;
+  border-radius: 0;
+  background-color: #ffffff;
+  color: #233977;
+  border-color: #ffffff;
+  width: 100%;
+  position: relative;
+}
+.sidebar .btn-nav[data-showSidebar=true]:hover {
+  color: #233977;
+}
+.sidebar .btn-nav[data-showSidebar=true]:active {
+  background-color: #F1F7FC;
+  border-color: transparent;
+}
+.sidebar .btn-nav[data-showSidebar=true].active {
+  background-color: #F1F7FC;
+  border-color: #F1F7FC;
+}
+.sidebar .btn-nav[data-showSidebar=true].active::before {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background-color: #233977;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+}
+.sidebar .btn-nav[data-showSidebar=false] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0;
+  background-color: #ffffff;
+  color: #233977;
+  border-color: #ffffff;
+  width: 100%;
+  position: relative;
+}
+.sidebar .btn-nav[data-showSidebar=false]:hover {
+  color: #233977;
+}
+.sidebar .btn-nav[data-showSidebar=false]:active {
+  background-color: #F1F7FC;
+  border-color: transparent;
+}
+.sidebar .btn-nav[data-showSidebar=false].active {
+  background-color: #F1F7FC;
+  border-color: #F1F7FC;
+}
+.sidebar .btn-nav[data-showSidebar=false].active::before {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background-color: #233977;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+}
+.sidebar .icons {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+.sidebar .icons img {
+  width: 100%;
+  height: 100%;
+}
+.sidebar .icon-profile {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(16%) saturate(7138%) hue-rotate(209deg) brightness(93%) contrast(89%);
+}
+.sidebar .icon-plus {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+.sidebar .icon-plus img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sidebar .facility {
+  padding: 13px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+@media (min-width: 768px) {
+  .sidebar .facility {
+    width: 100%;
+  }
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/app/dashboard/Components/Informationen/informationen.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.informationen {
+  padding: 20px;
+}
+.informationen .sub-card {
+  border-radius: 5px;
+  border: 1px solid #D6D6D6;
+  padding: 13px;
+}
+.informationen .btn.btn-trash {
+  background-color: #F1F7FC;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.informationen .icon-trash {
+  width: 16px;
+  height: 16px;
+}
+.informationen .icon-trash svg {
+  display: block;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/app/dashboard/Components/Komponenten/komponenten.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.komponenten {
+  padding: 20px;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/app/dashboard/Components/Livedaten/Livedaten.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  background-color: #F1F7FC;
+}
+
+.form-wrap {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  color: #233977;
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .form-wrap {
+    padding: 40px 28px;
+  }
+}
+@media (min-width: 768px) {
+  .form-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 80px 68px;
+  }
+}
+.form-wrap .logo {
+  width: 150px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .form-wrap .logo {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .logo a {
+  display: block;
+}
+.form-wrap .logo img {
+  width: 100%;
+}
+
+.form-bg {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0px 20px;
+}
+@media (min-width: 480px) {
+  .form-bg {
+    padding: 30px 20px;
+  }
+}
+.form-bg .section-logo {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90px;
+}
+@media (min-width: 768px) {
+  .form-bg .section-logo {
+    margin: 0;
+    left: 20px;
+  }
+}
+.form-bg .section-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.form-block {
+  position: relative;
+}
+.form-block .form-control {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  position: relative;
+  color: #233977;
+  padding: 5px 10px 5px 0px;
+  font-weight: 500;
+}
+.form-block .form-control:focus {
+  box-shadow: none;
+}
+.form-block .form-control:focus ~ label, .form-block .form-control:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 0;
+  z-index: 1;
+  font-size: 0.8125rem;
+}
+.form-block .form-control::-webkit-input-placeholder {
+  color: transparent;
+}
+.form-block .form-control::-moz-placeholder {
+  color: transparent;
+}
+.form-block .form-select {
+  border: 0;
+  border-bottom: 1px solid #D6D6D6;
+  border-radius: 0;
+  padding: 5px 10px 5px 0px;
+  color: #233977;
+}
+.form-block .form-select:focus {
+  box-shadow: none;
+}
+.form-block .form-label {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  transition: all 300ms ease-in-out;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  border-radius: 26px;
+  background-color: #233977;
+  border-color: #233977;
+}
+.btn-primary:hover {
+  background-color: #6EABDE;
+  border-color: #6EABDE;
+}
+
+.icon-back {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.icon-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.btn {
+  padding: 13px 26px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #233977;
+}
+
+input[type=checkbox]:checked, input[type=radio]:checked {
+  background-color: #233977;
+  border-color: #233977;
+  color: #233977;
+}
+
+input[type=checkbox]:focus, input[type=radio]:focus {
+  box-shadow: none;
+}
+
+a {
+  color: #233977;
+  font-weight: 700;
+  display: inline-block;
+}
+
+i {
+  display: inline-block;
+}
+
+img {
+  display: block;
+}
+
+li {
+  list-style-type: none;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+.livedaten {
+  padding: 20px;
+  text-align: center;
+}
+.livedaten span {
+  display: block;
+}
+.livedaten h2 {
+  justify-content: center;
+  margin-bottom: 0 !important;
+  border-bottom: 2px solid rgba(110, 171, 222, 0.2509803922);
+  border-radius: 10px 10px 0px 0px;
+  padding: 17px;
+  background-color: #f8fbfd;
+}
+.livedaten .btn-string {
+  padding: 19px;
+  color: #233977;
+}
+.livedaten .btn-string:active {
+  border: transparent;
+}
+.livedaten .gateway-card {
+  padding: 0px 20px 20px 20px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: #ffffff;
+}
+.livedaten .kw-outer {
+  border-radius: 50%;
+  border: 10px solid #F1F7FC;
+  width: 163px;
+  height: 161px;
+}
+.livedaten .kw-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #58BC82;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.livedaten .number {
+  font-size: 2.4375rem;
+  font-weight: 700;
+}
+.livedaten .kilo-watt {
+  font-size: 1.8125rem;
+}
+.livedaten .energy {
+  color: #58BC82;
+  font-size: 1.125rem;
+}
+.livedaten .performance {
+  font-size: 1.25rem;
+}
+.livedaten .general-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
