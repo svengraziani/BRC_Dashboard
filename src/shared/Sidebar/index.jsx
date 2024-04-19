@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import '../../css/sass/global.scss';
 import './sidebar.scss';
@@ -58,11 +58,21 @@ function Sidebar() {
     },
   ]
 
+  useEffect(()=> {
+    const path = window.location.pathname;
+    
+    let findByPath = links.filter(item => {
+      return item.href === path
+    })
+
+    setActiveStatus(findByPath[0].name)
+  }, [])
+
   return <div className="sidebar">
     <div className="sidebar-menu">
     <ul>
       {links.map((item, index) => (
-        <li key={index} onClick={()=> setActiveStatus(item.name)}>
+        <li key={index} >
         <Link href={item.href} data-showSidebar={isSidebarVisible} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
         <i className={item.iClass}><Image src={item.icon} alt="icon" /></i>{isSidebarVisible && item.name}
         </Link>
