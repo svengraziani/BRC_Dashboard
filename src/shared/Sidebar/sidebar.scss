@@ -14,11 +14,48 @@
         margin: 0;
     }
 
-    .btn-nav {
+    .btn-nav[data-showSidebar=true] {
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 15px 72px 15px 20px;
+        border-radius: 0;
+        background-color: $white;
+        color: $dark-blue;
+        border-color: $white;
+        width: 100%;
+        position: relative;
+
+        &:hover {
+            color: $dark-blue;
+        }
+
+        &:active {
+            background-color: $dashboard-bg;
+            border-color: transparent;
+        }
+
+        &.active {
+            background-color: $dashboard-bg;
+            border-color: $dashboard-bg;
+
+            &::before {
+                content: '';
+                width: 4px;
+                height: 100%;
+                background-color: $dark-blue;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .btn-nav[data-showSidebar=false] {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         border-radius: 0;
         background-color: $white;
         color: $dark-blue;
@@ -72,7 +109,6 @@
         display: inline-block;
         width: 14px;
         height: 14px;
-        margin-right: 10px;
 
         img {
             width: 100%;
@@ -82,8 +118,11 @@
     }
 
     .facility {
-        margin: 0px 20px;
         padding: 13px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
         
         @include mediaQuery(tablet-view) {
             width: 100%;

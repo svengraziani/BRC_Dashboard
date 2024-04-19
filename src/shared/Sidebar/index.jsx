@@ -12,9 +12,12 @@ import imgSupport from "../../Assets/images/icon-support.svg";
 import imgPlus from "../../Assets/images/icon-plus.svg";
 import { Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
   const [activeStatus, setActiveStatus] = useState("Dashboard")
+  const globalStore = useSelector(state => state.global)
+  const {isSidebarVisible} = globalStore;
 
   const links = [
     {
@@ -60,19 +63,22 @@ function Sidebar() {
     <ul>
       {links.map((item, index) => (
         <li key={index} onClick={()=> setActiveStatus(item.name)}>
-        <Link href={item.href} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
-        <i className={item.iClass}><Image src={item.icon} alt="icon" /></i>{item.name}
+        <Link href={item.href} data-showSidebar={isSidebarVisible} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
+        <i className={item.iClass}><Image src={item.icon} alt="icon" /></i>{isSidebarVisible && item.name}
         </Link>
       </li>
       ))}
 
     </ul>
     </div>
-    <Row>
+    <Row className="justify-content-center">
       <Col md="10">
-      <Button className="facility"><i className="icon-plus">
+      <Button className="facility">
+        <i className="icon-plus">
       <Image src={imgPlus} alt="Icon" />
-      </i>Neue Anlage</Button>
+      </i>
+      {isSidebarVisible && <span>Nueu Anlage</span>}
+      </Button>
       </Col>
     </Row>
     </div>;
