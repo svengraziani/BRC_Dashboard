@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import '../../css/sass/global.scss';
 import './sidebar.scss';
-import Image from "next/image";
 import imgDashboard from "../../Assets/images/icon-dashboard.svg";
 import imgLogbuch from "../../Assets/images/icon-logbuch.svg";
 import imgUser from "../../Assets/images/icon-user.svg";
@@ -13,6 +12,7 @@ import imgPlus from "../../Assets/images/icon-plus.svg";
 import { Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import Image from "next/image";
 
 function Sidebar() {
   const [activeStatus, setActiveStatus] = useState("Dashboard")
