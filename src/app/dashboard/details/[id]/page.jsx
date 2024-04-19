@@ -13,6 +13,7 @@ import imgComponent from '../../../../Assets/images/icon_componenten.svg';
 import imgLive from '../../../../Assets/images/icon_livedaten.svg';
 import imgVerwal from '../../../../Assets/images/icon_verwaltung.svg';
 import imgLogbuch from '../../../../Assets/images/icon-logbuch.svg';
+import Informationen from '../../Components/Informationen';
 
 function DashboardDetails(){
     const {id}= useParams()
@@ -50,9 +51,10 @@ function DashboardDetails(){
                             <li><Button variant='tab'><i><Image src={imgVerwal} alt='Icon' /></i>Verwaltung</Button></li>
                         </ul>
                     </div>
-                    <div className='details-secondary'></div>
+                    <Informationen />
                 </div>
             </div>
+
         </section>
     )
 }

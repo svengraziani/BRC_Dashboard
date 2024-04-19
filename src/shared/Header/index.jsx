@@ -10,7 +10,7 @@ import { Button } from "react-bootstrap";
 function Header() {
   return <header className="header">
     <div className="logo-wrap">
-      <Button type="button" className="menu">
+      <Button className="menu">
         <span className="lines"></span>
         <span className="lines"></span>
         <span className="lines"></span>
