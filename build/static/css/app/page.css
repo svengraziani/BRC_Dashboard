@@ -214,6 +214,10 @@ h3 {
   background-color: transparent;
   border-color: transparent;
 }
+.header .menu:active {
+  background-color: transparent;
+  border-color: transparent;
+}
 .header .lines {
   display: block;
   width: 100%;

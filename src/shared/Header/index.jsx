@@ -16,15 +16,11 @@ function Header() {
   
   return <header className="header">
     <div className="logo-wrap">
-<<<<<<< HEAD
-      <Button className="menu">
-=======
       <Button type="button" className="menu" onClick={()=> {
         dispatch(setSidebarVisibility({
           sidebarVisibility: !isSidebarVisible
         }))
       }}>
->>>>>>> 10216c6ce224720e1c2b6fafd8af184aa38f9f49
         <span className="lines"></span>
         <span className="lines"></span>
         <span className="lines"></span>
