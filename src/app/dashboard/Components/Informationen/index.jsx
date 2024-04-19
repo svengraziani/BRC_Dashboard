@@ -17,7 +17,7 @@ function Informationen() {
             {/* General Information */}
             <Row className='primary-block'>
                 <Col md="8">
-                    <h2><i className='icon-loaction'><Image src={imgLocation} alt='Icon' /></i>Allgemeine
+                    <h2><i className='icon-head'><Image src={imgLocation} alt='Icon' /></i>Allgemeine
                         Angaben</h2>
                     <div className='general-card'>
                         <Form>
@@ -99,7 +99,7 @@ function Informationen() {
             </Row>
             {/* Owner facility */}
             <div className='primary-block'>
-                <h2><i className='icon-loaction'><Image src={imgEigent} alt='Icon' /></i>Eigentümer Anlage</h2>
+                <h2><i className='icon-head'><Image src={imgEigent} alt='Icon' /></i>Eigentümer Anlage</h2>
                 <div className='general-card'>
                     <Row>
                         <Col md="4">
@@ -169,7 +169,7 @@ function Informationen() {
             </div>
             {/* Craft business */}
             <div className='primary-block'>
-                <h2><i className='icon-tools'><Image src={imgTools} alt='Icon' /></i>Handwerksbetrieb</h2>
+                <h2><i className='icon-head'><Image src={imgTools} alt='Icon' /></i>Handwerksbetrieb</h2>
                 <div className='general-card'>
                     <Row>
                         <Col md="4">
@@ -209,7 +209,7 @@ function Informationen() {
             </div>
             {/* Electricity purchase */}
             <div className='primary-block'>
-                <h2><i className='icon-database'><Image src={imgDatabase} alt='Icon' /></i>Strombezug</h2>
+                <h2><i className='icon-head'><Image src={imgDatabase} alt='Icon' /></i>Strombezug</h2>
                 <div className='general-card'>
                     <Row>
                         <Col xs>
@@ -223,7 +223,7 @@ function Informationen() {
             </div>
             {/* Access rights */}
             <div className='primary-block'>
-                <h2><i className='icon-database'><Image src={imgUser} alt='Icon' /></i>Zugriffsrechte</h2>
+                <h2><i className='icon-head'><Image src={imgUser} alt='Icon' /></i>Zugriffsrechte</h2>
                 <div className='general-card mb-3'>
                     <Row>
                         <Col md="10" className='d-md-flex gap-4'>

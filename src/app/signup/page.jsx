@@ -57,7 +57,6 @@ export default function Signup() {
                 label={<div style={{display: "flex", gap: "10px"}}><span>Einzelaccount</span><i className="icon-circle">
                   <Image src={circleImg} alt="Icon" />
                 </i></div>} />
-
               <Form.Check
                 type={"radio"}
                 name={"registration"}

@@ -60,12 +60,14 @@ function Sidebar() {
 
   useEffect(()=> {
     const path = window.location.pathname;
+    const firstPath = `/${path.split("/")[1]}`
+    // console.log(`/${firstPath[1]}`)
     
     let findByPath = links.filter(item => {
-      return item.href === path
+      return item.href === firstPath
     })
 
-    setActiveStatus(findByPath[0].name)
+    setActiveStatus(findByPath[0]?.name)
   }, [])
 
   return <div className="sidebar">

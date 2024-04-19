@@ -2,8 +2,14 @@ import React from "react";
 import './Modal.scss';
 import Link from "next/link";
 import {Form, Button, Modal} from 'react-bootstrap';
+import { useRouter } from "next/navigation";
 
 function SharedModal(props) {
+    const router = useRouter();
+    const submitHandler = (e) => {
+        e.preventDefault();
+        router.push("/emailpath");
+    }
     return (
         <Modal
             {...props}
@@ -16,7 +22,7 @@ function SharedModal(props) {
                 <h2>Passwort vergessen?</h2>
                 <p>Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse ein, und wir senden Ihnen einen Link zum
                     Zurücksetzen Ihres Passworts.</p>
-                <Form>
+                <Form onSubmit={submitHandler}>
                     <Form.Group className="form-block">
                         <Form.Control type="email" placeholder="E-mail" />
                         <Form.Label>E-mail</Form.Label>
