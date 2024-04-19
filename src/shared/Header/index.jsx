@@ -8,11 +8,17 @@ import '../../css/sass/global.scss';
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarVisibility } from "../../redux/slice/globalSlice";
+import { useRouter } from "next/navigation";
 
 function Header() {
   const dispatch = useDispatch()
   const gloabalStore = useSelector(state => state.global)
   const {isSidebarVisible} = gloabalStore
+  const router = useRouter();
+  
+  const logoutHandler = () => {
+    router.push("/login")
+  }
   
   return <header className="header">
     <div className="logo-wrap">
@@ -33,7 +39,7 @@ function Header() {
       <span className="user"><i className="icon-user">
       <Image src={userImg} alt="User" />
         </i>Handwerksbetrieb Solar GmbH (Admin Handwerksbetrieb)</span>
-      <Button type="button" className="logout"><i className="icon-logout">
+      <Button type="button" className="logout" onClick={logoutHandler}><i className="icon-logout">
         <Image src={logoutImg} alt="Logout" />
         </i>Logout</Button>
     </div>

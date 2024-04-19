@@ -10,16 +10,20 @@ import sectionImg from "../../Assets/images/section-logo.png";
 import backgroundImage from '../../Assets/images/background.jpg';
 import Form from 'react-bootstrap/Form';
 import { Button, Row, Col } from "react-bootstrap";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Signup() {
   let router = useRouter();
+  const [signupRadio, setSignupRadio] = useState(null)
 
   const submitHandler = useCallback((e) => {
     e.preventDefault();
-    router.push("/register")
-  }, [router]);
+
+    if (signupRadio) {
+      router.push(`/register?regis=${signupRadio}`)
+    }
+  }, [router, signupRadio]);
 
   return(
     <section className="form-bg">
@@ -54,16 +58,28 @@ export default function Signup() {
                 type={"radio"}
                 name={"registration"}
                 id={`einzelaccount`}
+                value={'einzelaccount'}
                 label={<div style={{display: "flex", gap: "10px"}}><span>Einzelaccount</span><i className="icon-circle">
                   <Image src={circleImg} alt="Icon" />
-                </i></div>} />
+                </i></div>} 
+                onChange={e => {
+                  setSignupRadio(e.target.value)
+                }}
+                />
+
               <Form.Check
                 type={"radio"}
                 name={"registration"}
                 id={`unternehmensaccount`}
+                value={'unternehmensaccount'}
                 label={<div style={{display: "flex", gap: "10px"}}><span>Unternehmensaccount</span><i className="icon-circle">
                   <Image src={circleImg} alt="Icon" />
-                </i></div>} />
+                </i></div>}
+                onChange={e => {
+                  setSignupRadio(e.target.value)
+                }}
+                />
+
               <Button type="submit">Weiter</Button>
             </Form>
           </Col>

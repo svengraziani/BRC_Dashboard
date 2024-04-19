@@ -11,6 +11,10 @@ import imgSearch from '../../Assets/images/icon-search.svg';
 function SelectBox({statusFilter, filterName, isSearchable, isIconVisible}) {
     const [isVisible, setIsVisible] = useState(false)
 
+    const closeHandler = () => {
+        setIsVisible(false)
+    }
+    
   return (
       <div className='select-box'>
           <div className="dropdown">
@@ -47,23 +51,7 @@ function SelectBox({statusFilter, filterName, isSearchable, isIconVisible}) {
                     </li>
                     ))}
                     
-                    {/* <li>
-                        <Form.Check
-                            type={"checkbox"}
-                            label="Fehler"
-                            name="group1"
-                            id={"fehler"}
-                        />
-                    </li>
-                    <li>
-                        <Form.Check
-                            type={"checkbox"}
-                            label="Offene Inbetriebnahme"
-                            name="group1"
-                            id={"offeneinbetriebnahme"}
-                        />
-                    </li> */}
-                    <li><Button variant='apply'>Anwenden</Button></li>
+                    <li><Button variant='apply' onClick={closeHandler}>Anwenden</Button></li>
                 </ul>
             </div>
               )}
