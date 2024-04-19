@@ -6,11 +6,25 @@ import logoutImg from "../../Assets/images/icon-logout.svg";
 import userImg from "../../Assets/images/icon-user.svg";
 import '../../css/sass/global.scss';
 import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setSidebarVisibility } from "../../redux/slice/globalSlice";
 
 function Header() {
+  const dispatch = useDispatch()
+  const gloabalStore = useSelector(state => state.global)
+  const {isSidebarVisible} = gloabalStore
+  
   return <header className="header">
     <div className="logo-wrap">
+<<<<<<< HEAD
       <Button className="menu">
+=======
+      <Button type="button" className="menu" onClick={()=> {
+        dispatch(setSidebarVisibility({
+          sidebarVisibility: !isSidebarVisible
+        }))
+      }}>
+>>>>>>> 10216c6ce224720e1c2b6fafd8af184aa38f9f49
         <span className="lines"></span>
         <span className="lines"></span>
         <span className="lines"></span>

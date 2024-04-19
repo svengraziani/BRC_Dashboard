@@ -1,6 +1,19 @@
 {
   "/not-found": "app/not-found.js",
   "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js",
+<<<<<<< HEAD
+=======
+  "/einstellungen/page": "app/einstellungen/page.js",
+  "/emailpath/page": "app/emailpath/page.js",
+  "/logbuch/page": "app/logbuch/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
+  "/loginpath/page": "app/loginpath/page.js",
+  "/page": "app/page.js",
+  "/profil/page": "app/profil/page.js",
+  "/register/page": "app/register/page.js",
+>>>>>>> 10216c6ce224720e1c2b6fafd8af184aa38f9f49
   "/signup/page": "app/signup/page.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
