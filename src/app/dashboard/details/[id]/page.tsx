@@ -1,6 +1,4 @@
 "use client";
-
-import { useParams } from 'next/navigation';
 import './details.scss';
 import Header from '../../../../shared/Header';
 import Sidebar from '../../../../shared/Sidebar';
@@ -15,11 +13,35 @@ import imgVerwal from '../../../../Assets/images/icon_verwaltung.svg';
 import imgLogbuch from '../../../../Assets/images/icon-logbuch.svg';
 import Informationen from '../../Components/Informationen';
 import Komponenten from '../../Components/Komponenten';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Livedaten from '../../Components/Livedaten';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 function DashboardDetails(){
-  const [activeStatus, setActiveStatus] = useState("Informationen")
+  const [activeStatus, setActiveStatus] = useState<string>("Informationen")
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const activateStatus = (statusName: string) => {
+    setActiveStatus(statusName)
+    router.push(pathname + '?' + createQueryString('status', statusName))
+  }
+
+  useEffect(()=> {
+    let searchParam = searchParams.get("status")
+    setActiveStatus(searchParam ? searchParam : "Informationen")
+  }, [])
 
   const list = [
     {
@@ -77,8 +99,8 @@ function DashboardDetails(){
               <ul className="d-md-flex">
                 {
                   list.map(item => (
-                    <li>
-                  <Button variant="tab" onClick={()=> setActiveStatus(item.name)}>
+                <li>
+                  <Button variant="tab" onClick={()=> activateStatus(item.name)} className={`${item.name === activeStatus ? "active" : ""}`}>
                     <i>
                       <Image src={item.imgSrc} alt="Icon" />
                     </i>

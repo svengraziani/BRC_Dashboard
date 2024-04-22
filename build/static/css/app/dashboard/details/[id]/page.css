@@ -311,7 +311,10 @@ h3 {
   position: relative;
 }
 .user-details .btn-tab:active {
-  border-color: transparent;
+  border: transparent;
+}
+.user-details .btn-tab.active {
+  border: transparent;
 }
 .user-details .btn-tab.active::after {
   content: "";
