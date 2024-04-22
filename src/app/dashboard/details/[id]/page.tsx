@@ -1,6 +1,4 @@
 "use client";
-
-import { useParams } from 'next/navigation';
 import './details.scss';
 import Header from '../../../../shared/Header';
 import Sidebar from '../../../../shared/Sidebar';
@@ -15,11 +13,37 @@ import imgVerwal from '../../../../Assets/images/icon_verwaltung.svg';
 import imgLogbuch from '../../../../Assets/images/icon-logbuch.svg';
 import Informationen from '../../Components/Informationen';
 import Komponenten from '../../Components/Komponenten';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Livedaten from '../../Components/Livedaten';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import DashboardLogbuch from '../../Components/Logbuch';
+import Verwaltung from '../../Components/Verwaltung';
 
 function DashboardDetails(){
-  const [activeStatus, setActiveStatus] = useState("Informationen")
+  const [activeStatus, setActiveStatus] = useState<string>("Informationen")
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const activateStatus = (statusName: string) => {
+    setActiveStatus(statusName)
+    router.push(pathname + '?' + createQueryString('status', statusName))
+  }
+
+  useEffect(()=> {
+    let searchParam = searchParams.get("status")
+    setActiveStatus(searchParam ? searchParam : "Informationen")
+  }, [])
 
   const list = [
     {
@@ -52,7 +76,7 @@ function DashboardDetails(){
           <div className="details-block">
             <div className="details-primary">
               <Row className="heading-wrap align-items-center">
-                <Col md="6" className="d-flex align-items-center">
+                <Col md="6" className="d-flex align-items-center head-primary">
                   <Col md="1">
                     <Button variant="prev">
                       <i className="icon-back">
@@ -77,8 +101,8 @@ function DashboardDetails(){
               <ul className="d-md-flex">
                 {
                   list.map(item => (
-                    <li>
-                  <Button variant="tab" onClick={()=> setActiveStatus(item.name)}>
+                <li>
+                  <Button variant="tab" onClick={()=> activateStatus(item.name)} className={`${item.name === activeStatus ? "active" : ""}`}>
                     <i>
                       <Image src={item.imgSrc} alt="Icon" />
                     </i>
@@ -100,8 +124,16 @@ function DashboardDetails(){
               <Livedaten />
             )}
 
+            {activeStatus === "Logbuch" && (
+              <DashboardLogbuch />
+            )}
+
             {activeStatus === "Informationen" && (
             <Informationen />
+            )}
+
+            {activeStatus === "Verwaltung" && (
+              <Verwaltung />
             )}
             </div>
           </div>

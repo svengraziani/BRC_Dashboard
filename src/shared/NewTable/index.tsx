@@ -79,6 +79,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
         </Col>
       </Row>
       )}
+      
       {isFilters && (
         <Row className='filter-secondary'>
         <Col md="6">

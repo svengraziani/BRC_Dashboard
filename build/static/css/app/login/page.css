@@ -207,14 +207,6 @@ h3 {
     margin-bottom: 40px;
   }
 }
-.form-wrap form a {
-  margin-bottom: 30px;
-}
-@media (min-width: 768px) {
-  .form-wrap form a {
-    margin-bottom: 40px;
-  }
-}
 .form-wrap form p {
   text-decoration: underline;
   cursor: pointer;
@@ -237,6 +229,10 @@ h3 {
 }
 .form-wrap .btn-primary {
   width: 100%;
+}
+
+.form-wrap.login p {
+  margin: 0;
 }
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/shared/Modal/Modal.scss ***!

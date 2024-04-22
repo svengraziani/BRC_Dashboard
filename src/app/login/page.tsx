@@ -43,7 +43,7 @@ export default function Login() {
             <Image src={sectionImg} alt="Section-Logo" />
       </div>
       <SharedModal show={forgetPasswordModal} onHide={()=> setForgetPasswordModal(false)}/>
-      <div className="form-wrap">
+      <div className="form-wrap login">
       <Row>
         <Col xs>
         <div className="logo">

@@ -7,14 +7,6 @@
         @include mediaQuery(tablet-view) {
             margin-bottom: 40px;
         }
-        
-        a {
-            margin-bottom: 30px;
-
-            @include mediaQuery(tablet-view) {
-                margin-bottom: 40px;
-            }
-        }
 
         p {
             text-decoration: underline;
@@ -40,5 +32,11 @@
 
     .btn-primary {
         width: 100%;
+    }
+}
+
+.form-wrap.login {
+    p {
+        margin: 0;
     }
 }
