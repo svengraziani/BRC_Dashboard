@@ -17,9 +17,22 @@
     }
 
     .details-primary {
-        padding: 20px 20px 0;
+        padding: 20px 10px 0;
         background-color: $white;
         border-bottom: 2px solid $light-border;
+
+        @include mediaQuery(tablet-view) {
+            padding: 20px 20px 0px
+        }
+    }
+
+    .head-primary {
+        margin-bottom: 20px;
+        gap: 10px;
+
+        @include mediaQuery(tablet-view) {
+            margin: 0
+        }
     }
 
     .details-secondary {
@@ -108,6 +121,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        @include fontsize(14px);
     }
 
     .icon-head {
@@ -132,6 +146,7 @@
         display: flex;
         align-items: center;
         gap: 20px;
+        height: 100%;
         position: relative;
 
         &:active {

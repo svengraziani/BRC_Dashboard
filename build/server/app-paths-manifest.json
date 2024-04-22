@@ -1,7 +1,6 @@
 {
-  "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js",
-  "/support/page": "app/support/page.js",
-  "/login/page": "app/login/page.js",
-  "/resetpassword/page": "app/resetpassword/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/not-found": "app/not-found.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js"
 }

@@ -16,6 +16,8 @@ import Komponenten from '../../Components/Komponenten';
 import { useCallback, useEffect, useState } from 'react';
 import Livedaten from '../../Components/Livedaten';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import DashboardLogbuch from '../../Components/Logbuch';
+import Verwaltung from '../../Components/Verwaltung';
 
 function DashboardDetails(){
   const [activeStatus, setActiveStatus] = useState<string>("Informationen")
@@ -74,7 +76,7 @@ function DashboardDetails(){
           <div className="details-block">
             <div className="details-primary">
               <Row className="heading-wrap align-items-center">
-                <Col md="6" className="d-flex align-items-center">
+                <Col md="6" className="d-flex align-items-center head-primary">
                   <Col md="1">
                     <Button variant="prev">
                       <i className="icon-back">
@@ -122,8 +124,16 @@ function DashboardDetails(){
               <Livedaten />
             )}
 
+            {activeStatus === "Logbuch" && (
+              <DashboardLogbuch />
+            )}
+
             {activeStatus === "Informationen" && (
             <Informationen />
+            )}
+
+            {activeStatus === "Verwaltung" && (
+              <Verwaltung />
             )}
             </div>
           </div>

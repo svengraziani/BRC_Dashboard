@@ -6,6 +6,18 @@
     background-color: $dark-blue;
     color: $white;
 
+    .logo {
+        width: 80px;
+
+        img {
+            width: 100%;
+        }
+
+        @include mediaQuery(tablet-view) {
+            width: 114px;
+        }
+    }
+
     .menu {
         width: 28px;
         height: 28px;
@@ -34,11 +46,16 @@
         }
     }
 
-    .user {
-        display: flex;
-        align-items: center;
-        flex: none;
+    .user-block {
         gap: 10px;
+    }
+
+    .user {
+        display: none;
+
+        @include mediaQuery(tablet-view) {
+            display: block;
+        }
     }
 
     .logout {
@@ -52,6 +69,14 @@
         &:hover {
             background-color: $navy-blue;
             border-color: transparent;
+        }
+    }
+
+    .logout-txt {
+        display: none;
+
+        @include mediaQuery(tablet-view) {
+            display: block;
         }
     }
 
