@@ -135,10 +135,11 @@
         position: relative;
 
         &:active {
-            border-color: transparent;
+            border: transparent;
         }
 
         &.active {
+            border: transparent;
             &::after {
                 content: "";
                 width: 100%;
