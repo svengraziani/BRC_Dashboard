@@ -1,4 +1,10 @@
 {
-  "/page": "app/page.js",
-  "/login/page": "app/login/page.js"
+  "/login/page": "app/login/page.js",
+  "/loginpath/page": "app/loginpath/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/logbuch/page": "app/logbuch/page.js",
+  "/einstellungen/page": "app/einstellungen/page.js",
+  "/profil/page": "app/profil/page.js",
+  "/benutzer/page": "app/benutzer/page.js",
+  "/support/page": "app/support/page.js"
 }

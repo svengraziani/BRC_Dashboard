@@ -3,8 +3,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/sass/global.scss";
 import { Provider } from "react-redux";
-import { store } from "../redux/store/store.js";
-import Wrapper from '../shared/Wrapper/Wrapper.js'
+import { store } from "../redux/store/store.ts";
+import Wrapper from '../shared/Wrapper/Wrapper'
 
 export default function RootLayout({ children }) {
   return (
