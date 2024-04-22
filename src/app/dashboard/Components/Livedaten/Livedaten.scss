@@ -20,9 +20,22 @@
     .btn-string {
         padding: 19px;
         color: $dark-blue;
+        position: relative;
 
-        &:active {
+        &.active {
             border: transparent;
+            
+            &::after {
+                content: '';
+                display: inline-block;
+                width: 100%;
+                height: 5px;
+                background-color: $dark-blue;
+                border-radius: 10px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
         }
     }
 

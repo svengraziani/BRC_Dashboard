@@ -1,18 +1,20 @@
 "use client";
 
-import { Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import './Verwaltung.scss';
 import Image from "next/image";
 import imgWech from '../../../../Assets/images/icon-wechselrichtertyp.svg';
+import imgEdit from '../../../../Assets/images/icon-edit.svg';
 import { IoInformationCircleOutline } from "react-icons/io5";
+import { GrPrevious, GrNext } from 'react-icons/gr';
 
 function Verwaltung() {
   return (
     <div className='verwaltung'>
-        <h2><i></i>Gateway 1 (1 von 2)<i></i></h2>
+        <h2><i className='icon-arrow'><GrPrevious /></i>Gateway 1 (1 von 2)<i className='icon-arrow'><GrNext /></i></h2>
       <Row>
         <Col md="6" className='pe-0'>
-            <div className="gateway-card">
+            <div className="gateway-card card-1">
                 <h3><i className="icon"><Image src={imgWech} alt='Icon' /></i>Gateway Daten</h3>
                 <Form>
                     <Form.Group className='form-block'>
@@ -42,7 +44,18 @@ function Verwaltung() {
             </div>
         </Col>
         <Col md="6" className='ps-0'>
-            <div className="gateway-card"></div>
+            <div className="gateway-card card-2">
+                <div className="string-wrap">
+                    <div className="string-head d-flex justify-content-between align-items-center">
+                    <ul className='d-flex'>
+                        <li><Button variant='string' className='active'>String 1</Button></li>
+                        <li><Button variant='string'>String 2</Button></li>
+                        <li><Button variant='string'>String 3</Button></li>
+                    </ul>
+                    <Button variant='edit'><Image src={imgEdit} alt='Icon' /></Button>
+                    </div>
+                </div>
+            </div>
         </Col>
       </Row>
     </div>
