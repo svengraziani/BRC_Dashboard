@@ -693,6 +693,7 @@ h3 {
   border-color: #ffffff;
   width: 100%;
   position: relative;
+  padding: 10px 23px;
 }
 .sidebar .btn-nav[data-showSidebar=false]:hover {
   color: #233977;
@@ -737,17 +738,16 @@ h3 {
   height: 100%;
   display: block;
 }
+.sidebar .btn-wrap {
+  padding: 0px 20px;
+}
 .sidebar .facility {
   padding: 13px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-}
-@media (min-width: 768px) {
-  .sidebar .facility {
-    width: 100%;
-  }
+  width: 100%;
 }
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[13].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[11].oneOf[13].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[11].oneOf[13].use[5]!./src/shared/Header/header.scss ***!
@@ -956,6 +956,17 @@ h3 {
   background-color: #233977;
   color: #ffffff;
 }
+.header .logo {
+  width: 80px;
+}
+.header .logo img {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .header .logo {
+    width: 114px;
+  }
+}
 .header .menu {
   width: 28px;
   height: 28px;
@@ -979,11 +990,16 @@ h3 {
 .header .lines:not(:last-child) {
   margin-bottom: 6px;
 }
-.header .user {
-  display: flex;
-  align-items: center;
-  flex: none;
+.header .user-block {
   gap: 10px;
+}
+.header .user {
+  display: none;
+}
+@media (min-width: 768px) {
+  .header .user {
+    display: block;
+  }
 }
 .header .logout {
   display: flex;
@@ -996,6 +1012,14 @@ h3 {
 .header .logout:hover {
   background-color: #162961;
   border-color: transparent;
+}
+.header .logout-txt {
+  display: none;
+}
+@media (min-width: 768px) {
+  .header .logout-txt {
+    display: block;
+  }
 }
 .header .icon-user {
   width: 24px;

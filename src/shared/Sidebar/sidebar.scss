@@ -65,6 +65,7 @@
         border-color: $white;
         width: 100%;
         position: relative;
+        padding: 10px 23px;
 
         &:hover {
             color: $dark-blue;
@@ -120,15 +121,16 @@
         }
     }
 
+    .btn-wrap {
+        padding: 0px 20px;
+    }
+
     .facility {
         padding: 13px 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 14px;
-        
-        @include mediaQuery(tablet-view) {
-            width: 100%;
-        }
+        width: 100%;
     }
 }

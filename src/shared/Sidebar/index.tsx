@@ -83,16 +83,14 @@ function Sidebar() {
 
     </ul>
     </div>
-    <Row className="justify-content-center">
-      <Col md="10">
-      <Button className="facility">
+    <div className="btn-wrap">
+    <Button className="facility">
         <i className="icon-plus">
       <Image src={imgPlus} alt="Icon" />
       </i>
       {isSidebarVisible && <span>Nueu Anlage</span>}
       </Button>
-      </Col>
-    </Row>
+    </div>
     </div>;
 }
 

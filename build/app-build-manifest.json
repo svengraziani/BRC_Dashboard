@@ -12,17 +12,22 @@
       "static/css/app/dashboard/page.css",
       "static/chunks/app/dashboard/page.js"
     ],
-    "/profil/page": [
+    "/dashboard/details/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/profil/page.css",
-      "static/chunks/app/profil/page.js"
+      "static/css/app/dashboard/details/[id]/page.css",
+      "static/chunks/app/dashboard/details/[id]/page.js"
     ],
-    "/benutzer/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/benutzer/page.css",
-      "static/chunks/app/benutzer/page.js"
+      "static/chunks/app/page.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/login/page.css",
+      "static/chunks/app/login/page.js"
     ],
     "/not-found": [
       "static/chunks/webpack.js",
