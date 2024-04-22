@@ -6,6 +6,7 @@
     border-radius: 12px;
     color: $dark-blue;
     font-family: "Ubuntu", sans-serif;
+    text-align: center;
   
     @include mediaQuery(tablet-view) {
       max-width: 480px;
@@ -14,11 +15,12 @@
     }
 
     .modal-body {
-        padding: 0;
+        padding: 0px 52px;
     }
   
     .modal-header {
       padding: 0;
+      margin-bottom: 40px;
     }
 
     h2 {
@@ -48,5 +50,9 @@
         @include mediaQuery(tablet-view) {
             margin-bottom: 40px;
         }
+    }
+
+    .btn-primary {
+        width: 100%;
     }
 }

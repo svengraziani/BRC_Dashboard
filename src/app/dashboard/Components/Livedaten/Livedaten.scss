@@ -1,0 +1,76 @@
+@import '../../../../css/sass/global.scss';
+
+.livedaten {
+    padding: 20px;
+    text-align: center;
+
+    span {
+        display: block;
+    }
+    
+    h2 {
+        justify-content: center;
+        margin-bottom: 0 !important;
+        border-bottom: 2px solid $light-border;
+        border-radius: 10px 10px 0px 0px;
+        padding: 17px;
+        background-color: $light-white;
+    }
+
+    .btn-string {
+        padding: 19px;
+        color: $dark-blue;
+
+        &:active {
+            border: transparent;
+        }
+    }
+
+    .gateway-card {
+        padding: 0px 20px 20px 20px;
+        border-radius: 0px 0px 10px 10px;
+        background-color: $white;
+    }
+
+    .kw-outer {
+        border-radius: 50%;
+        border: 10px solid $dashboard-bg;
+        width: 163px;
+        height: 161px;
+    }
+
+    .kw-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid $light-green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .number {
+        @include fontsize(39px);
+        font-weight: 700;
+    }
+
+    .kilo-watt {
+        @include fontsize(29px);
+    }
+
+    .energy {
+        color: $light-green;
+        @include fontsize(18px);
+    }
+
+    .performance {
+        @include fontsize(20px);
+    }
+
+    .general-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

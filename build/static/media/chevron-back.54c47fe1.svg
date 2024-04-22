@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <g id="chevron_Back" data-name="chevron Back" transform="translate(-859 -385)">
+    <rect id="Rechteck_2220" data-name="Rechteck 2220" width="22" height="22" transform="translate(859 385)" fill="none"/>
+    <path id="icon_chevron_back" d="M.391.391A1.334,1.334,0,0,1,2.261.375l.016.016,8,8a1.335,1.335,0,0,1,.016,1.871l-.016.016-8,8.005a1.334,1.334,0,0,1-1.9-1.871L.391,16.4,7.45,9.338.391,2.277A1.335,1.335,0,0,1,.375.407Z" transform="translate(875.164 403.661) rotate(180)" fill="#fff"/>
+  </g>
+</svg>

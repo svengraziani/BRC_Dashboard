@@ -116,7 +116,7 @@ export default function Dashboard() {
             <div className="dashboard-block">
                 <Row className='heading-wrap'>
                     <Col md="6">
-                    <h2><i className="icon-anlagen">
+                    <h2><i className="icon-head">
                     <Image src={imgAnlagen} alt="Icon" />
                     </i>Dashboard - Anlagen</h2>
                     </Col>
@@ -127,7 +127,6 @@ export default function Dashboard() {
                 {/* Table component */}
                 <ReactTable data={defaultData} columns={columns} isFilters={false} isStatusFilter={true} isCreation={true} isFiltersWrap={true} />
                 {/* <DashboardTable statusFilter={statusFilter} filterName="Status Filter"/> */}
-                
                 <div className="filter-wrap"></div>
             </div>
             </div>

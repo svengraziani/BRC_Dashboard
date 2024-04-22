@@ -1,0 +1,30 @@
+@import '../../../../css/sass/global.scss';
+
+.informationen {
+    padding: 20px;
+
+    .sub-card {
+        border-radius: 5px;
+        border: 1px solid $border-color;
+        padding: 13px;
+    }
+
+    .btn.btn-trash {
+        background-color: $dashboard-bg;
+        padding: 0;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-trash {
+        width: 16px;
+        height: 16px;
+
+        svg {
+            display: block;
+        }
+    }
+}
