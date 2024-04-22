@@ -1,4 +1,4 @@
-// File: /home/spxlpt115/Downloads/React_Dashboard/css8212/src/app/support/page.jsx
+// File: /home/spxlpt115/Downloads/React_Dashboard/css8212/src/app/support/page.tsx
 import * as entry from '../../../../src/app/support/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
