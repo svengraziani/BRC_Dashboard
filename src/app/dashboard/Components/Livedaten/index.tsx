@@ -5,16 +5,17 @@ import './Livedaten.scss';
 import Image from 'next/image';
 import circleImg from '../../../..//Assets/images/icon-circle.svg';
 import imgCheck from '../../../..//Assets/images/icon-checkmark.svg';
+import { GrPrevious, GrNext } from 'react-icons/gr';
 
 function Livedaten() {
   return (
     <div className='livedaten'>
       <Row>
         <Col md="8">
-            <h2><i></i>Gateway 1 (1 von 2)<i></i></h2>
+            <h2><i className='icon-arrow'><GrPrevious /></i>Gateway 1 (1 von 2)<i className='icon-arrow'><GrNext /></i></h2>
             <div className='gateway-card'>
               <ul className='d-md-flex justify-content-center'>
-                <li><Button variant='string'>String 1</Button></li>
+                <li><Button variant='string' className='active'>String 1</Button></li>
                 <li><Button variant='string'>String 2</Button></li>
                 <li><Button variant='string'>String 3</Button></li>
               </ul>
