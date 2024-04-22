@@ -94,7 +94,7 @@ function Komponenten() {
                   <Form.Check
                     type={"radio"}
                     name={"wallbox"}
-                    id={"ja"}
+                    id={"Ja"}
                     label={"Ja"}
                   />
                 </Col>
@@ -102,7 +102,7 @@ function Komponenten() {
                   <Form.Check
                     type={"radio"}
                     name={"wallbox"}
-                    id={"nein"}
+                    id={"Nein"}
                     label={"Nein"}
                   />
                 </Col>
