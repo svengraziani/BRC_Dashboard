@@ -15,6 +15,7 @@ import imgSearch from '../../Assets/images/icon-search.svg';
 import imgSynch from '../../Assets/images/icon-synch.svg';
 import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
+import { useRouter } from "next/navigation";
 
 // interface TableProps {
 //   data: Object
@@ -26,6 +27,7 @@ import SelectBox from '../SelectBox';
 // }
 
 function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap}: any) {
+  const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
 
   const table = useReactTable({
@@ -66,7 +68,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
                   </i>
                 </Button>
                 {isCreation && (
-                  <Button>
+                  <Button onClick={() => router.push('/dashboard/create')}>
                   <i className='icon-plus'>
                     <Image src={imgPlus} alt='Icon' />
                   </i>

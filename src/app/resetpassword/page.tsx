@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 function ResetPassword() {
     const router  = useRouter();
-    const [isSuccess, setIsSuccess] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault()

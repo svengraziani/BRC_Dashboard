@@ -1,0 +1,30 @@
+@import '../../css/sass/global.scss';
+
+.navigation {
+    h2 {
+        margin-bottom: 20px;
+
+        @include mediaQuery(tablet-view) {
+            @include fontsize(48px);
+        }
+    }
+
+    p {
+        @include fontsize(24px);
+        color: $black;
+    }
+
+    .icon-back {
+        display: block;
+        margin: 0 auto;
+        transform: rotate(180deg);
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

@@ -13,11 +13,13 @@ import { Button, Row, Col } from "react-bootstrap";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function Sidebar() {
   const [activeStatus, setActiveStatus] = useState("Dashboard")
   const globalStore = useSelector((state: any) => state.global)
   const {isSidebarVisible} = globalStore;
+  const router = useRouter();
 
   const links = [
     {
@@ -84,7 +86,7 @@ function Sidebar() {
     </ul>
     </div>
     <div className="btn-wrap">
-    <Button className="facility">
+    <Button className="facility" onClick={() => router.push('/dashboard/create')}>
         <i className="icon-plus">
       <Image src={imgPlus} alt="Icon" />
       </i>

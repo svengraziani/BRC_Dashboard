@@ -40,7 +40,7 @@ function Header() {
         <i className="icon-user"><Image src={userImg} alt="User" /></i>
         <span className="user">Handwerksbetrieb Solar GmbH (Admin Handwerksbetrieb)</span>
       </div>
-      <Button type="button" className="logout" onClick={logoutHandler}><i className="icon-logout">
+      <Button className="logout" onClick={logoutHandler}><i className="icon-logout">
         <Image src={logoutImg} alt="Logout" />
         </i>
         <span className="logout-txt">Logout</span></Button>

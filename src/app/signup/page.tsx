@@ -45,10 +45,12 @@ export default function Signup() {
       <div className="form-wrap">
         <Row>
           <Col xs>
-            <Link href={"/login"} style={{display: "flex", alignItems: "center", gap: "5px"}}>
+            <div className="back-btn">
+            <Link href={"/login"} className="d-flex align-items-center">
               <i className="icon-back">
               <Image src={arrowImg} alt="arrow-image"></Image>
               </i>Zurück zum Login</Link>
+            </div>
             <div className="logo">
                 <Image src={logoImg} alt="Logo" />
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import './Informationen.scss';
 import Image from 'next/image';
 import imgLocation from '../../../../Assets/images/icon-allgemeine.svg';
@@ -10,10 +10,41 @@ import imgDatabase from '../../../../Assets/images/icon-database.svg';
 import imgEigent from '../../../../Assets/images/icon-eigentuemer.svg';
 import imgUser from '../../../../Assets/images/icon-multipleuser.svg';
 import { BsTrash3 } from "react-icons/bs";
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import SharedModal from '@/shared/Modal';
 
-function Informationen() {
+function InviteAccessModal() {
+    const router = useRouter();
+
+    const submitHandler = (e: FormEvent) => {
+        e.preventDefault();
+        router.push("/");
+    }
+
+    return (
+        <Modal.Body>
+            <h2>Laden Sie einen Zugriffsberechtigten ein</h2>
+            <Form>
+                <Form.Group className='form-block'>
+                    <Form.Control type='email' placeholder='E-Mail' />
+                    <Form.Label>E-Mail</Form.Label>
+                </Form.Group>
+                <Button onClick={submitHandler}>Einladen</Button>
+            </Form>
+        </Modal.Body>
+    )
+}
+
+function Informationen({isDashboardDetail}) {
+    const [invitationModal, setInvitationModal] = useState<boolean>(false);
+
+    // console.log(isDashboardDetail)
     return (
         <div className='informationen'>
+
+      <SharedModal show={invitationModal} modalContent={<InviteAccessModal />} onHide={() => setInvitationModal(false)} />
+
             {/* General Information */}
             <Row className='primary-block'>
                 <Col md="8">
@@ -101,7 +132,8 @@ function Informationen() {
             <div className='primary-block'>
                 <h2><i className='icon-head'><Image src={imgEigent} alt='Icon' /></i>Eigentümer Anlage</h2>
                 <div className='general-card'>
-                    <Row>
+                    {!isDashboardDetail && (
+                        <Row>
                         <Col md="4">
                             <Form.Group className='form-block'>
                                 <Form.Control type='text' placeholder='Firmenname' />
@@ -121,27 +153,32 @@ function Informationen() {
                             </Form.Group>
                         </Col>
                     </Row>
+                    )}
                     <Row>
-                        <Col md="4">
-                            <Form.Group className='form-block'>
+                        <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
+                            <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
                                 <Form.Control type='email' placeholder='E-Mail' />
                                 <Form.Label>E-Mail</Form.Label>
                             </Form.Group>
                         </Col>
+
+                        {!isDashboardDetail && (  
                         <Col md="4">
-                            <Form.Group className='form-block'>
-                                <Form.Control type='tel' placeholder='Telefonnummer' />
-                                <Form.Label>Telefonnummer</Form.Label>
-                            </Form.Group>
-                        </Col>
-                        <Col md="4">
-                            <Form.Group className='form-block'>
+                        <Form.Group className='form-block'>
+                            <Form.Control type='tel' placeholder='Telefonnummer' />
+                            <Form.Label>Telefonnummer</Form.Label>
+                        </Form.Group>
+                    </Col>
+                        )}
+                        <Col md={isDashboardDetail ? "6" : "4"}>
+                            <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
                                 <Form.Control type='number' placeholder='Auftragsnummer' />
                                 <Form.Label>Auftragsnummer</Form.Label>
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row>
+                    {!isDashboardDetail && (
+                        <Row>
                         <Col md="4">
                             <Form.Group className='form-block mb-0'>
                                 <Form.Control type='number' placeholder='Standort: PLZ' />
@@ -165,8 +202,21 @@ function Informationen() {
                             </Form.Group>
                         </Col>
                     </Row>
+                    )}
                 </div>
             </div>
+            {/* Checkbox */}
+            {isDashboardDetail && (
+                <Row className='data-deposite'>
+                    <Col xs>
+                        <Form.Check
+                            type={"checkbox"}
+                            name={"registration"}
+                            id={`einzelaccount`}
+                            label={"Eigentümer hat der Datenhinterlegung zugestimmt*"} />
+                    </Col>
+                </Row>
+            )}
             {/* Craft business */}
             <div className='primary-block'>
                 <h2><i className='icon-head'><Image src={imgTools} alt='Icon' /></i>Handwerksbetrieb</h2>
@@ -222,7 +272,8 @@ function Informationen() {
                 </div>
             </div>
             {/* Access rights */}
-            <div className='primary-block'>
+            {!isDashboardDetail && (
+                <div className='primary-block'>
                 <h2><i className='icon-head'><Image src={imgUser} alt='Icon' /></i>Zugriffsrechte</h2>
                 <div className='general-card mb-3'>
                     <Row>
@@ -279,7 +330,8 @@ function Informationen() {
                     </Row>
                 </div>
             </div>
-            <Button>User hinzufügen</Button>
+            )}
+            <Button onClick={() => setInvitationModal(true)}>User hinzufügen</Button>
         </div>
     )
 }

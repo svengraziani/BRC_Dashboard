@@ -6,13 +6,40 @@ import sectionImg from "../../Assets/images/section-logo.png";
 import backgroundImage from '../../Assets/images/background.jpg';
 import Link from "next/link";
 import "./register.scss";
-import { Button, Row, Col, Form } from "react-bootstrap";
-import { useSearchParams } from "next/navigation";
+import { Button, Row, Col, Form, Modal } from "react-bootstrap";
+import { useSearchParams, useRouter } from "next/navigation";
 import { capitalizeFirstLetter } from "../../services/genericFunctions";
+import { FormEvent, useState } from "react";
+import SharedModal from "@/shared/Modal";
+
+function CompleteRegistartionModal() {
+  const router = useRouter();
+
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    router.push("/placeholderpath");
+  }
+
+  return (
+    <Modal.Body>
+      <h2>Registrierung abschließen</h2>
+      <p>Bitte prüfen Sie Ihre E-Mails. Wir haben Ihnen eine E-Mail mit einem Link für die Passwortvergabe 
+      gesendet. Damit können Sie die Registrierung abschließen.</p>
+        <Button onClick={submitHandler}>OK</Button>
+    </Modal.Body>
+  )
+}
 
 export default function Register() {
   const searchParams = useSearchParams();
-  const query = searchParams.get("regis")
+  const query = searchParams.get("regis");
+  const [registrationModal, setRegistrationModal] = useState<boolean>(false);
+
+  const router = useRouter();
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setRegistrationModal(true);
+  }
 
   return (
     <section className="form-bg register">
@@ -31,14 +58,22 @@ export default function Register() {
       <div className="section-logo">
         <Image src={sectionImg} alt="Section-Logo" />
       </div>
+
+      <SharedModal show={registrationModal} modalContent={<CompleteRegistartionModal />} onHide={() => setRegistrationModal(false)} />
+
       <div className="form-wrap register-form">
         <Row>
-          <Link href={"/login"} style={{ display: "flex", gap: "5px", alignItems: "center" }}><i className="icon-back">
-            <Image src={arrowImg} alt="Icon" />
-          </i>Zurück zum Login</Link>
+          <Col xs>
+          <div className="back-btn">
+            <Link href={"/login"} className="d-flex align-items-center">
+              <i className="icon-back">
+              <Image src={arrowImg} alt="arrow-image"></Image>
+              </i>Zurück zum Login</Link>
+            </div>
+          </Col>
         </Row>
         <h2>Registrierung {capitalizeFirstLetter(query ? query : "")}</h2>
-        <Form>
+        <Form onSubmit={submitHandler}>
           {query === "unternehmensaccount" && (
             <Row>
             <Col md="12">

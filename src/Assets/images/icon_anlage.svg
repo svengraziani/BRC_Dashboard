@@ -1,0 +1,11 @@
+<svg id="icon_anlage_28x28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="28" viewBox="0 0 28 28">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rechteck_469" data-name="Rechteck 469" width="27.467" height="23" fill="#233977"/>
+    </clipPath>
+  </defs>
+  <rect id="Rechteck_2183" data-name="Rechteck 2183" width="28" height="28" fill="none"/>
+  <g id="Gruppe_591" data-name="Gruppe 591" transform="translate(0.267 2.5)" clip-path="url(#clip-path)">
+    <path id="Pfad_303" data-name="Pfad 303" d="M26.41.833h0A.894.894,0,0,0,25.525,0H1.943a.9.9,0,0,0-.886.833L0,16.378a.892.892,0,0,0,.889.952H10.8v3.887H10.36a.892.892,0,1,0,0,1.783h6.746a.892.892,0,1,0,0-1.783h-.429V17.33h9.9a.892.892,0,0,0,.89-.952ZM14.886,21.217h-2.3V17.33h2.313ZM12.842,9.557v5.989h-11l.405-5.989ZM2.371,7.773l.4-5.989H12.842V7.773Zm12.254,0V1.784H24.691L25.1,7.773Zm11,7.773h-11V9.557H25.216Z" transform="translate(0 -0.001)" fill="#233977"/>
+  </g>
+</svg>

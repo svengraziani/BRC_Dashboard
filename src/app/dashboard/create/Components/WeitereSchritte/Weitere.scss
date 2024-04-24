@@ -1,0 +1,13 @@
+@import '../../../../../css/sass/global.scss';
+
+.weitere {
+    text-align: center;
+
+    h3 {
+        @include fontsize(24px);
+    }
+
+    p {
+        text-align: center;
+    }
+}
