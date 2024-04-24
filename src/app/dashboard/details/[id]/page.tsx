@@ -19,7 +19,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import DashboardLogbuch from '../../Components/Logbuch';
 import Verwaltung from '../../Components/Verwaltung';
 
-function DashboardDetails(){
+function DashboardDetails() {
   const [activeStatus, setActiveStatus] = useState<string>("Informationen")
   const searchParams = useSearchParams()
   const pathname = usePathname()

@@ -1,0 +1,106 @@
+@import '../../../css/sass/global.scss';
+
+.dashboard {
+    color: $dark-blue;
+
+    .dashboard-blocks {
+        width: 100%;
+    }
+
+    h2 {
+        font-weight: 500;
+    }
+
+    .creation-primary {
+        padding: 20px 20px 0px 20px;
+        background-color: $white;
+
+        .btn {
+            &:disabled {
+                border-color: $light-blue;
+                background-color: $white;
+                color: $light-blue;
+            }
+        }
+    }
+
+    .creation-secondary {
+        padding: 20px;
+
+        .fields {
+            display: block;
+            text-align: right;
+        }
+
+        h2 {
+            @include fontsize(18px);
+            margin-bottom: 12px;
+        }
+
+        .general-card {
+            background-color: $white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 1px 4px $shadow-color;
+        }
+
+        .primary-block {
+            margin-bottom: 25px;
+        }
+    
+        .form-block {
+            margin-bottom: 20px;
+    
+            @include mediaQuery(tablet-view) {
+                margin-bottom: 40px;
+            }
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .form-check-input {
+            width: 23px;
+            height: 23px;
+        }
+
+        .form-check-label {
+            font-weight: 700;
+        }
+
+        .data-deposite {
+            margin-bottom: 38px;
+        }
+    }
+
+    .btn-infos {
+        color: $dark-blue;
+        padding: 19px 24px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        &:active {
+            border: transparent;
+        }
+
+        &.active {
+            border: transparent;
+
+            &::after {
+                content: "";
+                width: 100%;
+                height: 5px;
+                background-color: $dark-blue;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                border-radius: 5px;
+            }
+        }
+    }
+}

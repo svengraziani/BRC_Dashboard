@@ -122,6 +122,10 @@
         align-items: center;
         gap: 10px;
         @include fontsize(14px);
+
+        @include mediaQuery(tablet-view) {
+            @include fontsize(24px);
+        }
     }
 
     .icon-head {
