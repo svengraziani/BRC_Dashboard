@@ -1,8 +1,7 @@
 {
   "/dashboard/create/page": "app/dashboard/create/page.js",
   "/profil/page": "app/profil/page.js",
-  "/createpassword/page": "app/createpassword/page.js",
-  "/resetpassword/page": "app/resetpassword/page.js",
   "/benutzer/page": "app/benutzer/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/einstellungen/page": "app/einstellungen/page.js",
+  "/dashboard/details/[id]/page": "app/dashboard/details/[id]/page.js"
 }
