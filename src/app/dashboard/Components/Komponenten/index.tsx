@@ -8,9 +8,14 @@ import imgModul from '../../../../Assets/images/icon-modultyp.svg';
 import { Col, Row, Form } from "react-bootstrap";
 import './Komponenten.scss';
 
-function Komponenten() {
+function Komponenten({isDashboardDetail}) {
   return (
     <div className="komponenten">
+
+      {isDashboardDetail && (
+          <span className="fields">* Pflichtfelder</span>
+      )}
+
       <Row className="primary-block">
         <Col md="6">
           <h2>

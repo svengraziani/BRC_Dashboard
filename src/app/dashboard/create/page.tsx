@@ -112,7 +112,7 @@ function DashboardCreation() {
             )}
 
             {activeStatus === 1 && (
-                <Komponenten />
+                <Komponenten isDashboardDetail={true} />
             )}
 
             {activeStatus === 2 && (

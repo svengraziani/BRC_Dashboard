@@ -57,6 +57,10 @@ function Informationen({isDashboardDetail}) {
     return (
         <div className='informationen'>
 
+            {isDashboardDetail && (
+                <span className="fields">* Pflichtfelder</span>
+            )}
+
       <SharedModal show={invitationModal} modalContent={<InviteAccessModal />} onHide={() => setInvitationModal(false)} />
 
             {/* General Information */}

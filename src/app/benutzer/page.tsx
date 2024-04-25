@@ -47,20 +47,20 @@ const defaultData = [
   }
 ]
 
-function InvitationSentModal() {
+function InvitationSentModal({setInvitationModal} : {setInvitationModal : Dispatch<SetStateAction<boolean>>}) {
   return (
     <Modal.Body>
       <h2>Einladung wurde versendet</h2>
-      <Button>OK</Button>
+      <Button onClick={()=> setInvitationModal(false)}>OK</Button>
     </Modal.Body>
   )
 }
 
-function TechnicianModal() {
-  const [invitationModal, setInvitationModal] = useState<boolean>(false);
+function TechnicianModal({setInvitationModal, setTechnicianModal}: {setInvitationModal : Dispatch<SetStateAction<boolean>>; setTechnicianModal: Dispatch<SetStateAction<boolean>>}) {
+  // const [invitationModal, setInvitationModal] = useState<boolean>(false);
   return (
     <>
-    <SharedModal show={invitationModal} modalContent={<InvitationSentModal />} onHide={() => setInvitationModal(false)} />
+    {/* <SharedModal show={invitationModal} modalContent={<InvitationSentModal />} onHide={() => setInvitationModal(false)} /> */}
     <Modal.Body>
       <h2>Laden Sie einen Servicetechniker ein</h2>
       <Form>
@@ -68,7 +68,10 @@ function TechnicianModal() {
           <Form.Control type='email' placeholder="E-Mail" />
           <Form.Label>E-Mail</Form.Label>
         </Form.Group>
-        <Button onClick={() => setInvitationModal(true)}>Einladen</Button>
+        <Button onClick={() => {
+          setTechnicianModal(false)
+          setInvitationModal(true)
+        }}>Einladen</Button>
       </Form>
     </Modal.Body>
     </>
@@ -86,13 +89,13 @@ function DeleteUserModal() {
   )
 }
 
-function AdminRightsModal() {
+function AdminRightsModal({grantAdminAccess, setAdminRights}: {grantAdminAccess: string, setAdminRights: any}) {
   return (
     <Modal.Body>
       <i className="icon-question"><FaQuestion /></i>
-      <h2>Adminrechte entfernen</h2>
-      <p>Sind Sie sicher, dass sie dem User Adminrechte entziehen möchten?</p>
-      <Button>Ja, Adminrechte entfernen</Button>
+      <h2>{grantAdminAccess === "Add"? "Adminrechte hinzufügen" : "Adminrechte entfernen"}</h2>
+      <p>{grantAdminAccess === "Add" ? "Sind Sie sicher, dass sie dem User Adminrechte verleihen möchten?" : "Sind Sie sicher, dass sie dem User Adminrechte entziehen möchten?"}</p>
+      <Button onClick={()=> {setAdminRights(false)}}>{grantAdminAccess === "Add" ? "Ja, Adminrechte hinzufügen" : "Ja, Adminrechte entfernen"}</Button>
     </Modal.Body>
   )
 }
@@ -101,6 +104,10 @@ function Benutzer() {
   const [technicianModal, setTechnicianModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [adminRights, setAdminRights] = useState<boolean>(false);
+  const [invitationModal, setInvitationModal] = useState<boolean>(false);
+
+  const [grantAdminAccess, setGrantAdminAccess] = useState<"Add" | "Remove">("Add")
+
   const columnHelper = createColumnHelper()
   
   const columns = [
@@ -122,10 +129,11 @@ function Benutzer() {
               type="switch"
               id="custom-switch"
               onChange={e => {
-                if (!e.target.checked) {
+                // if (!e.target.checked) {
                   // set function
+                  setGrantAdminAccess(e.target.checked ? "Add" : "Remove")
                   setAdminRights(true);
-                }
+                // }
               }}
             />
       ),
@@ -142,9 +150,10 @@ function Benutzer() {
   return (
     <section className="benutzer">
 
-      <SharedModal show={technicianModal} modalContent={<TechnicianModal />} onHide={() => setTechnicianModal(false)} />
+      <SharedModal show={technicianModal} modalContent={<TechnicianModal setInvitationModal={setInvitationModal} setTechnicianModal={setTechnicianModal}/>} onHide={() => setTechnicianModal(false)} />
       <SharedModal show={deleteModal} modalContent={<DeleteUserModal />} onHide={() => setDeleteModal(false)} />
-      <SharedModal show={adminRights} modalContent={<AdminRightsModal />} onHide={() => setAdminRights(false)} />
+      <SharedModal show={adminRights} modalContent={<AdminRightsModal grantAdminAccess={grantAdminAccess} setAdminRights={setAdminRights}/>} onHide={() => setAdminRights(false)} />
+      <SharedModal show={invitationModal} modalContent={<InvitationSentModal setInvitationModal={setInvitationModal}/>} onHide={() => setInvitationModal(false)} />
 
       <Header />
       <div className="benutzer-wrap">

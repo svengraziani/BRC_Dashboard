@@ -88,19 +88,19 @@ function Profil() {
         </Row>
         <Row>
             <Col md="4">
-                <Form.Group className='form-block'>
+                <Form.Group className='form-block mb-0'>
                 <Form.Control type="number" placeholder="Standort: PLZ" />
                 <Form.Label>Standort: PLZ</Form.Label>
                 </Form.Group>
             </Col>
             <Col md="4">
-                <Form.Group className='form-block'>
+                <Form.Group className='form-block mb-0'>
                 <Form.Control type="text" placeholder="Standort: Ort" />
                 <Form.Label>Standort: Ort</Form.Label>
                 </Form.Group>
             </Col>
             <Col md="4">
-                <Form.Group className='form-block'>
+                <Form.Group className='form-block mb-0'>
                 <Form.Select aria-label="Dropdown">
                     <option>Standort: Land</option>
                     <option value="India">India</option>
@@ -111,11 +111,9 @@ function Profil() {
             </Col>
         </Row>
       </div>
-      <Row>
-        <Col md="2">
-        <Button onClick={() => router.push("/resetpassword")}>Passwort ändern</Button>
-        </Col>
-      </Row>
+      <div className="button-wrap">
+      <Button onClick={() => router.push("/resetpassword")}>Passwort ändern</Button>
+      </div>
     </Form>
     <div className="notice">
         <div className='notice-primary'>
