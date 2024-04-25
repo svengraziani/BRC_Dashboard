@@ -14,15 +14,19 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import SharedModal from '@/shared/Modal';
 
+
 function InviteAccessModal() {
+    const [inviteModal, setInviteModal] = useState<boolean>(false);
     const router = useRouter();
 
-    const submitHandler = (e: FormEvent) => {
-        e.preventDefault();
-        router.push("/");
-    }
+    // const submitHandler = (e: FormEvent) => {
+    //     e.preventDefault();
+    //     router.push("/");
+    // }
 
     return (
+        <>
+        <SharedModal show={inviteModal} modalContent={<InviteSendModal />} onHide={() => setInviteModal(false)} />
         <Modal.Body>
             <h2>Laden Sie einen Zugriffsberechtigten ein</h2>
             <Form>
@@ -30,8 +34,18 @@ function InviteAccessModal() {
                     <Form.Control type='email' placeholder='E-Mail' />
                     <Form.Label>E-Mail</Form.Label>
                 </Form.Group>
-                <Button onClick={submitHandler}>Einladen</Button>
+                <Button onClick={() => setInviteModal(true)}>Einladen</Button>
             </Form>
+        </Modal.Body>
+        </>
+    )
+}
+
+function InviteSendModal() {
+    return (
+        <Modal.Body>
+            <h2>Einladung wurde versendet</h2>
+            <Button>OK</Button>
         </Modal.Body>
     )
 }
@@ -331,7 +345,9 @@ function Informationen({isDashboardDetail}) {
                 </div>
             </div>
             )}
-            <Button onClick={() => setInvitationModal(true)}>User hinzufügen</Button>
+            {!isDashboardDetail && (
+                <Button onClick={() => setInvitationModal(true)}>User hinzufügen</Button>
+            )}
         </div>
     )
 }

@@ -2,7 +2,7 @@
 import './details.scss';
 import Header from '../../../../shared/Header';
 import Sidebar from '../../../../shared/Sidebar';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
 import Image from 'next/image';
 import imgAnlagen from '../../../../Assets/images/icon-anlagen.svg';
 import imgPrev from '../../../../Assets/images/chevron-back.svg';
@@ -11,6 +11,7 @@ import imgComponent from '../../../../Assets/images/icon_componenten.svg';
 import imgLive from '../../../../Assets/images/icon_livedaten.svg';
 import imgVerwal from '../../../../Assets/images/icon_verwaltung.svg';
 import imgLogbuch from '../../../../Assets/images/icon-logbuch.svg';
+import imgWarn from '../../../../Assets/images/icon-modal-warn.svg';
 import Informationen from '../../Components/Informationen';
 import Komponenten from '../../Components/Komponenten';
 import { useCallback, useEffect, useState } from 'react';
@@ -18,9 +19,22 @@ import Livedaten from '../../Components/Livedaten';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import DashboardLogbuch from '../../Components/Logbuch';
 import Verwaltung from '../../Components/Verwaltung';
+import SharedModal from '@/shared/Modal';
+
+function DeleteAttachmentModal() {
+  return (
+    <Modal.Body>
+      <i className="icon"><Image src={imgWarn} alt='Icon' /></i>
+      <h2>Anlage löschen</h2>
+      <p>Sind Sie sicher, dass sie die Anlage löschen möchten?</p>
+      <Button>Ja, Anlage löschen</Button>
+    </Modal.Body>
+  )
+}
 
 function DashboardDetails() {
   const [activeStatus, setActiveStatus] = useState<string>("Informationen")
+  const [attachmentModal, setAttachmentModal] = useState<boolean>(false);
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -70,6 +84,9 @@ function DashboardDetails() {
 
     return (
       <section className="user-details">
+
+        <SharedModal show={attachmentModal} modalContent={<DeleteAttachmentModal />} onHide={() => setAttachmentModal(false)} />
+
         <Header />
         <div className="details-wrap">
           <Sidebar />
@@ -78,7 +95,7 @@ function DashboardDetails() {
               <Row className="heading-wrap align-items-center">
                 <Col md="6" className="d-flex align-items-center head-primary">
                   <Col md="1">
-                    <Button variant="prev">
+                    <Button variant="prev" onClick={() => router.push("/dashboard")}>
                       <i className="icon-back">
                         <Image src={imgPrev} alt="Icon" />
                       </i>
@@ -95,7 +112,7 @@ function DashboardDetails() {
                 </Col>
                 <Col md="6" className="d-flex justify-content-end gap-4">
                   <Button>Änderungen Speichern</Button>
-                  <Button>Anlage löschen</Button>
+                  <Button onClick={() => setAttachmentModal(true)}>Anlage löschen</Button>
                 </Col>
               </Row>
               <ul className="d-md-flex">
@@ -129,7 +146,7 @@ function DashboardDetails() {
             )}
 
             {activeStatus === "Informationen" && (
-            <Informationen />
+            <Informationen isDashboardDetail={false} />
             )}
 
             {activeStatus === "Verwaltung" && (

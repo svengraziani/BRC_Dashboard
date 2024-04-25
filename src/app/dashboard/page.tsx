@@ -45,7 +45,7 @@ export default function Dashboard() {
             nameEigentumer: "Mario Meier",
             handwerk: "Handwerksbetrieb Solar GmbH",
             adsressder: "Beispielstraße 22, 53111 Bonn",
-            aktionen: [<i className='icon-repair'><Image src={imgRepair} alt='Icon' /></i>]
+            aktionen: [<i className='icon-repair' onClick={() => router.push("/dashboard/create")}><Image src={imgRepair} alt='Icon' /></i>]
         },
         {
             aliasName: "Satteldachanlage A",
