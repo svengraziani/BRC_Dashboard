@@ -7,8 +7,11 @@ import '../../css/sass/global.scss';
 import { Button, Row, Col, Form } from 'react-bootstrap';
 import Header from '../../shared/Header';
 import Sidebar from '../../shared/Sidebar';
+import { useRouter } from 'next/navigation';
 
 function Profil() {
+    const router = useRouter();
+
   return (
     <section className='profil'>
         <Header />
@@ -110,7 +113,7 @@ function Profil() {
       </div>
       <Row>
         <Col md="2">
-        <Button>Passwort ändern</Button>
+        <Button onClick={() => router.push("/resetpassword")}>Passwort ändern</Button>
         </Col>
       </Row>
     </Form>

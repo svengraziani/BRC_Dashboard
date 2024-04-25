@@ -20,7 +20,14 @@
                 border-color: $light-blue;
                 background-color: $white;
                 color: $light-blue;
+                cursor: not-allowed;
             }
+        }
+
+        .btn-cancel {
+            border: 2px solid $dark-blue;
+            color: $dark-blue;
+            border-radius: 26px;
         }
     }
 

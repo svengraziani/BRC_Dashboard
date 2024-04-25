@@ -5,13 +5,59 @@ import Header from "../../shared/Header";
 import Sidebar from "../../shared/Sidebar";
 import './logbuch.scss';
 import imgLogbuch from '../../Assets/images/icon-logbuch.svg';
-import { Col, Row, Button } from "react-bootstrap";
+import imgError from '../../Assets/images/icon-error.svg';
+import { Col, Row, Button, Modal } from "react-bootstrap";
 import ReactTable from "../../shared/NewTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { MdNavigateNext } from 'react-icons/md';
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import SharedModal from "@/shared/Modal";
+
+function MistakeModal() {
+  return (
+      <Modal.Body>
+          <h2><i className="icon-warning"><Image src={imgError} alt='Icon' /></i>Felher</h2>
+          <div className="description">
+              <span className="report-head">Meldung</span>
+              <p className="report-description">Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle 
+              Buchstaben da sind und wie sie aussehen.</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Datum und Uhrzeit</span>
+              <p className="report-description">18.12.2023, 08:10:35 Uhr</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Anlagename</span>
+              <p className="report-description">Satteldachanlage</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Gateway-ID</span>
+              <p className="report-description">67890</p>
+          </div>
+          <div className="description">
+              <span className="report-head">String</span>
+              <p className="report-description">String 1</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Optimizer</span>
+              <p className="report-description">134567</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Kunde</span>
+              <p className="report-description">Max Mustermann</p>
+          </div>
+          <div className="description">
+              <span className="report-head">Anlagestandort</span>
+              <p className="report-description">Beispielstraße 2, 53111 Bonn</p>
+          </div>
+          <Button>Schließen</Button>
+      </Modal.Body>
+  )
+}
 
 function Logbuch() {
+  const [mistakeModal, setMistakeModal] = useState<boolean>(false);
 
   const router = useRouter()
 
@@ -98,13 +144,16 @@ function Logbuch() {
       header: "Meldung"
     }),
     columnHelper.accessor('aliasName', {
-      cell: props => <Button variant='details' style={{cursor:"pointer"}} onClick={()=> router.push("/dashboard/details/xyz")}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
+      cell: props => <Button variant='details' style={{cursor:"pointer"}} onClick={()=> setMistakeModal(true)}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
       header: ""
     }),
   ]
 
   return (
     <section className="logbuch">
+
+      <SharedModal show={mistakeModal} modalContent={<MistakeModal />} onHide={() => setMistakeModal(false)} />
+      
         <Header />
           <div className="logbuch-wrap">
               <Sidebar />

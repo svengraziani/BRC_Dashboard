@@ -1,0 +1,10 @@
+<svg id="icon_modal_attention_v2" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect id="Rechteck_282" data-name="Rechteck 282" width="48" height="48" rx="12" fill="#ff9f1c" opacity="0.1"/>
+  <g id="Icon_feather-alert-circle" data-name="Icon feather-alert-circle" transform="translate(10 10)">
+    <path id="Pfad_405" data-name="Pfad 405" d="M14,26A12,12,0,0,1,5.515,5.515,12,12,0,1,1,22.485,22.485,11.921,11.921,0,0,1,14,26ZM14,4A10,10,0,1,0,24,14,10.011,10.011,0,0,0,14,4Z" fill="#ff9f1c"/>
+    <g id="Gruppe_3314" data-name="Gruppe 3314">
+      <path id="Pfad_406" data-name="Pfad 406" d="M18,18.586a1,1,0,0,1-1-1V12a1,1,0,0,1,2,0v5.586A1,1,0,0,1,18,18.586Z" transform="translate(-4 -2.846)" fill="#ff9f1c"/>
+      <circle id="Ellipse_23" data-name="Ellipse 23" cx="1" cy="1" r="1" transform="translate(13 17.346)" fill="#ff9f1c"/>
+    </g>
+  </g>
+</svg>

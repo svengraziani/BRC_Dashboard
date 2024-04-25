@@ -4,20 +4,42 @@ import Header from '@/shared/Header'
 import Sidebar from '@/shared/Sidebar'
 import './Create.scss';
 import '../dashboard.scss';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
 import Image from 'next/image';
 import imgAnlagen from '../../../Assets/images/icon_anlage.svg';
 import imgVerwal from '../../../Assets/images/icon_verwaltung.svg';
 import imgInfo from '../../../Assets/images/icon_informationen.svg';
 import imgComponent from '../../../Assets/images/icon_componenten.svg';
-import { useState } from 'react';
+import imgAttention from '../../../Assets/images/icon-modal-attention.svg';
+import { Dispatch, SetStateAction, useState } from 'react';
 import WeitereSchritte from './Components/WeitereSchritte';
 import Komponenten from '../Components/Komponenten';
 import Informationen from '../Components/Informationen';
 import { GrPrevious, GrNext } from 'react-icons/gr';
+import { useRouter } from 'next/navigation';
+import SharedModal from '@/shared/Modal';
+
+interface CancelModalProps {
+  setProcessModal: Dispatch<SetStateAction<boolean>>
+}
+
+function CancelProcessModal({setProcessModal} : CancelModalProps) {
+  const router = useRouter();
+
+  return (
+    <Modal.Body>
+      <i className="icon"><Image src={imgAttention} alt='Icon' /></i>
+      <h2>Prozess abbrechen?</h2>
+      <p>Soll der Prozess abgebrochen werden? Bisherige Eingaben werden nicht gespeichert.</p>
+      <Button className='mb-3' onClick={() => setProcessModal(false)}>Prozess fortführen</Button>
+      <Button onClick={() => router.push("/dashboard")}>Ja, Prozess abbrechen</Button>
+    </Modal.Body>
+  )
+}
 
 function DashboardCreation() {
     const [activeStatus, setActiveStatus] = useState<number>(0);
+    const [processModal, setProcessModal] = useState<boolean>(false);
 
     const list = [
         {
@@ -36,6 +58,9 @@ function DashboardCreation() {
 
   return (
     <section className="dashboard">
+
+      <SharedModal show={processModal} modalContent={<CancelProcessModal setProcessModal={setProcessModal}/>} onHide={() => setProcessModal(false)} />
+
       <Header />
       <div className="dashboard-wrap">
         <Sidebar />
@@ -56,7 +81,7 @@ function DashboardCreation() {
                         setActiveStatus(activeStatus - 1)
                     }
                 }}><i className="icon-arrow"><GrPrevious /></i> Zurück</Button>
-                <Button>Abbrechen</Button>
+                <Button variant='cancel' onClick={() => setProcessModal(true)}>Abbrechen</Button>
                 <Button disabled={activeStatus === 2 ? true : false} onClick={()=> {
                     if (activeStatus < 2) {
                         setActiveStatus(activeStatus + 1)

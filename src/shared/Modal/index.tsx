@@ -1,6 +1,7 @@
 import './Modal.scss';
 import { Modal } from 'react-bootstrap';
-    
+import React from 'react' 
+
 function SharedModal(props : any) {
     
     return (
