@@ -67,4 +67,10 @@
     .timing {
         display: block;
     }
+
+    .button-wrap {
+        .btn.btn-primary {
+            width: 100%;
+        }
+    }
 }

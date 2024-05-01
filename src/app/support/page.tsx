@@ -35,8 +35,8 @@ function Support() {
                     </div>
                 </div>
             </div>
-            <Row>
-                <Col md="3">
+            <Row className='button-wrap'>
+                <Col md="31440">
                 <Button>FAQs</Button>
                 </Col>
             </Row>

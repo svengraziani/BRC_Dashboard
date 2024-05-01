@@ -42,7 +42,7 @@ export default function Signup() {
       <div className="section-logo">
             <Image src={sectionImg} alt="Section-Logo" />
       </div>
-      <div className="form-wrap">
+      <div className="form-wrap text-left">
         <Row>
           <Col xs>
             <div className="back-btn">

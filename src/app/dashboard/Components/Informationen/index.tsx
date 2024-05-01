@@ -9,6 +9,7 @@ import imgTools from '../../../../Assets/images/icon-tools.svg';
 import imgDatabase from '../../../../Assets/images/icon-database.svg';
 import imgEigent from '../../../../Assets/images/icon-eigentuemer.svg';
 import imgUser from '../../../../Assets/images/icon-multipleuser.svg';
+import circleImg from '../../../..//Assets/images/icon-circle.svg';
 import { BsTrash3 } from "react-icons/bs";
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
@@ -277,7 +278,7 @@ function Informationen({isDashboardDetail}) {
             </div>
             {/* Electricity purchase */}
             <div className='primary-block'>
-                <h2><i className='icon-head'><Image src={imgDatabase} alt='Icon' /></i>Strombezug</h2>
+                <h2><i className='icon-head'><Image src={imgDatabase} alt='Icon' /></i>Strombezug {isDashboardDetail && (<i className='icon-heade'><Image src={circleImg} alt='Icon' /></i>)}</h2>
                 <div className='general-card'>
                     <Row>
                         <Col xs>

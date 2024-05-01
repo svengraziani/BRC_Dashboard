@@ -170,7 +170,7 @@ export default function Register() {
                 type={"checkbox"}
                 name={"registration"}
                 id={`einzelaccount`}
-                label={<div style={{ display: "flex", gap: "5px" }}><Link href="#">Nutzungsbedingungen</Link>
+                label={<div className="conditions d-flex"><Link href="#">Nutzungsbedingungen</Link>
                   <span>akzeptieren*</span></div>} />
             </Col>
             <Col md="6">
@@ -178,7 +178,7 @@ export default function Register() {
                 type={"checkbox"}
                 name={"registration"}
                 id={`datenschutzerklärung`}
-                label={<div style={{ display: "flex", gap: "5px" }}><Link href="#">Datenschutzerklärung</Link>
+                label={<div className="conditions d-flex"><Link href="#">Datenschutzerklärung</Link>
                   <span>akzeptieren*</span></div>} />
             </Col>
           </Row>
