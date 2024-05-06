@@ -57,14 +57,14 @@ function DashboardCreation() {
     ]
 
   return (
-    <section className="dashboard">
-
-      <SharedModal show={processModal} modalContent={<CancelProcessModal setProcessModal={setProcessModal}/>} onHide={() => setProcessModal(false)} />
-
+    <>
       <Header />
-      <div className="dashboard-wrap">
+      <section className="dashboard dashboard-create">
+
+        <SharedModal show={processModal} modalContent={<CancelProcessModal setProcessModal={setProcessModal} />} onHide={() => setProcessModal(false)} />
+
         <Sidebar />
-        <div className="dashboard-blocks">
+        <div className="dashboard-right">
           <div className="creation-primary">
             <Row className="heading-wrap">
               <Col md="6">
@@ -76,52 +76,52 @@ function DashboardCreation() {
                 </h2>
               </Col>
               <Col md="6" className="d-flex justify-content-end gap-3">
-                <Button disabled={activeStatus === 0 ? true : false} onClick={()=> {
-                    if (activeStatus > 0) {
-                        setActiveStatus(activeStatus - 1)
-                    }
+                <Button disabled={activeStatus === 0 ? true : false} onClick={() => {
+                  if (activeStatus > 0) {
+                    setActiveStatus(activeStatus - 1)
+                  }
                 }}><i className="icon-arrow"><GrPrevious /></i> Zurück</Button>
                 <Button variant='cancel' onClick={() => setProcessModal(true)}>Abbrechen</Button>
-                <Button disabled={activeStatus === 2 ? true : false} onClick={()=> {
-                    if (activeStatus < 2) {
-                        setActiveStatus(activeStatus + 1)
-                    }
+                <Button disabled={activeStatus === 2 ? true : false} onClick={() => {
+                  if (activeStatus < 2) {
+                    setActiveStatus(activeStatus + 1)
+                  }
                 }}>Weiter <i className="icon-arrow"><GrNext /></i></Button>
               </Col>
             </Row>
             <ul className="d-flex p-0 m-0">
-                {
-                    list.map((item, index) => (
-                        <li key={index}>
-                            <Button variant="infos" className={`${index === activeStatus ? "active" : ""}`}>
-                            <i>
-                                <Image src={item.srcImg} alt="Icon" />
-                            </i>
-                            {
-                                item.name
-                            }
-                            </Button>
-                        </li>
-                    ))
-                }
+              {
+                list.map((item, index) => (
+                  <li key={index}>
+                    <Button variant="infos" className={`${index === activeStatus ? "active" : ""}`}>
+                      <i>
+                        <Image src={item.srcImg} alt="Icon" />
+                      </i>
+                      {
+                        item.name
+                      }
+                    </Button>
+                  </li>
+                ))
+              }
             </ul>
           </div>
           <div className="creation-secondary">
             {activeStatus === 0 && (
-                <Informationen isDashboardDetail={true}/>
+              <Informationen isDashboardDetail={true} />
             )}
 
             {activeStatus === 1 && (
-                <Komponenten isDashboardDetail={true} />
+              <Komponenten isDashboardDetail={true} />
             )}
 
             {activeStatus === 2 && (
-                <WeitereSchritte />
+              <WeitereSchritte />
             )}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 

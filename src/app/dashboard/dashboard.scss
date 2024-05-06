@@ -1,18 +1,6 @@
 @import '../../css/sass/global.scss';
 
 .dashboard {
-    background-color: $dashboard-bg;
-    color: $dark-blue;
-
-    .dashboard-wrap {
-        display: flex;
-    }
-
-    .dashboard-block {
-        width: 100%;
-        padding: 20px;
-    }
-
     .icon-head {
         width: 28px;
         height: 28px;
@@ -24,19 +12,8 @@
         }
     }
 
-    h2 {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        margin: 0;
-    }
-
     p {
         margin: 0;
         text-align: right;
-    }
-
-    .heading-wrap {
-        margin-bottom: 40px;
     }
 }

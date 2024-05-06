@@ -39,14 +39,14 @@ function ResetPassword() {
 
       {/* Code for Reset Passowrd  */}
       {!isSuccess && (
-        <div className="form-wrap">
+        <div className="form-wrap text-center">
         <Row>
           <Col xs>
           <div className="logo">
               <Image src={logoImg} alt="Logo" />
           </div>
           <h2>Neues Passwort</h2>
-          <Form onSubmit={submitHandler}>
+          <Form onSubmit={submitHandler} className='my-0'>
             <Form.Group className="form-block">
               <Form.Control type="password" placeholder="Passwort" />
               <Form.Label>Passwort</Form.Label>

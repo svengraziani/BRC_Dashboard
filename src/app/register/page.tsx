@@ -35,7 +35,7 @@ export default function Register() {
   const query = searchParams.get("regis");
   const [registrationModal, setRegistrationModal] = useState<boolean>(false);
 
-  const router = useRouter();
+  // const router = useRouter();
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setRegistrationModal(true);
@@ -65,7 +65,7 @@ export default function Register() {
         <Row>
           <Col xs>
           <div className="back-btn">
-            <Link href={"/login"} className="d-flex align-items-center">
+            <Link href={"/login"} className="d-flex align-items-center my-0">
               <i className="icon-back">
               <Image src={arrowImg} alt="arrow-image"></Image>
               </i>Zurück zum Login</Link>
@@ -73,7 +73,7 @@ export default function Register() {
           </Col>
         </Row>
         <h2>Registrierung {capitalizeFirstLetter(query ? query : "")}</h2>
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} className="my-0">
           {query === "unternehmensaccount" && (
             <Row>
             <Col md="12">

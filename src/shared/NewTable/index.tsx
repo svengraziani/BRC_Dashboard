@@ -47,7 +47,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
     <div className="dashboard-table">
       {isFiltersWrap && (
         <Row className='filter-wrap'>
-        <Col md="6">
+        <Col lg="6">
           <Form.Group className="form-block block">
             <Form.Control type="search" placeholder="Suche" spellCheck="false"></Form.Control>
             <i className='icon-search'>
@@ -55,9 +55,9 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
             </i>
           </Form.Group>
         </Col>
-        <Col md="6">
+        <Col lg="6">
           <Row className="justify-content-end">
-            <Col md="10" className='d-flex align-items-center justify-content-end'>
+            <Col lg="10" className='d-flex align-items-center justify-content-end'>
               {isStatusFilter && (
                 <SelectBox statusFilter={["Satteldachanlage C", "Satteldachanlage D", "Satteldachanlage F"]} isIconVisible={true} filterName={'Status Filter'} isSearchable={false} />
               )}
@@ -83,36 +83,33 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
       )}
       
       {isFilters && (
-        <Row className='filter-secondary'>
-        <Col md="6">
-          <Row>
-            <Col md="5">
+        <Row className='filter-secondary align-items-center'>
+        <Col lg="6" className="d-flex align-items-center">
+        <Col lg="5" className="px-2">
               <SelectBox filterName={"Alias-Name Filter"} isIconVisible={true} statusFilter={["Satteldachanlage C", "Satteldachanlage D", "Satteldachanlage F"]} isSearchable={true} />
             </Col>
-            <Col md="3">
+            <Col lg="3" className="px-2">
               <SelectBox filterName={"Anlagen-ID"} isIconVisible={false} statusFilter={["987", "123", "754"]} isSearchable={true} />
             </Col>
-            <Col md="4">
+            <Col lg="4" className="px-2">
               <SelectBox filterName={"Gateway Filter"} isIconVisible={false} statusFilter={["67890", "23244", "67891"]} isSearchable={true} />
             </Col>
-          </Row>
         </Col>
-        <Col md="6">
-          <Row>
-            <Col md="4">
+        <Col lg="6" className="d-flex align-items-center">
+        <Col lg="4" className="px-2">
               <SelectBox filterName={"String"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
             </Col>
-            <Col md="4">
+            <Col lg="4" className="px-2">
               <SelectBox filterName={"Optimierer"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
             </Col>
-            <Col md="4">
+            <Col lg="4" className="px-2">
               <SelectBox filterName={"Status Filter"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
             </Col>
-          </Row>
         </Col>
       </Row>
       )}
-      <table style={{ width: "100%" }} className="table-block">
+      <div className="table-wrap">
+      <table className="table-block">
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id} style={{ color: "blue" }}>
@@ -146,6 +143,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
           ))}
         </tbody>
       </table>
+      </div>
       <div className="h-4" />
     </div>
   )

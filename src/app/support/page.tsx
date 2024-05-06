@@ -10,11 +10,11 @@ import Link from 'next/link';
 
 function Support() {
   return (
-    <section className='support'>
+    <>
       <Header />
-      <div className='support-wrap'>
+    <section className='dashboard support'>
         <Sidebar />
-        <div className='support-block'>
+        <div className='dashboard-right'>
             <div className='heading-wrap'>
             <h2><i className='icon-support'>
                 <Image src={imgSupport} alt='Icon' />
@@ -28,21 +28,21 @@ function Support() {
                         <span className='timing'>Montags bis freitags von 9 – 16 Uhr</span>
                     </div>
                 </div>
-                <div className='email'>
+                <div className='email d-flex flex-column'>
                     <span className='head'>E-Mail</span>
-                    <div className='contact-card'>
+                    <div className='contact-card h-100'>
                     <Link href={"mailto: `{support@brc-solar.de}`"}>support@brc-solar.de</Link>
                     </div>
                 </div>
             </div>
             <Row className='button-wrap'>
-                <Col md="31440">
+                <Col md="3">
                 <Button>FAQs</Button>
                 </Col>
             </Row>
         </div>
-      </div>
     </section>
+    </>
   )
 }
 

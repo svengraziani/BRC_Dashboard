@@ -4,7 +4,7 @@
     color: $dark-blue;
 
     .dashboard-blocks {
-        width: 100%;
+        width: calc(100% - 235px);
     }
 
     h2 {
@@ -37,6 +37,7 @@
         .fields {
             display: block;
             text-align: right;
+            margin-bottom: 19px;
         }
 
         h2 {

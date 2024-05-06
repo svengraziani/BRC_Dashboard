@@ -11,11 +11,11 @@ import { Form } from 'react-bootstrap';
 
 function Einstellungen() {
   return (
-    <section className="einstellungen">
+    <>
       <Header />
-    <div className="einstellungen-wrap">
+    <section className="dashboard einstellungen">
       <Sidebar />
-      <div className="einstellungen-block">
+      <div className="dashboard-right">
       <div className="heading-wrap">
         <h2><i className="icon-einstellungen">
             <Image src={imgSetting} alt="Icon"/>    
@@ -29,28 +29,28 @@ function Einstellungen() {
           <div className="toggle-btn">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch1"
               label="Benachrichtigung A"
             />
           </div>
           <div className="toggle-btn">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch2"
               label="Benachrichtigung B"
             />
           </div>
           <div className="toggle-btn">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch3"
               label="Benachrichtigung C"
             />
           </div>
           <div className="toggle-btn">
             <Form.Check
               type="switch"
-              id="custom-switch"
+              id="custom-switch4"
               label="Benachrichtigung D"
             />
           </div>
@@ -64,8 +64,8 @@ function Einstellungen() {
         <p>E-Mail Benachrichtigungen wurden in die Ausbaustufe verschoben.</p>
     </div>
       </div>
-    </div>
     </section>
+    </>
   )
 }
 

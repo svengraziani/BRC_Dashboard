@@ -49,6 +49,30 @@ body {
         width: 100%;
     }
   }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+
+    @include mediaQuery(tablet-view) {
+        margin-bottom: 40px;
+    }
+
+    @include mediaQuery(tabletLarge-view) {
+        margin-bottom: 60px;
+    }
+
+    a {
+        text-decoration: none;
+        gap: 5px;
+        padding: 10px 20px;
+        border-radius: 19px;
+
+        &:hover {
+            background-color: $dashboard-bg;
+        }
+    }
+}
 }
 
 .form-bg {
@@ -123,7 +147,7 @@ body {
     color: $dark-blue;
 
     &:focus {
-        box-shadow: none;
+      box-shadow: none;
     }
   }
 
@@ -172,6 +196,37 @@ body {
   color: $dark-blue
 }
 
+.dashboard {
+  background-color: $dashboard-bg;
+  color: $dark-blue;
+  display: flex;
+
+  .dashboard-right {
+    width: calc(100% - 235px);
+    padding: 20px;
+  }
+
+  .heading-wrap {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+.dashboard-create {
+  .dashboard-right {
+    padding: 0;
+  }
+
+  .creation-secondary {
+    padding: 0;
+  }
+}
+
 input[type=checkbox]:checked, input[type=radio]:checked {
   background-color: $dark-blue;
   border-color: $dark-blue;
@@ -180,6 +235,14 @@ input[type=checkbox]:checked, input[type=radio]:checked {
 
 input[type=checkbox]:focus, input[type=radio]:focus {
   box-shadow: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }
 
 a {
@@ -202,6 +265,7 @@ li {
 
 h2 {
   font-weight: 700;
+  margin: 0
 }
 
 h3 {

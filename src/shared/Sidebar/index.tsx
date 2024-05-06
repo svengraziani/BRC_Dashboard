@@ -77,7 +77,7 @@ function Sidebar() {
     <ul>
       {links.map((item, index) => (
         <li key={index} >
-        <Link href={item.href} data-showSidebar={isSidebarVisible} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
+        <Link href={item.href} data-showsidebar={isSidebarVisible} className={item.name === activeStatus ? "btn btn-nav active" : "btn btn-nav"}>
         <i className={item.iClass}><Image src={item.icon} alt="icon" /></i>{isSidebarVisible && item.name}
         </Link>
       </li>

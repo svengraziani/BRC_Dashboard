@@ -136,10 +136,10 @@ function Informationen({isDashboardDetail}) {
                         </Form>
                     </div>
                 </Col>
-                <Col md="4">
+                <Col md="4" className='d-flex flex-column'>
                     <h2><i className='icon-notice'><Image src={imgNotice} alt='Icon' /></i>Notizen</h2>
-                    <div className='general-card'>
-                        <div className='sub-card'>
+                    <div className='general-card h-100'>
+                        <div className='sub-card h-100'>
                             <p>Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle Buchstaben da sind und
                                 wie sie aussehen. Manchmal benutzt man Worte wie Hamburgefonts, Rafgenduks oder
                                 Handgloves, um Schriften zu testen.</p>

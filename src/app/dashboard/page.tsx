@@ -109,11 +109,11 @@ export default function Dashboard() {
   ]
 
     return (
+        <>
+        <Header />
         <section className="dashboard">
-            <Header />
-            <div className="dashboard-wrap">
             <Sidebar />
-            <div className="dashboard-block">
+            <div className="dashboard-right">
                 <Row className='heading-wrap'>
                     <Col md="6">
                     <h2><i className="icon-head">
@@ -129,7 +129,7 @@ export default function Dashboard() {
                 {/* <DashboardTable statusFilter={statusFilter} filterName="Status Filter"/> */}
                 <div className="filter-wrap"></div>
             </div>
-            </div>
         </section>
+        </>
     )
 }

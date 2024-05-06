@@ -55,7 +55,7 @@ export default function Signup() {
                 <Image src={logoImg} alt="Logo" />
             </div>
             <h2>Registrierung</h2>
-            <Form onSubmit={submitHandler}>
+            <Form onSubmit={submitHandler} className="my-0">
               <Form.Check
                 type={"radio"}
                 name={"registration"}

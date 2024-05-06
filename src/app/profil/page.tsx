@@ -13,11 +13,11 @@ function Profil() {
     const router = useRouter();
 
   return (
-    <section className='profil'>
+    <>
         <Header />
-    <div className='profile-wrap'>
+    <section className='dashboard profil'>
         <Sidebar />
-      <div className='profile-block'>
+      <div className='dashboard-right'>
         <Row className='heading-wrap'>
             <Col md="6">
             <h2><i className='icon-profil'>
@@ -123,8 +123,8 @@ function Profil() {
         soll</p>
     </div>
       </div>
-    </div>
     </section>
+    </>
   )
 }
 

@@ -13,8 +13,11 @@ import { MdNavigateNext } from 'react-icons/md';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SharedModal from "@/shared/Modal";
+import { useSelector } from "react-redux";
 
 function MistakeModal() {
+  const gloabalStore = useSelector((state: any) => state.global)
+  const {isSidebarVisible} = gloabalStore
   return (
       <Modal.Body>
           <h2><i className="icon-warning"><Image src={imgError} alt='Icon' /></i>Felher</h2>
@@ -150,29 +153,29 @@ function Logbuch() {
   ]
 
   return (
-    <section className="logbuch">
-
-      <SharedModal show={mistakeModal} modalContent={<MistakeModal />} onHide={() => setMistakeModal(false)} />
-      
+    <>
         <Header />
-          <div className="logbuch-wrap">
-              <Sidebar />
-              <div className="logbuch-block">
-                <Row className="heading-wrap">
-                  <Col md="6">
-                    <h2><i className='icon-profil'>
-                          <Image src={imgLogbuch} alt='Icon' />
-                      </i>Logbuch</h2>
-                  </Col>
-                  <Col md="6">
-                  <p>Letzte Aktualisierung: 24.10.2023, 15:00 Uhr</p>
-                  </Col>
-                </Row>
-                  {/* <DashboardTable /> */}
-                  <ReactTable data={defaultData} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} />
-              </div>
+      <section className="dashboard logbuch">
+
+        <SharedModal show={mistakeModal} modalContent={<MistakeModal />} onHide={() => setMistakeModal(false)} />
+
+          <Sidebar />
+          <div className='dashboard-right'>
+            <Row className="heading-wrap">
+              <Col md="6">
+                <h2><i className='icon-profil'>
+                  <Image src={imgLogbuch} alt='Icon' />
+                </i>Logbuch</h2>
+              </Col>
+              <Col md="6">
+                <p>Letzte Aktualisierung: 24.10.2023, 15:00 Uhr</p>
+              </Col>
+            </Row>
+            {/* <DashboardTable /> */}
+            <ReactTable data={defaultData} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} />
           </div>
-    </section>
+      </section>
+    </>
   )
 }
 

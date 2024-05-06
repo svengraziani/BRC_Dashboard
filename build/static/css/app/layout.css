@@ -50,6 +50,29 @@ body {
 .form-wrap .logo img {
   width: 100%;
 }
+.form-wrap .back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .form-wrap .back-btn {
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: 992px) {
+  .form-wrap .back-btn {
+    margin-bottom: 60px;
+  }
+}
+.form-wrap .back-btn a {
+  text-decoration: none;
+  gap: 5px;
+  padding: 10px 20px;
+  border-radius: 19px;
+}
+.form-wrap .back-btn a:hover {
+  background-color: #F1F7FC;
+}
 
 .form-bg {
   min-height: 100vh;
@@ -163,6 +186,31 @@ body {
   color: #233977;
 }
 
+.dashboard {
+  background-color: #F1F7FC;
+  color: #233977;
+  display: flex;
+}
+.dashboard .dashboard-right {
+  width: calc(100% - 235px);
+  padding: 20px;
+}
+.dashboard .heading-wrap {
+  margin-bottom: 40px;
+}
+.dashboard h2 {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dashboard-create .dashboard-right {
+  padding: 0;
+}
+.dashboard-create .creation-secondary {
+  padding: 0;
+}
+
 input[type=checkbox]:checked, input[type=radio]:checked {
   background-color: #233977;
   border-color: #233977;
@@ -171,6 +219,14 @@ input[type=checkbox]:checked, input[type=radio]:checked {
 
 input[type=checkbox]:focus, input[type=radio]:focus {
   box-shadow: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
 
 a {
@@ -193,6 +249,7 @@ li {
 
 h2 {
   font-weight: 700;
+  margin: 0;
 }
 
 h3 {

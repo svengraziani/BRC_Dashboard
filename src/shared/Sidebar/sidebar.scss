@@ -18,7 +18,7 @@
         margin: 0;
     }
 
-    .btn-nav[data-showSidebar=true] {
+    .btn-nav {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -27,8 +27,9 @@
         background-color: $white;
         color: $dark-blue;
         border-color: $white;
-        width: 100%;
         position: relative;
+        width: 235px;
+        transition: all 0.3s;
 
         &:hover {
             color: $dark-blue;
@@ -56,42 +57,10 @@
         }
     }
 
-    .btn-nav[data-showSidebar=false] {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        border-radius: 0;
-        background-color: $white;
-        color: $dark-blue;
-        border-color: $white;
-        width: 100%;
-        position: relative;
-        padding: 10px 23px;
-
-        &:hover {
-            color: $dark-blue;
-        }
-
-        &:active {
-            background-color: $dashboard-bg;
-            border-color: transparent;
-        }
-
-        &.active {
-            background-color: $dashboard-bg;
-            border-color: $dashboard-bg;
-
-            &::before {
-                content: '';
-                width: 4px;
-                height: 100%;
-                background-color: $dark-blue;
-                position: absolute;
-                top: 0;
-                left: 0;
-                border-radius: 10px;
-            }
-        }
+    .btn-nav[data-showsidebar=false] {
+        width: 77px;
+        padding: 16px 17px 16px 24px;
+        transition: all 0.3s;
     }
 
     .icons {

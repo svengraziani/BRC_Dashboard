@@ -1,17 +1,9 @@
 @import '../../css/sass/global.scss';
 
-.profile-wrap {
-    color: $dark-blue;
-    background-color: $dashboard-bg;
-    display: flex;
-
-    .heading-wrap {
-        margin-bottom: 40px;
-    }
-
+.profil {
     .profile-block {
         padding: 20px;
-        width: 100%;
+        width: calc(100% - 235px);
     }
 
     .icon-profil {
@@ -27,19 +19,6 @@
             brightness(90%) contrast(90%);
         }
     }
-
-    h2 {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        margin: 0;
-    }
-
-    // .buttons-wrap {
-    //     display: flex;
-    //     align-items: center;
-    //     gap: 20px;
-    // }
 
     .profile-card {
         padding: 20px;

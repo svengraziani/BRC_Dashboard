@@ -1,24 +1,8 @@
 @import '../../css/sass/global.scss';
 
-.einstellungen-wrap {
-    background-color: $dashboard-bg;
-    color: $dark-blue;
-    display: flex;
-
-    .einstellungen-block {
-        padding: 20px;
-        width: 100%;
-    }
-
+.einstellungen {
     .heading-wrap {
         margin-bottom: 50px;
-    }
-
-    h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 0;
     }
 
     .icon-einstellungen {
@@ -40,6 +24,7 @@
     .email-notification {
         display: block;
         margin-bottom: 20px;
+        font-weight: 700;
     }
 
     p {

@@ -51,6 +51,12 @@
         }
     }
 
+    @else if $size==desktopXl2-view {
+        @media (max-width: 1600px) {
+          @content;
+        }
+    }
+
     @else if $size==desktopXXl-view {
         @media (min-width: 1800px) {
           @content;

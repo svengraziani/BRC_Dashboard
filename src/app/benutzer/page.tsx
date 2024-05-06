@@ -57,10 +57,8 @@ function InvitationSentModal({setInvitationModal} : {setInvitationModal : Dispat
 }
 
 function TechnicianModal({setInvitationModal, setTechnicianModal}: {setInvitationModal : Dispatch<SetStateAction<boolean>>; setTechnicianModal: Dispatch<SetStateAction<boolean>>}) {
-  // const [invitationModal, setInvitationModal] = useState<boolean>(false);
   return (
-    <>
-    {/* <SharedModal show={invitationModal} modalContent={<InvitationSentModal />} onHide={() => setInvitationModal(false)} /> */}
+    <div>
     <Modal.Body>
       <h2>Laden Sie einen Servicetechniker ein</h2>
       <Form>
@@ -74,7 +72,7 @@ function TechnicianModal({setInvitationModal, setTechnicianModal}: {setInvitatio
         }}>Einladen</Button>
       </Form>
     </Modal.Body>
-    </>
+    </div>
   )
 }
 
@@ -148,36 +146,32 @@ function Benutzer() {
   ]
 
   return (
-    <section className="benutzer">
-
-      <SharedModal show={technicianModal} modalContent={<TechnicianModal setInvitationModal={setInvitationModal} setTechnicianModal={setTechnicianModal}/>} onHide={() => setTechnicianModal(false)} />
-      <SharedModal show={deleteModal} modalContent={<DeleteUserModal />} onHide={() => setDeleteModal(false)} />
-      <SharedModal show={adminRights} modalContent={<AdminRightsModal grantAdminAccess={grantAdminAccess} setAdminRights={setAdminRights}/>} onHide={() => setAdminRights(false)} />
-      <SharedModal show={invitationModal} modalContent={<InvitationSentModal setInvitationModal={setInvitationModal}/>} onHide={() => setInvitationModal(false)} />
-
+    <>
       <Header />
-      <div className="benutzer-wrap">
-        <Sidebar />
-        <div className="benutzer-block">
-          <Row className="heading-wrap">
-            <Col md="6">
-            <h2><i className="icon-multiuser">
-                    <Image src={imgMultiuser} alt="Icon"/>
+      <section className="dashboard benutzer">
+
+        <SharedModal show={technicianModal} modalContent={<TechnicianModal setInvitationModal={setInvitationModal} setTechnicianModal={setTechnicianModal} />} onHide={() => setTechnicianModal(false)} />
+        <SharedModal show={deleteModal} modalContent={<DeleteUserModal />} onHide={() => setDeleteModal(false)} />
+        <SharedModal show={adminRights} modalContent={<AdminRightsModal grantAdminAccess={grantAdminAccess} setAdminRights={setAdminRights} />} onHide={() => setAdminRights(false)} />
+        <SharedModal show={invitationModal} modalContent={<InvitationSentModal setInvitationModal={setInvitationModal} />} onHide={() => setInvitationModal(false)} />
+
+          <Sidebar />
+          <div className="dashboard-right">
+            <Row className="heading-wrap">
+              <Col md="6">
+                <h2><i className="icon-multiuser">
+                  <Image src={imgMultiuser} alt="Icon" />
                 </i>Benutzer</h2>
-            </Col>
-            <Col md="6" className="d-flex justify-content-end">
-            <Button onClick={() => setTechnicianModal(true)}>Servicetechniker einladen</Button>
-            </Col>
-          </Row>
+              </Col>
+              <Col md="6" className="d-flex justify-content-end">
+                <Button onClick={() => setTechnicianModal(true)}>Servicetechniker einladen</Button>
+              </Col>
+            </Row>
             {/* Table Component */}
             <ReactTable data={defaultData} columns={columns} isFiltersWrap={false} />
-        </div>
-        <div>
-        
-        </div>
-      </div>
-      
-    </section>
+          </div>
+      </section>
+    </>
   )
 }
 

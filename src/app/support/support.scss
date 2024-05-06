@@ -1,30 +1,12 @@
 @import '../../css/sass/global.scss';
 
 .support {
-    background-color: $dashboard-bg;
-    color: $dark-blue;
-
     .heading-wrap {
         margin-bottom: 50px;
     }
 
     a {
         text-decoration: none;
-    }
-
-    h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .support-wrap {
-        display: flex;
-    }
-
-    .support-block {
-        padding: 20px;
-        width: 100%;
     }
 
     .icon-support {
@@ -51,8 +33,6 @@
         background-color: $white;
         border-radius: 10px;
         box-shadow: 0px 1px 4px $shadow-color;
-        max-height: 79px;
-        height: 100%;
     }
 
     .hotline, .email {

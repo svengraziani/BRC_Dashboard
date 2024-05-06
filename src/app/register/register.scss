@@ -9,31 +9,6 @@
         max-width: 824px;
     }
 
-    .back-btn {
-        display: inline-block;
-        margin-bottom: 20px;
-
-        @include mediaQuery(tablet-view) {
-            margin-bottom: 40px;
-        }
-
-        @include mediaQuery(tabletLarge-view) {
-            margin-bottom: 60px;
-        }
-
-        a {
-            text-decoration: none;
-            gap: 5px;
-            padding: 10px 20px;
-            border-radius: 19px;
-    
-            &:hover {
-                background-color: $dashboard-bg;
-            }
-        }
-    }
-
-
     h2 {
         margin-bottom: 20px;
 
@@ -75,8 +50,6 @@
 
         a {
             margin: 0;
-            padding: 0;
-            text-decoration: underline;
         }
     }
 }

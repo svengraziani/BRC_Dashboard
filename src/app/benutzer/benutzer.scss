@@ -1,22 +1,6 @@
 @import '../../css/sass/global.scss';
 
 .benutzer {
-    background-color: $dashboard-bg;
-    color: $dark-blue;
-
-    .benutzer-wrap {
-        display: flex;
-    }
-
-    .benutzer-block {
-        padding: 20px;
-        width: 100%;
-    }
-
-    .heading-wrap {
-        margin-bottom: 40px;
-    }
-
     .icon-multiuser {
         display: inline-block;
         width: 28px;
@@ -27,12 +11,5 @@
             width: 100%;
             height: 100%;
         }
-    }
-
-    h2 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 0;
     }
 }
