@@ -10,6 +10,10 @@ import React, { FormEvent, useCallback, useState } from "react";
 import SharedModal from "../../shared/Modal";
 import { useRouter } from "next/navigation";
 import backgroundImage from '../../Assets/images/background.jpg'
+import { apiCaller } from "@/services/apiCaller";
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUserData } from "@/redux/slice/userSlice";
 
 function ForgetPasswordModal() {
   const router = useRouter();
@@ -43,12 +47,43 @@ export default function Login() {
 
   const router = useRouter();
 
+  const dispatch = useDispatch()
+
   const submitHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // @ API Calls
-    router.push("/loginpath")
-  }, [email, password])
+    const payload = {
+      email,
+      password
+    }
+
+    apiCaller.post("/api/v1/auth/", payload)
+      .then(response => {
+        let {data} = response;
+
+        const userData = {
+          token: data.token,
+          email: data.user.email,
+          firstName: data.user.first_name,
+          lastName: data.user.last_name,
+          isActive: data.user.is_active,
+          isSuperUser: data.user.is_superuser
+        }
+
+        localStorage.setItem("token", userData.token)
+
+        dispatch(setUserData(userData))
+
+        router.push("/loginpath")
+      })
+      .catch(error => {
+        error.response.data.errors.map((item: any) => {
+          toast.error(item.detail)
+        })
+
+      })
+
+  }, [router, email, password])
 
   return (
     <section className="form-bg">
@@ -97,6 +132,9 @@ export default function Login() {
           </Col>
         </Row>
       </div>
+
+      <Toaster position="top-right" />
+
     </section>
   );
 }

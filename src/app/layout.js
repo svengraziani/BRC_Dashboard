@@ -10,10 +10,11 @@ export default function RootLayout({ children }) {
   return (
     <Provider store={store}>
       <Wrapper>
-      <html lang="en">
-        <body>
-          {children}</body>
-      </html>
+        <html lang="en">
+          <body>
+            {children}
+          </body>
+        </html>
       </Wrapper>
     </Provider>
   );

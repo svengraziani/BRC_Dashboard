@@ -11,7 +11,7 @@ import ReactTable from "../../shared/NewTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { BsTrash3 } from "react-icons/bs";
 import SharedModal from "@/shared/Modal";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FaQuestion } from "react-icons/fa6";
 
 const defaultData = [

@@ -51,7 +51,7 @@ function InviteSendModal() {
     )
 }
 
-function Informationen({isDashboardDetail}) {
+function Informationen({isDashboardDetail}: {isDashboardDetail: boolean}) {
     const [invitationModal, setInvitationModal] = useState<boolean>(false);
 
     // console.log(isDashboardDetail)

@@ -70,7 +70,7 @@ function Sidebar() {
     })
 
     setActiveStatus(findByPath[0]?.name)
-  }, [])
+  }, [links])
 
   return <div className="sidebar">
     <div className="sidebar-menu">

@@ -14,10 +14,14 @@ import ReactTable from '../../shared/NewTable';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { MdNavigateNext } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 export default function Dashboard() {
     const statusFilter = ["Warnung", "Felher", "Offene Inbetriebnahme"]
     const router = useRouter();
+    const reduxStore = useSelector(state => state)
+    console.log(reduxStore,'redux store');
+    
 
     const defaultData = [
         {
@@ -45,7 +49,7 @@ export default function Dashboard() {
             nameEigentumer: "Mario Meier",
             handwerk: "Handwerksbetrieb Solar GmbH",
             adsressder: "Beispielstraße 22, 53111 Bonn",
-            aktionen: [<i className='icon-repair' onClick={() => router.push("/dashboard/create")}><Image src={imgRepair} alt='Icon' /></i>]
+            aktionen: [<i className='icon-repair' key={'test'} onClick={() => router.push("/dashboard/create")}><Image key={'img'} src={imgRepair} alt='Icon' /></i>]
         },
         {
             aliasName: "Satteldachanlage A",

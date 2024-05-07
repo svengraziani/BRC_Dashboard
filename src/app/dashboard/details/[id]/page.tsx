@@ -57,7 +57,7 @@ function DashboardDetails() {
   useEffect(()=> {
     let searchParam = searchParams.get("status")
     setActiveStatus(searchParam ? searchParam : "Informationen")
-  }, [])
+  }, [searchParams])
 
   const list = [
     {
@@ -117,8 +117,8 @@ function DashboardDetails() {
               </Row>
               <ul className="d-md-flex">
                 {
-                  list.map(item => (
-                <li>
+                  list.map((item, index) => (
+                <li key={index}>
                   <Button variant="tab" onClick={()=> activateStatus(item.name)} className={`${item.name === activeStatus ? "active" : ""}`}>
                     <i>
                       <Image src={item.imgSrc} alt="Icon" />
@@ -134,7 +134,7 @@ function DashboardDetails() {
             </div>
             <div className='details-secondary'>
             {activeStatus === "Komponenten" && (
-              <Komponenten />
+              <Komponenten isDashboardDetail={false}/>
             )}
 
             {activeStatus === "Livedaten" && (

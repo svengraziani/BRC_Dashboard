@@ -8,7 +8,7 @@ import imgModul from '../../../../Assets/images/icon-modultyp.svg';
 import { Col, Row, Form } from "react-bootstrap";
 import './Komponenten.scss';
 
-function Komponenten({isDashboardDetail}) {
+function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
   return (
     <div className="komponenten">
 
