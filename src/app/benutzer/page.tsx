@@ -11,41 +11,42 @@ import ReactTable from "../../shared/NewTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { BsTrash3 } from "react-icons/bs";
 import SharedModal from "@/shared/Modal";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaQuestion } from "react-icons/fa6";
+import { apiCaller } from "@/services/apiCaller";
 
-const defaultData = [
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  },
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  },
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  },
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  },
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  },
-  {
-    name: "Wilhelm Kreuzer",
-    emailAdd: "admin-wilhelmk@solar.com",
-    role: "Admin Handwerksbetrieb (Meine Rolle)"
-  }
-]
+// const defaultData = [
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   },
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   },
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   },
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   },
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   },
+//   {
+//     name: "Wilhelm Kreuzer",
+//     emailAdd: "admin-wilhelmk@solar.com",
+//     role: "Admin Handwerksbetrieb (Meine Rolle)"
+//   }
+// ]
 
 function InvitationSentModal({setInvitationModal} : {setInvitationModal : Dispatch<SetStateAction<boolean>>}) {
   return (
@@ -106,7 +107,92 @@ function Benutzer() {
 
   const [grantAdminAccess, setGrantAdminAccess] = useState<"Add" | "Remove">("Add")
 
+  const [benutzerData,setBenutzerData]=useState()
+
   const columnHelper = createColumnHelper()
+
+  let token=localStorage.getItem("token")
+
+
+  const [defaultData,setDefaultData] = useState([
+    {
+      id:1,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    },
+    {
+      id:2,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    },
+    {
+      id:3,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    },
+    {
+      id:4,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    },
+    {
+      id:5,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    },
+    {
+      id:6,
+      name: "Wilhelm Kreuzer",
+      emailAdd: "admin-wilhelmk@solar.com",
+      role: "Admin Handwerksbetrieb (Meine Rolle)"
+    }
+  ])
+
+
+  useEffect(()=>{
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  
+    apiCaller.get("api/v1/craft-business-role/",config).then((response)=>{
+      console.log("response1111",response)
+      setBenutzerData(response?.data?.results)
+    })  .catch((error) => {
+      console.log("error",error)
+
+    })
+  },[])
+
+
+
+  const deleteBenutzerHandler = (id:any) => {
+  
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  
+    apiCaller.delete(`api/v1/craft-business-role/${id}`, config)
+      .then((response) => {
+        setDefaultData(response?.data?.results);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
+  // const toggleBenutzerHandler=(id:any)=>{
+
+  // }
+  
   
   const columns = [
     columnHelper.accessor('name', {
@@ -133,16 +219,27 @@ function Benutzer() {
                   setAdminRights(true);
                 // }
               }}
+
+              // onChange={() => toggleBenutzerHandler(info?.row?.original?.id)}
+
             />
       ),
       header: "ist Admin"
     }),
     columnHelper.accessor('handwerksbetrieb', {
-      cell: info => (
-        <Button variant="trash" onClick={() => setDeleteModal(true)}><i className="icon-trash"><BsTrash3 /></i></Button>
-      ),
+      cell: info => {
+        // console.log("infoinfoinfoinfo", info);
+        return (
+          <Button variant="trash" 
+            onClick={() => deleteBenutzerHandler(info?.row?.original?.id)}
+          >
+            <i className="icon-trash"><BsTrash3 /></i>
+          </Button>
+        );
+      },
       header: "Aktionen"
     })
+    
   ]
 
   return (

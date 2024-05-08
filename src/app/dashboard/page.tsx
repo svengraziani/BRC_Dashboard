@@ -170,7 +170,6 @@ export default function Dashboard() {
 
   // search
   const searchListHandler = (e:any) => {
-    console.log("searchListHandler", e.target.value);
     const searchValue = e.target.value;
     setSearchKey(e.target.value)
 
@@ -183,7 +182,6 @@ export default function Dashboard() {
     if (searchValue.trim() !== '') {
       apiCaller.get(`api/v1/facility/?search=${searchValue}`, config)
           .then((response) => {
-              console.log("dashboardData11112222", response);
               setDashboardData(response?.data?.results);
           })
           .catch((error) => {
@@ -192,7 +190,6 @@ export default function Dashboard() {
   } else {
       apiCaller.get("api/v1/facility/", config)
           .then((response) => {
-              console.log("dashboardData11112222", response);
               setDashboardData(response?.data?.results);
           })
           .catch((error) => {
@@ -208,7 +205,6 @@ export default function Dashboard() {
         if(selectedStatus && searchValue.trim() === ''){
           apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
           .then((response) => {
-              console.log("Response:", response);
               setDashboardData(response?.results);
           })
           .catch((error) => {
@@ -218,7 +214,6 @@ export default function Dashboard() {
 
   }
 
-  console.log("selectData22222",statusFilter)
 
 
 //   useEffect(()=>{
