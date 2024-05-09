@@ -60,6 +60,7 @@ export default function Login() {
     apiCaller.post("/api/v1/auth/", payload)
       .then(response => {
         let {data} = response;
+        console.log("response44444",response)
 
         const userData = {
           token: data.token,
@@ -67,7 +68,8 @@ export default function Login() {
           firstName: data.user.first_name,
           lastName: data.user.last_name,
           isActive: data.user.is_active,
-          isSuperUser: data.user.is_superuser
+          isSuperUser: data.user.is_superuser,
+          pk:data.user.pk
         }
 
         localStorage.setItem("token", userData.token)

@@ -7,6 +7,7 @@ const initialState = {
     lastName: "",
     isActive: "",
     isSuperUser: "",
+    pk:""
 };
 
 export const userSlice = createSlice({
@@ -14,12 +15,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
+      console.log("sateeeee",action)
       state.token = action.payload.token;
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.isActive = action.payload.isActive;
       state.isSuperUser = action.payload.isSuperUser;
+      state.pk=action.payload.pk
     },
   },
 });
