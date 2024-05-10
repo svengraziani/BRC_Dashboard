@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
     flexRender,
@@ -17,16 +17,7 @@ import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
 
-// interface TableProps {
-//   data: Object
-//   columns: any
-//   isFilters: boolean
-//   isStatusFilter: boolean
-//   isCreation: boolean
-//   isFilterWrap: boolean
-// }
-
-function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap}: any) {
+function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap, queryHandler}: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
 
@@ -42,6 +33,91 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
     }
   })
 
+  const [aliasNameFilter, setAliasNameFilter] = useState([
+    {
+      name:"Satteldachanlage C",
+      isChecked: false
+    },
+    {
+      name:"Satteldachanlage D",
+      isChecked: false
+    },
+    {
+      name:"Satteldachanlage E",
+      isChecked: false
+    },
+  ])
+
+  const [anlagenIdFilter, setAnlagenIdFilter] = useState([
+    {
+      name: '1',
+      isChecked: false
+    },
+    {
+      name: '2',
+      isChecked: false
+    },
+    {
+      name: '3',
+      isChecked: false
+    },
+  ])
+
+  const [gatewayFilter, setGatewayFilter] = useState([
+    {
+      name: '67890',
+      isChecked: false
+    },
+    {
+      name: '56790',
+      isChecked: false
+    },
+    {
+      name: '89056',
+      isChecked: false
+    },
+  ])
+
+  const [string, setString] = useState([
+    {
+      name: 'String 1',
+      isChecked: false
+    },
+    {
+      name: 'String 2',
+      isChecked: false
+    },
+    {
+      name: 'String 3',
+      isChecked: false
+    },
+  ])
+
+  const [optimierer, setOptimierer] = useState([
+    {
+      name: 'Opt 1',
+      isChecked: false
+    },
+    {
+      name: 'Opt 2',
+      isChecked: false
+    },
+    {
+      name: 'Opt 3',
+      isChecked: false
+    },
+  ])
+
+  const [statusFilter, setStatusFilter] = useState([
+    {
+      name: 'Warnung',
+      isChecked: false
+    },
+    {
+      name: 'Fehler',
+      isChecked: false
+    },
+  ])
 
   return (
     <div className="dashboard-table">
@@ -49,7 +125,10 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
         <Row className='filter-wrap'>
         <Col lg="6">
           <Form.Group className="form-block block">
-            <Form.Control type="search" placeholder="Suche" spellCheck="false"></Form.Control>
+            <Form.Control type="search" placeholder="Suche" spellCheck="false" onChange={e => {
+              console.log(e.target.value, 'e.target.value');
+              
+            }}></Form.Control>
             <i className='icon-search'>
               <Image src={imgSearch} alt='Icon' />
             </i>
@@ -86,24 +165,24 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
         <Row className='filter-secondary align-items-center'>
         <Col lg="6" className="d-flex align-items-center">
         <Col lg="5" className="px-2">
-              <SelectBox filterName={"Alias-Name Filter"} isIconVisible={true} statusFilter={["Satteldachanlage C", "Satteldachanlage D", "Satteldachanlage F"]} isSearchable={true} />
+              <SelectBox filterName={"Alias-Name Filter"} queryName={"aliasName"} isIconVisible={true} statusFilter={aliasNameFilter} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
             </Col>
             <Col lg="3" className="px-2">
-              <SelectBox filterName={"Anlagen-ID"} isIconVisible={false} statusFilter={["987", "123", "754"]} isSearchable={true} />
+              <SelectBox filterName={"Anlagen-ID"} queryName={"anlagenId"} isIconVisible={false} statusFilter={anlagenIdFilter} setStatusFilter={setAnlagenIdFilter} queryHandler={queryHandler} isSearchable={true} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Gateway Filter"} isIconVisible={false} statusFilter={["67890", "23244", "67891"]} isSearchable={true} />
+              <SelectBox filterName={"Gateway Filter"} queryName={"gateway"} isIconVisible={false} statusFilter={gatewayFilter} queryHandler={queryHandler} setStatusFilter={setGatewayFilter} isSearchable={true} />
             </Col>
         </Col>
         <Col lg="6" className="d-flex align-items-center">
         <Col lg="4" className="px-2">
-              <SelectBox filterName={"String"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
+              <SelectBox filterName={"String"} queryName={"string"} isIconVisible={false} statusFilter={string} queryHandler={queryHandler} setStatusFilter={setString} isSearchable={false} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Optimierer"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
+              <SelectBox filterName={"Optimierer"} queryName={"optimierer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Status Filter"} isIconVisible={false} statusFilter={["Warnung", "Felher"]} isSearchable={false} />
+              <SelectBox filterName={"Status Filter"} queryName={"status"} isIconVisible={false} statusFilter={statusFilter} queryHandler={queryHandler} setStatusFilter={setStatusFilter} isSearchable={false} />
             </Col>
         </Col>
       </Row>
@@ -143,6 +222,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
           ))}
         </tbody>
       </table>
+      
       </div>
       <div className="h-4" />
     </div>

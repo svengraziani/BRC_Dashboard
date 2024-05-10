@@ -11,9 +11,10 @@ import ReactTable from "../../shared/NewTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { MdNavigateNext } from 'react-icons/md';
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { useSelector } from "react-redux";
+import { apiCaller } from "@/services/apiCaller";
 
 function MistakeModal() {
   const gloabalStore = useSelector((state: any) => state.global)
@@ -61,51 +62,8 @@ function MistakeModal() {
 
 function Logbuch() {
   const [mistakeModal, setMistakeModal] = useState<boolean>(false);
-
-  const router = useRouter()
-
-  const defaultData = [
-    {
-      datum: "18.12.2023, 18:07:01 Uhr",
-      aliasName: "Satteldachanlage D",
-      anlagenId: "345345",
-      name: "Anlage D",
-      gateway: "67890",
-      string: "String 1",
-      optimizer: "134567",
-      meldung: "Dies ist ein Typoblindtext. An ihm kann..."
-    },
-    {
-      datum: "18.12.2023, 18:07:01 Uhr",
-      aliasName: "Satteldachanlage D",
-      anlagenId: "345345",
-      name: "Anlage D",
-      gateway: "67890",
-      string: "String 1",
-      optimizer: "134567",
-      meldung: "Dies ist ein Typoblindtext. An ihm kann..."
-    },
-    {
-      datum: "18.12.2023, 18:07:01 Uhr",
-      aliasName: "Satteldachanlage D",
-      anlagenId: "345345",
-      name: "Anlage D",
-      gateway: "67890",
-      string: "String 1",
-      optimizer: "134567",
-      meldung: "Dies ist ein Typoblindtext. An ihm kann..."
-    },
-    {
-      datum: "18.12.2023, 18:07:01 Uhr",
-      aliasName: "Satteldachanlage D",
-      anlagenId: "345345",
-      name: "Anlage D",
-      gateway: "67890",
-      string: "String 1",
-      optimizer: "134567",
-      meldung: "Dies ist ein Typoblindtext. An ihm kann..."
-    },
-  ]
+  const [query, setQuery] = useState<any>([])
+  const [logbush, setLogbush] = useState(null)
 
   const columnHelper = createColumnHelper()
   
@@ -152,6 +110,69 @@ function Logbuch() {
     }),
   ]
 
+  const queryHandler = (type: any, queryData: any) => {
+    const nameList: any = [];
+
+    queryData.map((item: any) => {
+      if (item.isChecked === true) {
+        nameList.push(item.name)
+      }
+    })
+
+    if (nameList.length === 0) {
+
+      const updatedQuery = query.filter((item: any) => item?.name !== type);
+    setQuery(updatedQuery);
+
+      return;
+    }
+    
+    let datacheck = query?.find((item: any) => item?.name === type)
+
+    
+    if (!datacheck) {
+      // Name Doesn't exists
+
+      const object = {
+        name: type,
+        searchQuery: nameList.join(",")
+      }
+  
+      setQuery([...query, object])
+    } else {
+      const updatedQuery = query.map((item: any) => {
+        if (item.name === type) {
+          return { ...item, searchQuery: nameList.join(",") };
+        }
+        return item;
+      });
+
+      setQuery(updatedQuery);
+    }
+  }
+
+  useEffect(()=> {
+    let token = localStorage.getItem("token")
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    }
+
+    let apiQuery = ''
+    
+    if (query) {
+      query.map((item: any, index: any) => {
+        apiQuery = apiQuery + `${item.name}=${item.searchQuery} ${index !== query.length - 1 ? "&" : ""}`
+      })
+    }
+    
+    apiCaller.get(`api/v1/asset-datapoint-logs/${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}` : ``}`, config)
+    .then(response => {
+      setLogbush(response.data.results);
+    })
+  }, [query])
+
   return (
     <>
         <Header />
@@ -172,7 +193,7 @@ function Logbuch() {
               </Col>
             </Row>
             {/* <DashboardTable /> */}
-            <ReactTable data={defaultData} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} />
+            <ReactTable data={logbush ? logbush : []} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} />
           </div>
       </section>
     </>

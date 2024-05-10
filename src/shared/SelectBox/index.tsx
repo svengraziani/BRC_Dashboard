@@ -15,11 +15,24 @@ interface Props {
     isIconVisible: boolean
 }
 
-function SelectBox({statusFilter, filterName, isSearchable, isIconVisible}: Props) {
+function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName}: any) {
     const [isVisible, setIsVisible] = useState(false)
 
     const closeHandler = () => {
         setIsVisible(false)
+        
+        queryHandler(queryName, statusFilter)
+    }
+
+    const selectItemHandler = (value: string) => {
+        const updatedStatusFilter = statusFilter.map((item: any) => {
+            if (item.name === value) {
+                return { ...item, isChecked: !item.isChecked };
+            }
+            return item;
+        });
+
+        setStatusFilter(updatedStatusFilter)
     }
     
   return (
@@ -46,14 +59,17 @@ function SelectBox({statusFilter, filterName, isSearchable, isIconVisible}: Prop
                 </Form.Group>
                 )}
 
-                    {statusFilter.map((item, index) => (
+                    {statusFilter.map((item: any, index: any) => (
                         <li key={index}>
                         <Form.Check 
                             key={index}
                             type={"checkbox"}
-                            label={item}
+                            label={item?.name}
                             name="group1"
-                            id={item}
+                            id={item.name}
+                            checked={item.isChecked}
+                            value={item.name}
+                            onChange={e => selectItemHandler(e.target.value)}
                         />
                     </li>
                     ))}
