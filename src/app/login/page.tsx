@@ -44,6 +44,8 @@ export default function Login() {
   const [forgetPasswordModal, setForgetPasswordModal] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
   const router = useRouter();
 
@@ -51,6 +53,20 @@ export default function Login() {
 
   const submitHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
+    if (!email) {
+      setEmailError('Please enter your email');
+    } else {
+      setEmailError('');
+    }
+
+    if (!password) {
+      setPasswordError('Please enter your password');
+    } else {
+      setPasswordError('');
+    }
+
 
     const payload = {
       email,
@@ -60,7 +76,6 @@ export default function Login() {
     apiCaller.post("/api/v1/auth/", payload)
       .then(response => {
         let {data} = response;
-        console.log("response44444",response)
 
         const userData = {
           token: data.token,
@@ -86,6 +101,20 @@ export default function Login() {
       })
 
   }, [router, email, password])
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (emailError && e.target.value) {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (passwordError && e.target.value) {
+      setPasswordError('');
+    }
+  };
 
   return (
     <section className="form-bg">
@@ -116,12 +145,14 @@ export default function Login() {
             <h2>Login</h2>
             <Form onSubmit={submitHandler}>
               <Form.Group className="form-block">
-                <Form.Control type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
+                <Form.Control type="email" placeholder="E-mail" value={email} onChange={handleEmailChange} />
                 <Form.Label>E-mail</Form.Label>
+                {emailError && <p className="error" >{emailError}</p>}
               </Form.Group>
               <Form.Group className="form-block">
-                <Form.Control type="password" placeholder="Passwort" value={password} onChange={e => setPassword(e.target.value)} />
+                <Form.Control type="password" placeholder="Passwort" value={password} onChange={handlePasswordChange} />
                 <Form.Label>Passwort</Form.Label>
+                {passwordError && <p className="error">{passwordError}</p>}
               </Form.Group>
               <p onClick={() => setForgetPasswordModal(true)}>Passwort vergessen</p> <br></br>
               <Button variant="primary" type="submit">

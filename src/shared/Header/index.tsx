@@ -16,7 +16,9 @@ function Header() {
   const {isSidebarVisible} = gloabalStore
   const router = useRouter();
   
+
   const logoutHandler = () => {
+    localStorage.removeItem("token");
     router.push("/login")
   }
   

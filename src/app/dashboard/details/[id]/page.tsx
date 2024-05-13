@@ -82,6 +82,18 @@ function DashboardDetails() {
     }
   ]
 
+  const dashboardGeneralInformationHandler=(data:any)=>{
+    console.log("data7777777777",data)
+  }
+
+  const dashBoardHandleSaveChangesHandler = (formData:any) => {
+    // Perform any actions you need here before saving changes
+    setActiveStatus(activeStatus + 1);
+    console.log("Changes saved!",formData);
+    dashboardGeneralInformationHandler(formData)
+  };
+
+
     return (
       <section className="user-details">
 
@@ -111,7 +123,10 @@ function DashboardDetails() {
                   </Col>
                 </Col>
                 <Col md="6" className="d-flex justify-content-end gap-4">
-                  <Button>Änderungen Speichern</Button>
+                  <Button 
+                  onClick={dashBoardHandleSaveChangesHandler}
+                  // onClick={ dashboardGeneralInformationHandler}
+                  >Änderungen Speichern</Button>
                   <Button onClick={() => setAttachmentModal(true)}>Anlage löschen</Button>
                 </Col>
               </Row>
@@ -146,7 +161,10 @@ function DashboardDetails() {
             )}
 
             {activeStatus === "Informationen" && (
-            <Informationen isDashboardDetail={false} />
+            <Informationen isDashboardDetail={false}
+             generalInformationHandler={dashboardGeneralInformationHandler} 
+             dashBoardHandleSaveChanges={dashBoardHandleSaveChangesHandler}
+            />
             )}
 
             {activeStatus === "Verwaltung" && (

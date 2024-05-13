@@ -1,3 +1,5 @@
+// DashboardCreation.tsx
+
 "use client";
 
 import Header from '@/shared/Header'
@@ -56,6 +58,17 @@ function DashboardCreation() {
         }
     ]
 
+    const generalInformationHandler =(data:any)=>{
+      setActiveStatus(activeStatus + 1);
+      console.log("data222222222",data)
+    }
+
+    const componentHandler=(compoData:any)=>{
+      setActiveStatus(activeStatus + 1);
+      console.log("data33333333",compoData)
+
+    }
+
   return (
     <>
       <Header />
@@ -84,7 +97,10 @@ function DashboardCreation() {
                 <Button variant='cancel' onClick={() => setProcessModal(true)}>Abbrechen</Button>
                 <Button disabled={activeStatus === 2 ? true : false} onClick={() => {
                   if (activeStatus < 2) {
-                    setActiveStatus(activeStatus + 1)
+                    // setActiveStatus(activeStatus + 1);
+                 
+                    generalInformationHandler;
+                    componentHandler;
                   }
                 }}>Weiter <i className="icon-arrow"><GrNext /></i></Button>
               </Col>
@@ -108,11 +124,13 @@ function DashboardCreation() {
           </div>
           <div className="creation-secondary">
             {activeStatus === 0 && (
-              <Informationen isDashboardDetail={true} />
+              <Informationen isDashboardDetail={true} generalInformationHandler={generalInformationHandler} 
+            
+               />
             )}
 
             {activeStatus === 1 && (
-              <Komponenten isDashboardDetail={true} />
+              <Komponenten isDashboardDetail={true} componentHandler={componentHandler}/>
             )}
 
             {activeStatus === 2 && (
@@ -125,4 +143,4 @@ function DashboardCreation() {
   );
 }
 
-export default DashboardCreation
+export default DashboardCreation;

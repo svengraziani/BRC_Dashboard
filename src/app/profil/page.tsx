@@ -11,11 +11,15 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+
 
 function Profil() {
     const router = useRouter();
 
-   
+    const { register, handleSubmit, formState: { errors } ,clearErrors} = useForm();
+
+
    
 
 const [companyName,setCompanyName]=useState()
@@ -33,6 +37,8 @@ const [countryData,setCountryData]=useState()
 const [userDetdails,setuserDetails]=useState()
 
 // const [userData,setUserData]=useState()
+
+const [formError, setFormError] = useState(null);
 
 
 let token=localStorage.getItem("token")
@@ -68,7 +74,9 @@ const config = {
 
 
 // Save data
-const saveChangesHandler=()=>{
+const saveChangesHandler=(data:any)=>{
+
+    console.log("sandeep22222222222",data)
 
 let payload={
     first_name: firstName,
@@ -83,12 +91,14 @@ let payload={
     email_notifications_enabled: true
 }
 
+setFormError(null);
+
 apiCaller.put(`/api/v1/user/${userDetdails?.pk}/`,payload,config).then((response)=>{
     console.log("response1111",response)
     
   })  .catch((error) => {
     console.log("error",error)
-
+    setFormError(error.response.data.message || "An error occurred while saving changes.");
   })
 
 }
@@ -135,43 +145,89 @@ useEffect(()=>{
             </i>Mein Profil</h2>
             </Col>
             <Col md="6" className='d-flex gap-4 justify-content-end'>
-            <Button onClick={saveChangesHandler}>Änderungen Speichern</Button>
+            <Button onClick={handleSubmit(saveChangesHandler)}>Änderungen Speichern</Button>
             <Button>Account löschen</Button>
             </Col>
         </Row>
-    <Form>
+    <Form 
+    // onSubmit={handleSubmit(saveChangesHandler)}
+    >
       <div className='profile-card'>
         <Row>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="text" placeholder="Firmenname" value={companyName} onChange={(e)=>setCompanyName(e.target.value)} />
+                <Form.Control type="text" placeholder="Firmenname" value={companyName} 
+                {...register('companyName' , { required: true })} 
+                onChange={(e) => {
+                    setCompanyName(e.target.value);
+                    // Clear error message when value is entered
+                    errors.companyName && clearErrors('companyName');
+                }}
+                />
                 <Form.Label>Firmenname</Form.Label>
+                {errors.companyName && <div className="error-message">Please enter company name</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="text" placeholder="Vorname" onChange={(e)=>setFirstName(e.target.value)} value={firstName} />
+                <Form.Control type="text" placeholder="Vorname" 
+                {...register('firstName' , { required: true })} 
+                // onChange={(e)=>setFirstName(e.target.value)} 
+                onChange={(e) => {
+                    setFirstName(e.target.value);
+                    // Clear error message when value is entered
+                    errors.firstName && clearErrors('firstName');
+                }}
+                value={firstName} />
                 <Form.Label>Vorname</Form.Label>
+                {errors.firstName && <div className="error-message">Please enter first name</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="text" placeholder="Nachname" onChange={(e)=>setLastName(e.target.value)} value={lastName} />
+                <Form.Control type="text" placeholder="Nachname" 
+                {...register('lastName' , { required: true })} 
+                // onChange={(e)=>setLastName(e.target.value)} 
+                onChange={(e) => {
+                    setLastName(e.target.value);
+                    // Clear error message when value is entered
+                    errors.lastName && clearErrors('lastName');
+                }}
+                value={lastName} />
                 <Form.Label>Nachname</Form.Label>
+                {errors.lastName && <div className="error-message">Please enter last name</div>}
                 </Form.Group>
             </Col>
         </Row>
         <Row>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="email" placeholder="E-Mail" onChange={(e)=>setEmailId(e.target.value)} value={emailId} />
+                <Form.Control type="email" placeholder="E-Mail" 
+                {...register('emailId' , { required: true })}
+                // onChange={(e)=>setEmailId(e.target.value)} 
+                onChange={(e) => {
+                    setEmailId(e.target.value);
+                    // Clear error message when value is entered
+                    errors.emailId && clearErrors('emailId');
+                }}
+                value={emailId} />
                 <Form.Label>E-Mail</Form.Label>
+                {errors.emailId && <div className="error-message">Please enter email-Id</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="tel" placeholder="Telefonnummer" onChange={(e)=>setPhoneNumber(e.target.value)} value={phoneNumber}/>
+                <Form.Control type="tel" placeholder="Telefonnummer" 
+                {...register('phoneNumber' , { required: true })}
+                // onChange={(e)=>setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                    // Clear error message when value is entered
+                    errors.phoneNumber && clearErrors('phoneNumber');
+                }}
+                 value={phoneNumber}/>
                 <Form.Label>Telefonnummer</Form.Label>
+                {errors.phoneNumber && <div className="error-message">Please enter phone number</div>}
                 </Form.Group>
             </Col>
             <Col md="4"></Col>
@@ -179,39 +235,86 @@ useEffect(()=>{
         <Row>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="text" placeholder="Standort: Straße" onChange={(e)=>setStreetLocation(e.target.value)} value={streetLocation}/>
+                <Form.Control type="text" placeholder="Standort: Straße"
+                 {...register('streetLocation' , { required: true })}
+                //  onChange={(e)=>setStreetLocation(e.target.value)} 
+                 onChange={(e) => {
+                    setStreetLocation(e.target.value);
+                    // Clear error message when value is entered
+                    errors.streetLocation && clearErrors('streetLocation');
+                }}
+                 value={streetLocation}/>
                 <Form.Label>Standort: Straße</Form.Label>
+                {errors.streetLocation && <div className="error-message">Please enter street location</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="number" placeholder="Standort: Straße Nr." onChange={(e)=>setStreetNumber(e.target.value)} value={streetNumber}/>
+                <Form.Control type="number" placeholder="Standort: Straße Nr."
+                 {...register('streetNumber' , { required: true })} 
+                //  onChange={(e)=>setStreetNumber(e.target.value)} 
+                 onChange={(e) => {
+                    setStreetNumber(e.target.value);
+                    // Clear error message when value is entered
+                    errors.streetNumber && clearErrors('streetNumber');
+                }}
+                 value={streetNumber}/>
                 <Form.Label>Standort: Straße Nr.</Form.Label>
+                {errors.streetNumber && <div className="error-message">Please enter street number</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block'>
-                <Form.Control type="number" placeholder="Adresszusatz" onChange={(e)=>setAddressData(e.target.value)} value={addressData}/>
+                <Form.Control type="number" placeholder="Adresszusatz" 
+                {...register('addressData' , { required: true })} 
+                // onChange={(e)=>setAddressData(e.target.value)} 
+                onChange={(e) => {
+                    setAddressData(e.target.value);
+                    // Clear error message when value is entered
+                    errors.addressData && clearErrors('addressData');
+                }}
+                value={addressData}/>
                 <Form.Label>Adresszusatz</Form.Label>
+                {errors.addressData && <div className="error-message">Please enter address</div>}
                 </Form.Group>
             </Col>
         </Row>
         <Row>
             <Col md="4">
                 <Form.Group className='form-block mb-0'>
-                <Form.Control type="number" placeholder="Standort: PLZ" onChange={(e)=>setZipCode(e.target.value)} value={zipCode}/>
+                <Form.Control type="number" placeholder="Standort: PLZ" 
+                {...register('zipCode' , { required: true })} 
+                // onChange={(e)=>setZipCode(e.target.value)}
+                onChange={(e) => {
+                    setZipCode(e.target.value);
+                    // Clear error message when value is entered
+                    errors.zipCode && clearErrors('zipCode');
+                }}
+                 value={zipCode}/>
                 <Form.Label>Standort: PLZ</Form.Label>
+                {errors.zipCode && <div className="error-message">Please enter Pin code</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block mb-0'>
-                <Form.Control type="text" placeholder="Standort: Ort"  onChange={(e)=>setLocationData(e.target.value)} value={locationData}/>
+                <Form.Control type="text" placeholder="Standort: Ort" 
+                {...register('locationData' , { required: true })} 
+                // onChange={(e)=>setLocationData(e.target.value)} 
+                onChange={(e) => {
+                    setLocationData(e.target.value);
+                    // Clear error message when value is entered
+                    errors.locationData && clearErrors('locationData');
+                }}
+                 value={locationData}/>
                 <Form.Label>Standort: Ort</Form.Label>
+                {errors.locationData && <div className="error-message">Please enter location</div>}
                 </Form.Group>
             </Col>
             <Col md="4">
                 <Form.Group className='form-block mb-0'>
-                <Form.Select aria-label="Dropdown" onChange={handleCountryChange}>
+                <Form.Select aria-label="Dropdown" 
+                {...register('countryData' , { required: true })}
+                    onChange={handleCountryChange}>
                     <option>Standort: Land</option>
                     {/* <option value="India">India</option>
                     <option value="Russia">Russia</option>
@@ -220,6 +323,7 @@ useEffect(()=>{
                     <option value="Russia" selected={countryData === "Russia"}>Russia</option>
                     <option value="Brazil" selected={countryData === "Brazil"}>Brazil</option>
                 </Form.Select>
+                {errors.countryData && <div className="error-message">Please select country</div>}
                 </Form.Group>
             </Col>
         </Row>
