@@ -16,10 +16,18 @@ import imgSynch from '../../Assets/images/icon-synch.svg';
 import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
+import { apiCaller } from "@/services/apiCaller";
 
-function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap, queryHandler}: any) {
+function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap, queryHandler, selectListHandler, setSelectData, selectData}: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
+
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [orderingValue, setOrderingValue] = useState()
+
+  const token =localStorage.getItem("token")
+
+
 
   const table = useReactTable({
     data,
@@ -138,7 +146,8 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
           <Row className="justify-content-end">
             <Col lg="10" className='d-flex align-items-center justify-content-end'>
               {isStatusFilter && (
-                <SelectBox statusFilter={["Satteldachanlage C", "Satteldachanlage D", "Satteldachanlage F"]} isIconVisible={true} filterName={'Status Filter'} isSearchable={false} />
+                <SelectBox statusFilter={statusFilter} setStatusFilter={setStatusFilter} isIconVisible={true} 
+                filterName={'Status Filter'} isSearchable={false} selectListHandler={selectListHandler} setSelectData={setSelectData} selectData={selectData}/>
               )}
               <div className='d-flex align-items-center justify-content-end gap-4'>
                 <Button variant='synch'>

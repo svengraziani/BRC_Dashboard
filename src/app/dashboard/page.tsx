@@ -14,13 +14,64 @@ import ReactTable from '../../shared/NewTable';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { MdNavigateNext } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { apiCaller } from '@/services/apiCaller';
+// import { setFacilityData } from '@/redux/slice/facilitySlice';
 
 export default function Dashboard() {
-    const statusFilter = ["Warnung", "Felher", "Offene Inbetriebnahme"]
+    // const statusFilter = ["Warnung", "Felher", "Offene Inbetriebnahme"]
     const router = useRouter();
+
+    const dispatch=useDispatch()
     const reduxStore = useSelector(state => state)
+    // const facilityData=useSelector((state:any)=>state.facility)
     console.log(reduxStore,'redux store');
+
+    const [selectData,setSelectData]=useState()
+    
+    const [dashboardData, setDashboardData]=useState()
+    console.log("dashboardData1111",dashboardData)
+
+    const token =localStorage.getItem("token")
+
+    const [searchKey,setSearchKey]=useState("")
+
+    const [statusFilter,setStatusFilter]=useState( [
+      {
+        name: "ERROR",
+        isChecked: false
+      },
+      {
+        name: "WARNING",
+        isChecked: false
+      }, 
+    
+      {
+        name: "PENDING",
+        isChecked: false
+      }, 
+      {
+        name: "OK",
+        isChecked: false
+      }, 
+    ])
+
+    useEffect(()=>{
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+    
+      apiCaller.get("api/v1/facility/",config).then((response)=>{
+        setDashboardData(response?.data?.results)
+      })  .catch((error) => {
+        console.log("error",error)
+
+      })
+    },[])
     
 
     const defaultData = [
@@ -78,11 +129,11 @@ export default function Dashboard() {
       header: "",
       cell: (props) => (<i className='icon-error'><Image src={imgError} alt='Icon' /></i>)
     }),
-    columnHelper.accessor('aliasName', {
+    columnHelper.accessor('alias_name', {
       cell: info => info.getValue(),
       header: "Alias-Name"
     }),
-    columnHelper.accessor('anlagenId', {
+    columnHelper.accessor('pk', {
       cell: info => info.getValue(),
       header: "Anlagen-ID"
     }),
@@ -94,15 +145,19 @@ export default function Dashboard() {
       cell: info => info.getValue(),
       header: "Name Eigentümer"
     }),
-    columnHelper.accessor('handwerk', {
+    columnHelper.accessor('craft_business', {
       cell: info => info.getValue(),
       header: "Handwerksbetrieb"
     }),
-    columnHelper.accessor('adsressder', {
-      cell: info => info.getValue(),
+    columnHelper.accessor('postal_code', {
+      cell: props => {
+        console.log(props,'props');
+        
+        return <h6>{props?.row?.original.street_number} {" "} {props.row.original.street} , {props.row.original.city} {`(${props.row.original.postal_code})`}</h6>
+      },
       header: "Adresse der Anlage"
     }),
-    columnHelper.accessor('aktionen', {
+    columnHelper.accessor('Aktionen', {
       cell: info => info.getValue(),
       header: "Aktionen"
     }),
@@ -111,6 +166,140 @@ export default function Dashboard() {
       header: ""
     }),
   ]
+
+
+  // search
+  const searchListHandler = (e:any) => {
+    console.log("searchListHandler", e.target.value);
+    const searchValue = e.target.value;
+    setSearchKey(e.target.value)
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    if (searchValue.trim() !== '') {
+      apiCaller.get(`api/v1/facility/?search=${searchValue}`, config)
+          .then((response) => {
+              console.log("dashboardData11112222", response);
+              setDashboardData(response?.data?.results);
+          })
+          .catch((error) => {
+              console.log("Error:", error);
+          });
+  } else {
+      apiCaller.get("api/v1/facility/", config)
+          .then((response) => {
+              console.log("dashboardData11112222", response);
+              setDashboardData(response?.data?.results);
+          })
+          .catch((error) => {
+              console.log("Error:", error);
+          });
+  }
+
+  const selectedStatus = statusFilter
+        .filter((item: any) => item.isChecked)
+        .map((item: any) => item.name)
+        .join(',');
+
+        if(selectedStatus && searchValue.trim() === ''){
+          apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
+          .then((response) => {
+              console.log("Response:", response);
+              setDashboardData(response?.results);
+          })
+          .catch((error) => {
+              console.log("Error:", error);
+          });
+        }
+
+  }
+
+  console.log("selectData22222",statusFilter)
+
+
+//   useEffect(()=>{
+//     const selectedStatus = statusFilter
+//     .filter((item: any) => item.isChecked)
+//     .map((item: any) => item.name)
+//     .join(',');
+
+// if(searchKey && selectedStatus ){
+//   const config = {
+//     headers: {
+//         Authorization: `Bearer ${token}`
+//     }
+// };
+
+// apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`, config)
+//     .then((response) => {
+//         console.log("Response:", response);
+
+//         setDashboardData(response?.results);
+//     })
+//     .catch((error) => {
+//         console.log("Error:", error);
+//     });
+// }
+//   },[statusFilter,searchKey])
+
+
+  // FIlter
+  const selectListHandler = (statusFilter: any) => {
+    // Extract selectedStatus from the statusFilter
+    const selectedStatus = statusFilter
+        .filter((item: any) => item.isChecked)
+        .map((item: any) => item.name)
+        .join(',');
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    if (selectedStatus && searchKey) {
+        apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`, config)
+            .then((response) => {
+                console.log("Response:", response);
+                setDashboardData(response?.results);
+            })
+            .catch((error) => {
+                console.log("Error:", error);
+            });
+    } else if (selectedStatus) {
+        apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
+            .then((response) => {
+                console.log("Response:", response);
+                setDashboardData(response?.results);
+            })
+            .catch((error) => {
+                console.log("Error:", error);
+            });
+    } else if (searchKey) {
+        apiCaller.get(`api/v1/facility/?search=${searchKey}`, config)
+            .then((response) => {
+                console.log("Response:", response);
+                setDashboardData(response?.results);
+            })
+            .catch((error) => {
+                console.log("Error:", error);
+            });
+    } else {
+        apiCaller.get(`api/v1/facility/`, config)
+            .then((response) => {
+                console.log("Response:1111111", response);
+                setDashboardData(response?.data?.results);
+            })
+            .catch((error) => {
+                console.log("Error:", error);
+            });
+    }
+}
+
 
     return (
         <>
@@ -129,7 +318,18 @@ export default function Dashboard() {
                     </Col>
                 </Row>
                 {/* Table component */}
-                <ReactTable data={defaultData} columns={columns} isFilters={false} isStatusFilter={true} isCreation={true} isFiltersWrap={true} />
+                <ReactTable  
+                selectListHandler={selectListHandler}
+                 data={dashboardData ? dashboardData : []} 
+                 columns={columns} isFilters={false} 
+                 isStatusFilter={true} isCreation={true} 
+                 isFiltersWrap={true} 
+                 statusFilter={statusFilter}
+                 setStatusFilter={setStatusFilter}
+                 setDashboardData={setDashboardData}
+                 setSelectData={setSelectData}
+                 selectData={selectData} 
+                 searchListHandler={searchListHandler}/>
                 {/* <DashboardTable statusFilter={statusFilter} filterName="Status Filter"/> */}
                 <div className="filter-wrap"></div>
             </div>

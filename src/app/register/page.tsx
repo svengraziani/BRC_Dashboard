@@ -46,6 +46,7 @@ export default function Register() {
   const [country, setCountry] = useState<string>("")
   const [telephone, setTelephone] = useState<string>("")
   const [email, setEmail] = useState<string>("")
+
   
   const [businessName, setBusinessName] = useState<string>("")
 
@@ -71,6 +72,8 @@ export default function Register() {
 
     if (query === "unternehmensaccount") {
       payload.business_name = businessName;
+    } else {
+      // delete payload.business_name;
     }
 
     apiCaller.post("/api/v1/user/register/", payload)

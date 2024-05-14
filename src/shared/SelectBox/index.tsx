@@ -17,8 +17,12 @@ interface Props {
 
 function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName}: any) {
     const [isVisible, setIsVisible] = useState(false)
+    
 
-    const closeHandler = () => {
+   
+    const closeHandler = (selectDatassss:any) => {
+       
+        selectListHandler(statusFilter)
         setIsVisible(false)
         
         queryHandler(queryName, statusFilter)
@@ -34,6 +38,21 @@ function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setSt
 
         setStatusFilter(updatedStatusFilter)
     }
+
+    const selectValueHandler = (selectedOption: string) => {
+      
+        console.log("statusFilter11111",selectedOption)
+        setStatusFilter(prev => {
+            console.log(prev, 'prev value');
+            return prev.map(item =>
+                item.name === selectedOption ? { ...item, isChecked: !item.isChecked } : item
+            );
+        });
+
+        // setSelectData(statusFilter)
+  
+    }
+
     
   return (
       <div className='select-box'>
