@@ -15,7 +15,7 @@ interface Props {
     isIconVisible: boolean
 }
 
-function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName}: any) {
+function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName, selectListHandler}: any) {
     const [isVisible, setIsVisible] = useState(false)
     
 

@@ -271,3 +271,7 @@ h2 {
 h3 {
   @include fontsize(16px);
 }
+
+.error-message {
+  color: #DC493A;
+}

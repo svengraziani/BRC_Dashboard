@@ -111,8 +111,6 @@ function Informationen({
     resolver: yupResolver(schema),
   });
 
-  console.log(errors, "error11111111");
-
   const onSubmit = (formData: any) => {
     // e.preventDefault();
     console.log("dataaaaaa", formData);
@@ -127,6 +125,8 @@ function Informationen({
     const allValues = getValues();
   }, [getValues]);
 
+  console.log(errors, 'errors ???');
+  
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <div className="informationen">

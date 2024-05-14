@@ -18,7 +18,16 @@ import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
 import { apiCaller } from "@/services/apiCaller";
 
-function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap, queryHandler, selectListHandler, setSelectData, selectData}: any) {
+// interface TableProps {
+//   data: Object
+//   columns: any
+//   isFilters: boolean
+//   isStatusFilter: boolean
+//   isCreation: boolean
+//   isFilterWrap: boolean
+// }
+
+function ReactTable({statusFilter,setStatusFilter,selectListHandler,searchListHandler,setSelectData, selectData,setDashboardData,data, columns, isFilters , isStatusFilter, isCreation, isFiltersWrap, queryHandler}: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
 
@@ -116,7 +125,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
     },
   ])
 
-  const [statusFilter, setStatusFilter] = useState([
+  const [statusFilter1, setStatusFilter1] = useState([
     {
       name: 'Warnung',
       isChecked: false
@@ -191,7 +200,7 @@ function ReactTable({ data, columns, isFilters , isStatusFilter, isCreation, isF
               <SelectBox filterName={"Optimierer"} queryName={"optimierer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Status Filter"} queryName={"status"} isIconVisible={false} statusFilter={statusFilter} queryHandler={queryHandler} setStatusFilter={setStatusFilter} isSearchable={false} />
+              <SelectBox filterName={"Status Filter"} queryName={"status"} isIconVisible={false} statusFilter={statusFilter1} queryHandler={queryHandler} setStatusFilter={setStatusFilter1} isSearchable={false} />
             </Col>
         </Col>
       </Row>

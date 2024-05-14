@@ -60,13 +60,10 @@ function DashboardCreation() {
 
     const generalInformationHandler =(data:any)=>{
       setActiveStatus(activeStatus + 1);
-      console.log("data222222222",data)
     }
 
     const componentHandler=(compoData:any)=>{
       setActiveStatus(activeStatus + 1);
-      console.log("data33333333",compoData)
-
     }
 
   return (
@@ -124,9 +121,7 @@ function DashboardCreation() {
           </div>
           <div className="creation-secondary">
             {activeStatus === 0 && (
-              <Informationen isDashboardDetail={true} generalInformationHandler={generalInformationHandler} 
-            
-               />
+              <Informationen isDashboardDetail={true} generalInformationHandler={generalInformationHandler} />
             )}
 
             {activeStatus === 1 && (

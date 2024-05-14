@@ -162,7 +162,6 @@ function Benutzer() {
     };
   
     apiCaller.get("api/v1/craft-business-role/",config).then((response)=>{
-      console.log("response1111",response)
       setBenutzerData(response?.data?.results)
     })  .catch((error) => {
       console.log("error",error)
