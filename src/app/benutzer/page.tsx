@@ -226,7 +226,7 @@ function Benutzer() {
       header: "ist Admin"
     }),
     columnHelper.accessor('handwerksbetrieb', {
-      cell: info => {
+      cell: (info: any) => {
         // console.log("infoinfoinfoinfo", info);
         return (
           <Button variant="trash" 

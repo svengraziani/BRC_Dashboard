@@ -42,15 +42,13 @@ function SelectBox({statusFilter, filterName, isSearchable, isIconVisible, setSt
     const selectValueHandler = (selectedOption: string) => {
       
         console.log("statusFilter11111",selectedOption)
-        setStatusFilter(prev => {
+        setStatusFilter((prev: any) => {
             console.log(prev, 'prev value');
-            return prev.map(item =>
+            return prev.map((item: any) =>
                 item.name === selectedOption ? { ...item, isChecked: !item.isChecked } : item
             );
         });
 
-        // setSelectData(statusFilter)
-  
     }
 
     

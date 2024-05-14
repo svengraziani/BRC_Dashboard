@@ -27,7 +27,7 @@ const schema = yup.object().shape({
   zipcode: yup.string().required("Zipcode is required"),
   location: yup.string().required("Location is required"),
   country: yup.string().required("Country is required"),
-  // einzelaccountCheckBox: yup.string().required("Please select  checkBox"),
+  einzelaccountCheckBox: yup.string(),
   // Define validation rules for other fields
   firmenname: yup.string().required("Firmenname is required"),
   vorname: yup.string().required("Vorname is required"),
@@ -94,11 +94,9 @@ function InviteSendModal() {
 function Informationen({
   isDashboardDetail,
   generalInformationHandler,
-  dashBoardHandleSaveChanges,
 }: {
   isDashboardDetail: boolean;
   generalInformationHandler: any;
-  dashBoardHandleSaveChanges: any;
 }) {
   const [invitationModal, setInvitationModal] = useState<boolean>(false);
   const {
@@ -118,7 +116,6 @@ function Informationen({
     // handleFormSubmit(formData)
 
     generalInformationHandler(formData);
-    dashBoardHandleSaveChanges(formData);
   };
 
   useEffect(() => {

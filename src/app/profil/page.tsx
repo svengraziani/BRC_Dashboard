@@ -21,19 +21,19 @@ function Profil() {
 
     console.log(errors, 'errors');
 
-    const [companyName, setCompanyName] = useState()
-    const [firstName, setFirstName] = useState()
-    const [lastName, setLastName] = useState()
-    const [emailId, setEmailId] = useState()
-    const [phoneNumber, setPhoneNumber] = useState()
-    const [streetLocation, setStreetLocation] = useState()
-    const [streetNumber, setStreetNumber] = useState()
-    const [addressData, setAddressData] = useState()
-    const [zipCode, setZipCode] = useState()
-    const [locationData, setLocationData] = useState()
-    const [countryData, setCountryData] = useState()
+    const [companyName, setCompanyName] = useState<string>()
+    const [firstName, setFirstName] = useState<string>()
+    const [lastName, setLastName] = useState<string>()
+    const [emailId, setEmailId] = useState<string>()
+    const [phoneNumber, setPhoneNumber] = useState<string>()
+    const [streetLocation, setStreetLocation] = useState<string>()
+    const [streetNumber, setStreetNumber] = useState<string>()
+    const [addressData, setAddressData] = useState<string>()
+    const [zipCode, setZipCode] = useState<string>()
+    const [locationData, setLocationData] = useState<string>()
+    const [countryData, setCountryData] = useState<string>()
 
-    const [userDetdails, setuserDetails] = useState()
+    const [userDetdails, setuserDetails] = useState<any>()
 
     // const [userData,setUserData]=useState()
 

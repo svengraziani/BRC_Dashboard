@@ -150,9 +150,7 @@ export default function Dashboard() {
       header: "Handwerksbetrieb"
     }),
     columnHelper.accessor('postal_code', {
-      cell: props => {
-        console.log(props,'props');
-        
+      cell: (props: any) => {
         return <h6>{props?.row?.original.street_number} {" "} {props.row.original.street} , {props.row.original.city} {`(${props.row.original.postal_code})`}</h6>
       },
       header: "Adresse der Anlage"
@@ -204,7 +202,7 @@ export default function Dashboard() {
 
         if(selectedStatus && searchValue.trim() === ''){
           apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
-          .then((response) => {
+          .then((response: any) => {
               setDashboardData(response?.results);
           })
           .catch((error) => {
@@ -258,7 +256,7 @@ export default function Dashboard() {
 
     if (selectedStatus && searchKey) {
         apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`, config)
-            .then((response) => {
+            .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
             })
@@ -267,7 +265,7 @@ export default function Dashboard() {
             });
     } else if (selectedStatus) {
         apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
-            .then((response) => {
+            .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
             })
@@ -276,7 +274,7 @@ export default function Dashboard() {
             });
     } else if (searchKey) {
         apiCaller.get(`api/v1/facility/?search=${searchKey}`, config)
-            .then((response) => {
+            .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
             })
@@ -285,7 +283,7 @@ export default function Dashboard() {
             });
     } else {
         apiCaller.get(`api/v1/facility/`, config)
-            .then((response) => {
+            .then((response: any) => {
                 console.log("Response:1111111", response);
                 setDashboardData(response?.data?.results);
             })

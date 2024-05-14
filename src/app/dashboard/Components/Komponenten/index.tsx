@@ -27,14 +27,13 @@ const schema = yup.object().shape({
 });
 
 
-function Komponenten({isDashboardDetail,componentHandler}: {isDashboardDetail: boolean,componentHandler:any}) {
+function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema) 
   });
 
   const onSubmit = (data: any) => {
     console.log("data6666666666",data)
-    componentHandler(data)
   };
 
   return (

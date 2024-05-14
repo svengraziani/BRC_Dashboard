@@ -19,8 +19,7 @@ function ResetPassword() {
   let token = localStorage.getItem("token");
 
 
-  const [userDetdails,setuserDetails]=useState()
-  console.log("userDetdails",userDetdails)
+  const [userDetdails,setuserDetails]=useState<any>()
 
   const config = {
     headers: {

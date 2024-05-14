@@ -149,7 +149,7 @@ function DashboardDetails() {
             </div>
             <div className='details-secondary'>
             {activeStatus === "Komponenten" && (
-              <Komponenten isDashboardDetail={false}/>
+              <Komponenten isDashboardDetail={false} />
             )}
 
             {activeStatus === "Livedaten" && (
@@ -163,7 +163,6 @@ function DashboardDetails() {
             {activeStatus === "Informationen" && (
             <Informationen isDashboardDetail={false}
              generalInformationHandler={dashboardGeneralInformationHandler} 
-             dashBoardHandleSaveChanges={dashBoardHandleSaveChangesHandler}
             />
             )}
 
