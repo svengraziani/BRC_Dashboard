@@ -9,10 +9,10 @@ import imgTools from "../../../../Assets/images/icon-tools.svg";
 import imgDatabase from "../../../../Assets/images/icon-database.svg";
 import imgEigent from "../../../../Assets/images/icon-eigentuemer.svg";
 import imgUser from "../../../../Assets/images/icon-multipleuser.svg";
-import circleImg from "../../../..//Assets/images/icon-circle.svg";
+import circleImg from "../../../../Assets/images/icon-circle.svg";
 import { BsTrash3 } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -54,12 +54,6 @@ const schema = yup.object().shape({
 
 function InviteAccessModal() {
   const [inviteModal, setInviteModal] = useState<boolean>(false);
-  const router = useRouter();
-
-  // const submitHandler = (e: FormEvent) => {
-  //     e.preventDefault();
-  //     router.push("/");
-  // }
 
   return (
     <>
@@ -94,38 +88,18 @@ function InviteSendModal() {
 function Informationen({
   isDashboardDetail,
   generalInformationHandler,
-}: {
-  isDashboardDetail: boolean;
-  generalInformationHandler: any;
-}) {
+  register,
+  handleSubmit,
+  errors
+}: any) {
   const [invitationModal, setInvitationModal] = useState<boolean>(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-    watch,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
 
   const onSubmit = (formData: any) => {
-    // e.preventDefault();
-    console.log("dataaaaaa", formData);
-
-    // handleFormSubmit(formData)
-
     generalInformationHandler(formData);
   };
-
-  useEffect(() => {
-    const allValues = getValues();
-  }, [getValues]);
-
-  console.log(errors, 'errors ???');
   
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit ? handleSubmit(onSubmit) : ""}>
       <div className="informationen">
         {isDashboardDetail && <span className="fields">* Pflichtfelder</span>}
 
@@ -145,7 +119,6 @@ function Informationen({
               Allgemeine Angaben
             </h2>
             <div className="general-card">
-              {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
               <Row>
                 <Col md="6">
                   <Form.Group className="form-block">
@@ -213,7 +186,7 @@ function Informationen({
                   <Col md="7" style={{ paddingLeft: "10px" }}>
                     <Form.Group className="form-block">
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Adresszusatz"
                         {...register("addressAddon")}
                       />
@@ -276,9 +249,6 @@ function Informationen({
                   </Form.Group>
                 </Col>
               </Row>
-
-              {/* <Button type="submit">TESTING</Button> */}
-              {/* </Form> */}
             </div>
           </Col>
           <Col md="4" className="d-flex flex-column">
@@ -309,65 +279,60 @@ function Informationen({
             Eigentümer Anlage
           </h2>
           <div className="general-card">
-            {!isDashboardDetail && (
-              <Row>
-                <Col md="4">
-                  <Form.Group className="form-block">
-                    <Form.Control
-                      type="text"
-                      placeholder="Firmenname"
-                      {...register("firmenname", { required: true })}
-                    />
-                    <Form.Label>Firmenname</Form.Label>
-                    {errors.firmenname && (
-                      <div className="error-message">
-                        {errors.firmenname.message}
-                      </div>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col md="4">
-                  <Form.Group className="form-block">
-                    <Form.Control
-                      type="text"
-                      placeholder="Vorname"
-                      {...register("vorname", { required: true })}
-                    />
-                    <Form.Label>Vorname</Form.Label>
-                    {errors.vorname && (
-                      <div className="error-message">
-                        {errors.vorname.message}
-                      </div>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col md="4">
-                  <Form.Group className="form-block">
-                    <Form.Control
-                      type="text"
-                      placeholder="Nachname"
-                      {...register("nachname", { required: true })}
-                    />
-                    <Form.Label>Nachname</Form.Label>
-                    {errors.nachname && (
-                      <div className="error-message">
-                        {errors.nachname.message}
-                      </div>
-                    )}
-                  </Form.Group>
-                </Col>
-              </Row>
+            {!isDashboardDetail &&(
+            <Row>
+            <Col md="4">
+                <Form.Group className="form-block">
+                  <Form.Control
+                    type="text"
+                    placeholder="Vorname"
+                    {...register("vorname", { required: true })}
+                  />
+                  <Form.Label>Vorname</Form.Label>
+                  {errors.vorname && (
+                    <div className="error-message">
+                      {errors.vorname.message}
+                    </div>
+                  )}
+                </Form.Group>
+              </Col>
+              <Col md="4">
+                <Form.Group className="form-block">
+                  <Form.Control
+                    type="text"
+                    placeholder="Nachname"
+                    {...register("nachname", { required: true })}
+                  />
+                  <Form.Label>Nachname</Form.Label>
+                  {errors.nachname && (
+                    <div className="error-message">
+                      {errors.nachname.message}
+                    </div>
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
             )}
             <Row>
-              <Col
-                md={isDashboardDetail ? "6" : "4"}
-                className={isDashboardDetail ? "mb-0" : ""}
-              >
-                <Form.Group
-                  className={
-                    isDashboardDetail ? "form-block mb-0" : "form-block"
-                  }
-                >
+            {!isDashboardDetail &&(
+              <Col md="4">
+              <Form.Group className="form-block">
+                <Form.Control
+                  type="tel"
+                  placeholder="Telefonnummer"
+                  {...register("telefonnummer", { required: true })}
+                />
+                <Form.Label>Telefonnummer</Form.Label>
+                {errors.telefonnummer && (
+                  <div className="error-message">
+                    {errors.telefonnummer.message}
+                  </div>
+                )}
+              </Form.Group>
+            </Col>
+            )}
+              <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
+                <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
                   <Form.Control
                     type="email"
                     placeholder="E-Mail"
@@ -379,30 +344,8 @@ function Informationen({
                   )}
                 </Form.Group>
               </Col>
-
-              {!isDashboardDetail && (
-                <Col md="4">
-                  <Form.Group className="form-block">
-                    <Form.Control
-                      type="tel"
-                      placeholder="Telefonnummer"
-                      {...register("telefonnummer", { required: true })}
-                    />
-                    <Form.Label>Telefonnummer</Form.Label>
-                    {errors.telefonnummer && (
-                      <div className="error-message">
-                        {errors.telefonnummer.message}
-                      </div>
-                    )}
-                  </Form.Group>
-                </Col>
-              )}
-              <Col md={isDashboardDetail ? "6" : "4"}>
-                <Form.Group
-                  className={
-                    isDashboardDetail ? "form-block mb-0" : "form-block"
-                  }
-                >
+              <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
+                <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
                   <Form.Control
                     type="number"
                     placeholder="Auftragsnummer"
@@ -417,52 +360,6 @@ function Informationen({
                 </Form.Group>
               </Col>
             </Row>
-            {!isDashboardDetail && (
-              <Row>
-                <Col md="4">
-                  <Form.Group className="form-block mb-0">
-                    <Form.Control
-                      type="number"
-                      placeholder="Standort: PLZ"
-                      {...register("plz", { required: true })}
-                    />
-                    <Form.Label>Standort: PLZ</Form.Label>
-                    {errors.plz && (
-                      <div className="error-message">{errors.plz.message}</div>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col md="4">
-                  <Form.Group className="form-block mb-0">
-                    <Form.Control
-                      type="text"
-                      placeholder="Standort: Ort"
-                      {...register("ort", { required: true })}
-                    />
-                    <Form.Label>Standort: Ort</Form.Label>
-                    {errors.ort && (
-                      <div className="error-message">{errors.ort.message}</div>
-                    )}
-                  </Form.Group>
-                </Col>
-                <Col md="4">
-                  <Form.Group className="form-block mb-0">
-                    <Form.Select
-                      aria-label="Dropdown"
-                      {...register("land", { required: true })}
-                    >
-                      <option>Standort: Land</option>
-                      <option value="India">India</option>
-                      <option value="Russia">Russia</option>
-                      <option value="Brazil">Brazil</option>
-                    </Form.Select>
-                    {errors.land && (
-                      <div className="error-message">{errors.land.message}</div>
-                    )}
-                  </Form.Group>
-                </Col>
-              </Row>
-            )}
           </div>
         </div>
         {/* Checkbox */}
@@ -471,17 +368,11 @@ function Informationen({
             <Col xs>
               <Form.Check
                 type={"checkbox"}
-                // name={"registration"}
                 id={`einzelaccount`}
                 label={"Eigentümer hat der Datenhinterlegung zugestimmt*"}
                 {...register("einzelaccountCheckBox")}
               />
             </Col>
-            {/* {errors.einzelaccountCheckBox && (
-              <div className="error-message">
-                {errors.einzelaccountCheckBox.message}
-              </div>
-            )} */}
           </Row>
         )}
         {/* Craft business */}
@@ -527,7 +418,7 @@ function Informationen({
               <Col md="4">
                 <Form.Group className="form-block">
                   <Form.Control
-                    type="email"
+                    type="tel"
                     placeholder="Telefonnummer"
                     {...register("telefonnummer2", { required: true })}
                   />
@@ -580,7 +471,7 @@ function Informationen({
             <i className="icon-head">
               <Image src={imgDatabase} alt="Icon" />
             </i>
-            Strombezug{" "}
+            Strombezug
             {isDashboardDetail && (
               <i className="icon-heade">
                 <Image src={circleImg} alt="Icon" />
@@ -620,7 +511,7 @@ function Informationen({
                   <Col md="4">
                     <Form.Group className="form-block mb-0">
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Vorname"
                         {...register("vorname3", { required: true })}
                       />
@@ -635,7 +526,7 @@ function Informationen({
                   <Col md="4">
                     <Form.Group className="form-block mb-0">
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Nachname"
                         {...register("nachname2", { required: true })}
                       />
@@ -678,7 +569,7 @@ function Informationen({
                   <Col md="4">
                     <Form.Group className="form-block mb-0">
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Vorname"
                         {...register("vorname4", { required: true })}
                       />
@@ -693,7 +584,7 @@ function Informationen({
                   <Col md="4">
                     <Form.Group className="form-block mb-0">
                       <Form.Control
-                        type="number"
+                        type="text"
                         placeholder="Nachname"
                         {...register("nachname4", { required: true })}
                       />
@@ -737,7 +628,6 @@ function Informationen({
             User hinzufügen
           </Button>
         )}
-        <Button type="submit"> submit </Button>
       </div>
     </Form>
   );

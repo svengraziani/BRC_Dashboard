@@ -20,6 +20,37 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import DashboardLogbuch from '../../Components/Logbuch';
 import Verwaltung from '../../Components/Verwaltung';
 import SharedModal from '@/shared/Modal';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup'
+
+const informationSchema = yup.object().shape({
+  anlagename: yup.string().required("Anlagename is required"),
+  aliasname: yup.string().required("Alias-Name is required"),
+  street: yup.string().required("Street is required"),
+  streetNumber: yup.string().required("Street Number is required"),
+  addressAddon: yup.string(), // Optional field, no required validation
+  zipcode: yup.string().required("Zipcode is required"),
+  location: yup.string().required("Location is required"),
+  country: yup.string().required("Country is required"),
+  einzelaccountCheckBox: yup.string(),
+  // Define validation rules for other fields
+  firmenname: yup.string().required("Firmenname is required"),
+  vorname: yup.string().required("Vorname is required"),
+  nachname: yup.string().required("Nachname is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  telefonnummer: yup.string().required("Telefonnummer is required"),
+  auftragsnummer: yup.string().required("Auftragsnummer is required"),
+  plz: yup.string().required("PLZ is required"),
+  ort: yup.string().required("Ort is required"),
+  land: yup.string().required("Land is required"),
+  firmenname1: yup.string().required("Firmenname is required"),
+  telefonnummer1: yup.string().required("Telefonnummer is required"),
+  telefonnummer2: yup.string().required("Telefonnummer is required"),
+  vorname1: yup.string().required("Vorname is required"),
+  nachname1: yup.string().required("Nachname is required"),
+  kosten: yup.string().required("Kosten is required"),
+});
 
 function DeleteAttachmentModal() {
   return (
@@ -58,6 +89,14 @@ function DashboardDetails() {
     let searchParam = searchParams.get("status")
     setActiveStatus(searchParam ? searchParam : "Informationen")
   }, [searchParams])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(informationSchema),
+  });
 
   const list = [
     {
@@ -163,6 +202,9 @@ function DashboardDetails() {
             {activeStatus === "Informationen" && (
             <Informationen isDashboardDetail={false}
              generalInformationHandler={dashboardGeneralInformationHandler} 
+             register={register}
+             handleSubmit={handleSubmit}
+             errors={errors}
             />
             )}
 

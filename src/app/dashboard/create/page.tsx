@@ -1,5 +1,3 @@
-// DashboardCreation.tsx
-
 "use client";
 
 import Header from '@/shared/Header'
@@ -20,6 +18,37 @@ import Informationen from '../Components/Informationen';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { useRouter } from 'next/navigation';
 import SharedModal from '@/shared/Modal';
+import * as yup from "yup";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const informationSchema = yup.object().shape({
+  anlagename: yup.string().required("Anlagename is required"),
+  aliasname: yup.string().required("Alias-Name is required"),
+  street: yup.string().required("Street is required"),
+  streetNumber: yup.string().required("Street Number is required"),
+  addressAddon: yup.string(), // Optional field, no required validation
+  zipcode: yup.string().required("Zipcode is required"),
+  location: yup.string().required("Location is required"),
+  country: yup.string().required("Country is required"),
+  einzelaccountCheckBox: yup.string(),
+  // Define validation rules for other fields
+  firmenname: yup.string().required("Firmenname is required"),
+  vorname: yup.string().required("Vorname is required"),
+  nachname: yup.string().required("Nachname is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  telefonnummer: yup.string().required("Telefonnummer is required"),
+  auftragsnummer: yup.string().required("Auftragsnummer is required"),
+  plz: yup.string().required("PLZ is required"),
+  ort: yup.string().required("Ort is required"),
+  land: yup.string().required("Land is required"),
+  firmenname1: yup.string().required("Firmenname is required"),
+  telefonnummer1: yup.string().required("Telefonnummer is required"),
+  telefonnummer2: yup.string().required("Telefonnummer is required"),
+  vorname1: yup.string().required("Vorname is required"),
+  nachname1: yup.string().required("Nachname is required"),
+  kosten: yup.string().required("Kosten is required"),
+});
 
 interface CancelModalProps {
   setProcessModal: Dispatch<SetStateAction<boolean>>
@@ -43,6 +72,14 @@ function DashboardCreation() {
     const [activeStatus, setActiveStatus] = useState<number>(0);
     const [processModal, setProcessModal] = useState<boolean>(false);
 
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: yupResolver(informationSchema),
+    });
+
     const list = [
         {
             name: "Schritt 1: Informationen",
@@ -58,13 +95,16 @@ function DashboardCreation() {
         }
     ]
 
-    const generalInformationHandler =(data:any)=>{
+    const generalInformationHandler = (data: any) => {
       setActiveStatus(activeStatus + 1);
     }
 
-    const componentHandler=(compoData:any)=>{
-      setActiveStatus(activeStatus + 1);
+    const onSubmit = (values: any) => {
+        console.log(values, 'Submitted values'); 
     }
+
+    console.log(errors);
+    
 
   return (
     <>
@@ -86,20 +126,13 @@ function DashboardCreation() {
                 </h2>
               </Col>
               <Col md="6" className="d-flex justify-content-end gap-3">
-                <Button disabled={activeStatus === 0 ? true : false} onClick={() => {
+                <Button disabled={activeStatus === 0} onClick={() => {
                   if (activeStatus > 0) {
-                    setActiveStatus(activeStatus - 1)
+                    setActiveStatus(activeStatus - 1);
                   }
                 }}><i className="icon-arrow"><GrPrevious /></i> Zurück</Button>
                 <Button variant='cancel' onClick={() => setProcessModal(true)}>Abbrechen</Button>
-                <Button disabled={activeStatus === 2 ? true : false} onClick={() => {
-                  if (activeStatus < 2) {
-                    // setActiveStatus(activeStatus + 1);
-                 
-                    generalInformationHandler;
-                    componentHandler;
-                  }
-                }}>Weiter <i className="icon-arrow"><GrNext /></i></Button>
+                <Button disabled={activeStatus === 2} onClick={handleSubmit(onSubmit)}>Weiter <i className="icon-arrow"><GrNext /></i></Button>
               </Col>
             </Row>
             <ul className="d-flex p-0 m-0">
@@ -110,9 +143,7 @@ function DashboardCreation() {
                       <i>
                         <Image src={item.srcImg} alt="Icon" />
                       </i>
-                      {
-                        item.name
-                      }
+                      {item.name}
                     </Button>
                   </li>
                 ))
@@ -121,7 +152,13 @@ function DashboardCreation() {
           </div>
           <div className="creation-secondary">
             {activeStatus === 0 && (
-              <Informationen isDashboardDetail={true} generalInformationHandler={generalInformationHandler} />
+              <Informationen 
+                isDashboardDetail={true} 
+                generalInformationHandler={generalInformationHandler} 
+                register={register} 
+                handleSubmit={handleSubmit} 
+                errors={errors} 
+              />
             )}
 
             {activeStatus === 1 && (
