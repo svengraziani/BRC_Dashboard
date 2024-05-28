@@ -11,30 +11,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-const schema = yup.object().shape({
-  modulHersteller: yup.string().required('Bitte wählen Sie einen Hersteller aus'),
-  modulTyp: yup.string().required('Bitte wählen Sie einen Typ aus'),
-  wechselrichterHersteller: yup.string().required('Bitte geben Sie den Hersteller ein'),
-  wechselrichterTyp: yup.string().required('Bitte geben Sie den Typ ein'),
-  speicherWallboxJa: yup.boolean().oneOf([true], 'Bitte wählen Sie aus').required(),
-  speicherWallboxNein: yup.boolean().oneOf([true], 'Bitte wählen Sie aus').required(),
-  speicherHerstellername: yup.string().required('Please enter manufacturer name'),
-  speicherTyp:yup.string().required('Please enter type'),
- 
-  speicherKapazität: yup.number().typeError('Bitte geben Sie eine Zahl ein').positive('Die Kapazität muss positiv sein').required('Bitte geben Sie die Kapazität ein'),
-  wallboxJa: yup.boolean().oneOf([true], 'Bitte wählen Sie aus').required(),
-  wallboxNein: yup.boolean().oneOf([true], 'Bitte wählen Sie aus').required()
-});
-
-
-function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema) 
-  });
+function Komponenten({isDashboardDetail, register, handleSubmit, errors, setValue}: any) {
 
   const onSubmit = (data: any) => {
-    console.log("data6666666666",data)
   };
+
+  console.log(errors);
+  
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -57,26 +40,39 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
               <Row>
                 <Col xs>
                   <Form.Group className="form-block">
-                    <Form.Select aria-label="Dropdown"  {...register('modulHersteller', { required: true })}>
+                    <Form.Select aria-label="Dropdown" onChange={e => {
+                      if (e.target.value !== "Hersteller") {
+                        setValue("module_manufacturer", e.target.value)
+                      } else {
+                        setValue("module_manufacturer", null)
+                      }
+                    }}>
                       <option>Hersteller</option>
                       <option value="India">India</option>
                       <option value="Russia">Russia</option>
                       <option value="Brazil">Brazil</option>
                     </Form.Select>
-                    {errors.modulHersteller && <div className="error-message">{errors.modulHersteller.message}</div>}
+                    {errors.module_manufacturer && <div className="error-message">{errors.module_manufacturer.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
               <Row>
                 <Col xs>
                   <Form.Group className="form-block mb-0">
-                    <Form.Select aria-label="Dropdown"  {...register('modulTyp', { required: true })}>
+                    <Form.Select aria-label="Dropdown" onChange={e => {
+                      if (e.target.value !== "Typ") {
+                        setValue("module_type", e.target.value)
+                      } else {
+                        setValue("module_type", null)
+                      }
+                    }}
+                    >
                       <option>Typ</option>
                       <option value="India">India</option>
                       <option value="Russia">Russia</option>
                       <option value="Brazil">Brazil</option>
                     </Form.Select>
-                    {errors.modulTyp && <div className="error-message">{errors.modulTyp.message}</div>}
+                    {errors.module_type && <div className="error-message">{errors.module_type.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
@@ -96,18 +92,18 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
               <Row>
                 <Col xs>
                   <Form.Group className="form-block">
-                    <Form.Control type="text" placeholder="Herstellername" {...register('wechselrichterHersteller', { required: true })} />
+                    <Form.Control type="text" placeholder="Herstellername" {...register('inverter_manufacturer', { required: true })} />
                     <Form.Label>Herstellername</Form.Label>
-                    {errors.wechselrichterHersteller && <div className="error-message">{errors.wechselrichterHersteller.message}</div>}
+                    {errors.inverter_manufacturer && <div className="error-message">{errors.inverter_manufacturer.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
               <Row>
                 <Col xs>
                   <Form.Group className="form-block mb-0">
-                    <Form.Control type="text" placeholder="Typ" {...register('wechselrichterTyp', { required: true })} />
+                    <Form.Control type="text" placeholder="Typ" {...register('inverter_type', { required: true })} />
                     <Form.Label>Typ</Form.Label>
-                    {errors.wechselrichterTyp && <div className="error-message">{errors.wechselrichterTyp.message}</div>}
+                    {errors.inverter_type && <div className="error-message">{errors.inverter_type.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
@@ -126,43 +122,43 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
           <div className="general-card">
             {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
             <Row>
-                <Form.Label>Wallbox vorhanden?</Form.Label>
+                <Form.Label>Speicher vorhanden?</Form.Label>
                 <Form.Group className="form-block d-flex">
                 <Col md="2">
                   <Form.Check
                     type={"radio"}
-                    // name={"wallbox"}
                     id={"Ja"}
                     label={"Ja"}
-                    {...register('speicherWallboxJa')}
+                    {...register('energy_storage_exists')}
                   />
                 </Col>
                 <Col md="2">
                   <Form.Check
                     type={"radio"}
-                    // name={"wallbox"}
                     id={"Nein"}
                     label={"Nein"}
-                    {...register('speicherWallboxNein')}
+                    {...register('energy_storage_exists')}
                   />
                 </Col>
                 </Form.Group>
+                {errors.energy_storage_exists && <div className="error-message">{errors.energy_storage_exists.message}</div>}
+
               </Row>
               <Row>
                 <Col xs>
                   <Form.Group className="form-block">
-                    <Form.Control type="text" placeholder="Herstellername"  {...register('speicherHerstellername', { required: true })} />
+                    <Form.Control type="text" placeholder="Herstellername"  {...register('energy_storage_manufacturer', { required: true })} />
                     <Form.Label>Herstellername</Form.Label>
-                    {errors.speicherHerstellername && <div className="error-message">{errors.speicherHerstellername.message}</div>}
+                    {errors.energy_storage_manufacturer && <div className="error-message">{errors.energy_storage_manufacturer.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
               <Row>
                 <Col xs>
                   <Form.Group className="form-block">
-                    <Form.Control type="text" placeholder="Typ" {...register('speicherTyp', { required: true })}/>
+                    <Form.Control type="text" placeholder="Typ" {...register('energy_storage_type', { required: true })}/>
                     <Form.Label>Typ</Form.Label>
-                    {errors.speicherTyp && <div className="error-message">{errors.speicherTyp.message}</div>}
+                    {errors.energy_storage_type && <div className="error-message">{errors.energy_storage_type.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
@@ -172,10 +168,10 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
                     <Form.Control
                       type="number"
                       placeholder="Kapazität in KWh"
-                      {...register('speicherKapazität', { required: true })}
+                      {...register('energy_storage_capacity_kwh', { required: true })}
                     />
                     <Form.Label>Kapazität in KWh</Form.Label>
-                    {errors.speicherKapazität && <div className="error-message">{errors.speicherKapazität.message}</div>}
+                    {errors.energy_storage_capacity_kwh && <div className="error-message">{errors.energy_storage_capacity_kwh.message}</div>}
                   </Form.Group>
                 </Col>
               </Row>
@@ -199,7 +195,7 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
                     // name={"wallbox"}
                     id={"ja"}
                     label={"Ja"}
-                    {...register('wallboxJa')}
+                    {...register('wallbox_exists', { required: true })}
                   />
                 </Col>
                 <Col md="2">
@@ -208,15 +204,15 @@ function Komponenten({isDashboardDetail}: {isDashboardDetail: boolean}) {
                     // name={"wallbox"}
                     id={"nein"}
                     label={"Nein"}
-                    {...register('wallboxNein')}
+                    {...register('wallbox_exists', { required: true })}
                   />
                 </Col>
               </Row>
+              {errors.wallbox && <div className="error-message">{errors.wallbox.message}</div>}
             {/* </Form> */}
           </div>
         </Col>
       </Row>
-      <Button type="submit"> submit </Button>
     </div>
     </Form>
   );

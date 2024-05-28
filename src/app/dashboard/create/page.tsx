@@ -21,40 +21,42 @@ import SharedModal from '@/shared/Modal';
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFacilityData } from '@/redux/slice/facilitySlice';
+import toast, { Toaster } from 'react-hot-toast';
 
 const informationSchema = yup.object().shape({
-  anlagename: yup.string().required("Anlagename is required"),
-  aliasname: yup.string().required("Alias-Name is required"),
+  name: yup.string().required("Anlagename is required"),
+  alias_name: yup.string().required("Alias-Name is required"),
   street: yup.string().required("Street is required"),
-  streetNumber: yup.string().required("Street Number is required"),
-  addressAddon: yup.string(), // Optional field, no required validation
-  zipcode: yup.string().required("Zipcode is required"),
-  location: yup.string().required("Location is required"),
+  street_number: yup.string().required("Street Number is required"),
+  additional_address_information: yup.string().required("Address Information is required"),
+  postal_code: yup.string().required("Zipcode is required"),
+  city: yup.string().required("Location is required"),
   country: yup.string().required("Country is required"),
-  einzelaccountCheckBox: yup.string(),
-  // Define validation rules for other fields
-  firmenname: yup.string().required("Firmenname is required"),
-  vorname: yup.string().required("Vorname is required"),
-  nachname: yup.string().required("Nachname is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  telefonnummer: yup.string().required("Telefonnummer is required"),
-  auftragsnummer: yup.string().required("Auftragsnummer is required"),
-  plz: yup.string().required("PLZ is required"),
-  ort: yup.string().required("Ort is required"),
-  land: yup.string().required("Land is required"),
-  firmenname1: yup.string().required("Firmenname is required"),
-  telefonnummer1: yup.string().required("Telefonnummer is required"),
-  telefonnummer2: yup.string().required("Telefonnummer is required"),
-  vorname1: yup.string().required("Vorname is required"),
-  nachname1: yup.string().required("Nachname is required"),
-  kosten: yup.string().required("Kosten is required"),
+  order_number: yup.string().required("Auftragsnummer is required"),
+  email: yup.string().email("Invalid Email").required("Email is required"),
+  power_purchase_costs: yup.string().required("Kosten is required"),
+  notes: yup.string()
 });
+
+const componentsSchema = yup.object().shape({
+  module_manufacturer: yup.string().required("This field is required"),
+  inverter_manufacturer: yup.string().required("This field is required"),
+  module_type: yup.string().required("This field is required"),
+  inverter_type: yup.string().required("This field is required"),
+  energy_storage_exists: yup.string().required("This field is required"),
+  energy_storage_manufacturer: yup.string().required("This field is required"),
+  energy_storage_type: yup.string().required("This field is required"),
+  energy_storage_capacity_kwh: yup.number().required("This field is required"),
+  wallbox_exists: yup.string().required("This field is required")
+})
 
 interface CancelModalProps {
   setProcessModal: Dispatch<SetStateAction<boolean>>
 }
 
-function CancelProcessModal({setProcessModal} : CancelModalProps) {
+function CancelProcessModal({ setProcessModal }: CancelModalProps) {
   const router = useRouter();
 
   return (
@@ -69,42 +71,50 @@ function CancelProcessModal({setProcessModal} : CancelModalProps) {
 }
 
 function DashboardCreation() {
-    const [activeStatus, setActiveStatus] = useState<number>(0);
-    const [processModal, setProcessModal] = useState<boolean>(false);
+  const [activeStatus, setActiveStatus] = useState<number>(0);
+  const [processModal, setProcessModal] = useState<boolean>(false);
+  const [dataDepositCheck, setDataDepositCheck] = useState(false)
+  const dispatch = useDispatch()
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue
+  } = useForm({
+    resolver: yupResolver(activeStatus === 0 ? informationSchema as yup.ObjectSchema<any> : componentsSchema as yup.ObjectSchema<any>),
+  });
+  
+  const list = [
+    {
+      name: "Schritt 1: Informationen",
+      srcImg: imgInfo
+    },
+    {
+      name: "Schritt 2: Komponenten",
+      srcImg: imgComponent
+    },
+    {
+      name: "Weitere Schritte",
+      srcImg: imgVerwal
+    }
+  ]
 
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(informationSchema),
-    });
+  console.log(errors);  
 
-    const list = [
-        {
-            name: "Schritt 1: Informationen",
-            srcImg: imgInfo
-        },
-        {
-            name: "Schritt 2: Komponenten",
-            srcImg: imgComponent
-        },
-        {
-            name: "Weitere Schritte",
-            srcImg: imgVerwal
-        }
-    ]
+  const generalInformationHandler = (data: any) => {
+    // setActiveStatus(activeStatus + 1);
+  }
 
-    const generalInformationHandler = (data: any) => {
-      setActiveStatus(activeStatus + 1);
+  const onSubmit = (values: any) => {
+    console.log(values, 'Submitted values');
+    if (activeStatus === 0 && !dataDepositCheck) {
+      return toast.error("Eigentümer hat der Datenhinterlegung zugestimmt")
     }
 
-    const onSubmit = (values: any) => {
-        console.log(values, 'Submitted values'); 
-    }
-
-    console.log(errors);
-    
+    dispatch(setFacilityData(values))
+    setActiveStatus(activeStatus + 1);
+  }
 
   return (
     <>
@@ -152,17 +162,26 @@ function DashboardCreation() {
           </div>
           <div className="creation-secondary">
             {activeStatus === 0 && (
-              <Informationen 
-                isDashboardDetail={true} 
-                generalInformationHandler={generalInformationHandler} 
-                register={register} 
-                handleSubmit={handleSubmit} 
-                errors={errors} 
+              <Informationen
+                isDashboardDetail={true}
+                generalInformationHandler={generalInformationHandler}
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                setDataDepositCheck={setDataDepositCheck}
+                dataDepositCheck={dataDepositCheck}
+                setValue={setValue}
               />
             )}
 
             {activeStatus === 1 && (
-              <Komponenten isDashboardDetail={true} />
+              <Komponenten 
+                isDashboardDetail={true} 
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                setValue={setValue}
+              />
             )}
 
             {activeStatus === 2 && (
@@ -170,6 +189,7 @@ function DashboardCreation() {
             )}
           </div>
         </div>
+        <Toaster />
       </section>
     </>
   );

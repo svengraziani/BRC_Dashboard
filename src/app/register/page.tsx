@@ -12,13 +12,29 @@ import { capitalizeFirstLetter } from "../../services/genericFunctions";
 import { FormEvent, Suspense, useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { apiCaller } from "@/services/apiCaller";
+import toast, { Toaster } from "react-hot-toast";
+
+type Payload = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  street: string;
+  street_number: string;
+  postal_code: string;
+  city: string;
+  country: string;
+  additional_address_information: string;
+  phone: string;
+  email_notifications_enabled: boolean;
+  business_name?: string; // Make this property optional
+};
 
 function CompleteRegistartionModal() {
   const router = useRouter();
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    router.push("/placeholderpath");
+    router.push("/login");
   }
 
   return (
@@ -49,18 +65,6 @@ export default function Register() {
 
   
   const [businessName, setBusinessName] = useState<string>("")
-
-  const [firstNameError, setFirstNameError] = useState<string>("");
-  const [lastNameError, setLastNameError] = useState<string>("");
-  const [streetError, setStreetError] = useState<string>("");
-  const [addressNumberError, setAddressNumberError] = useState<string>("");
-  const [postcodeError, setPostcodeError] = useState<string>("");
-  const [locationError, setLocationError] = useState<string>("");
-  const [countryError, setCountryError] = useState<string>("");
-  const [telephoneError, setTelephoneError] = useState<string>("");
-  const [emailError, setEmailError] = useState<string>("");
-
-  const [businessNameError, setBusinessNameError] = useState<string>("");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -120,9 +124,7 @@ export default function Register() {
 
     setErrors(errors);
 
-
-
-    let payload = {
+    let payload : Payload = {
       first_name: firstName,
       last_name: lastName,
       email: email,
@@ -140,12 +142,17 @@ export default function Register() {
     if (query === "unternehmensaccount") {
       payload.business_name = businessName;
     } else {
-      // delete payload.business_name;
+      delete payload.business_name;
     }
 
     apiCaller.post("/api/v1/user/register/", payload)
     .then(response => {
       console.log(response,'response ???????????????????');
+      setRegistrationModal(true)
+    })
+    .catch(error => {
+      console.log(error.response.data.errors,'error');
+      toast.error(error.response.data.errors[0].detail)
     })
 
     // setRegistrationModal(true);
@@ -422,6 +429,8 @@ export default function Register() {
           </Form>
         </div>
       </section>
+
+      <Toaster />
     </Suspense>
   )
 }

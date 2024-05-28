@@ -89,7 +89,7 @@ export default function Login() {
 
         localStorage.setItem("token", userData.token)
 
-        dispatch(setUserData(userData))
+        // dispatch(setUserData(userData))
 
         router.push("/loginpath")
       })

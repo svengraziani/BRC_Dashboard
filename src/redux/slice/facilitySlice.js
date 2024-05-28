@@ -1,19 +1,40 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//     isSidebarVisible: true
-// };
+const initialState = {
+    name: "",
+    alias_name: "",
+    street: "",
+    street_number: "",
+    additional_address_information: "",
+    postal_code: "",
+    city: "",
+    country: "",
+    email: "",  
+    order_number: "",
+    power_purchase_costs: "",
+    notes:"",
 
-// export const facilitySlice = createSlice({
-//   name: "facility",
-//   initialState,
-//   reducers: {
-//     setFacilityData: (state, action) => {
-//         state.isFacilityData = action.payload.facilityData
-//     }
-//   },
-// });
+    module_manufacturer: "",
+    inverter_manufacturer: "",
+    module_type: "",
+    inverter_type: "",
+    energy_storage_exists: "",
+    energy_storage_manufacturer: "",
+    energy_storage_type: "",
+    energy_storage_capacity_kwh: "",
+    wallbox_exists: ""
+};
 
-// export const { setFacilityData } = facilitySlice.actions;
+export const facilitySlice = createSlice({
+  name: "facilityInfo",
+  initialState,
+  reducers: {
+    setFacilityData: (state, action) => {
+      return { ...state, ...action.payload };
+    }
+  },
+});
 
-// export default facilitySlice.reducer;
+export const { setFacilityData } = facilitySlice.actions;
+
+export default facilitySlice.reducer;
