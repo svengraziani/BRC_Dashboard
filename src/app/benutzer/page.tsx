@@ -47,16 +47,9 @@ function TechnicianModal({ setInvitationModal, setTechnicianModal }: { setInvita
 }
 
 function DeleteUserModal({ deleteUserId, getUserData }: any) {
-  let token = localStorage.getItem("token")
-
   const deleteUserHandler = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
 
-    apiCaller.delete(`/api/v1/user/${deleteUserId}/`, config)
+    apiCaller.delete(`/api/v1/user/${deleteUserId}/`)
       .then(response => {
         console.log(response, 'delete user response');
         getUserData()
@@ -97,16 +90,10 @@ function Benutzer() {
   const [grantAdminAccess, setGrantAdminAccess] = useState<"Add" | "Remove">("Add")
   const [benutzerData, setBenutzerData] = useState()
   const columnHelper = createColumnHelper()
-  let token = localStorage.getItem("token")
 
   const getUserData = () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
 
-    apiCaller.get("/api/v1/user", config).then((response) => {
+    apiCaller.get("/api/v1/user").then((response) => {
       setBenutzerData(response?.data?.results)
     }).catch((error) => { })
   }

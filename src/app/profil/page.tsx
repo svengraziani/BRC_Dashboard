@@ -35,8 +35,6 @@ function Profil() {
     const [userDetails, setUserDetails] = useState<any>()
     const reduxStore: any = useSelector(state => state)
     
-    let token = localStorage.getItem("token")
-
     //set user data in state
     useEffect(() => {
 
@@ -63,12 +61,6 @@ function Profil() {
         setCountryData(userDetails?.country)
     }, [userDetails])
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
     const handleCountryChange = (event: any) => {
         setCountryData(event.target.value);
     };
@@ -89,7 +81,7 @@ function Profil() {
             email_notifications_enabled: true
         }
 
-        apiCaller.put(`/api/v1/user/${userDetails?.pk}/`, payload, config).then((response) => {
+        apiCaller.put(`/api/v1/user/${userDetails?.pk}/`, payload).then((response) => {
             if (response.status) {
                 toast.success("Mein Profil Erfolgreich geupdated")
             }
@@ -99,7 +91,7 @@ function Profil() {
     }
 
     const deleteHandler = () => {
-        apiCaller.delete(`/api/v1/user/${userDetails?.pk}`, config)
+        apiCaller.delete(`/api/v1/user/${userDetails?.pk}`)
         .then(response => {
             console.log(response,'delete user response');
         })
@@ -110,7 +102,7 @@ function Profil() {
 
     // User Details
     useEffect(() => {
-        apiCaller.get(`/api/v1/user/${reduxStore?.user.pk}`, config).then((response) => {
+        apiCaller.get(`/api/v1/user/${reduxStore?.user.pk}`).then((response) => {
             setUserDetails(response?.data)
         }).catch((error) => {
             console.log("error", error)

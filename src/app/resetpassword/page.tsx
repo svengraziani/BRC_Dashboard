@@ -39,17 +39,8 @@ function ResetPassword() {
   const onSubmit = (data: any) => {
     delete data.confirm_password;
 
-  let token = localStorage.getItem("token");
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-  
-
     apiCaller
-      .patch(`/api/v1/user/${userStore?.user?.pk}/update_password`, data, config)
+      .patch(`/api/v1/user/${userStore?.user?.pk}/update_password`, data)
       .then((response) => {
         console.log("response1111", response);
         if (response.data === "" && response.status === 204) {

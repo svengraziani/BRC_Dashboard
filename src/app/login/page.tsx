@@ -14,13 +14,35 @@ import { apiCaller } from "@/services/apiCaller";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUserData } from "@/redux/slice/userSlice";
+import useLocalStorage from "@/services/useLocalStorage";
+import * as yup from 'yup'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-function ForgetPasswordModal() {
+const schema = yup.object().shape({
+  email: yup.string().email("Invalid Email").required("This field is required")
+})
+
+function ForgetPasswordModal({setForgetPasswordModal}: any) {
   const router = useRouter();
 
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    router.push("/emailpath");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const submitHandler = (formData: any) => {
+    console.log(formData);
+    apiCaller.post("/api/v1/password_reset/", formData)
+    .then(response => {
+      if (response.data.status === "OK") {
+        toast.success("E-Mail erfolgreich gesendet")
+        setForgetPasswordModal(false)
+      }
+    })
   }
 
   return (
@@ -28,14 +50,22 @@ function ForgetPasswordModal() {
       <h2>Passwort vergessen?</h2>
       <p>Geben Sie die mit Ihrem Konto verknüpfte E-Mail-Adresse ein, und wir senden Ihnen einen Link zum
         Zurücksetzen Ihres Passworts.</p>
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={handleSubmit(submitHandler)}>
         <Form.Group className="form-block">
-          <Form.Control type="email" placeholder="E-mail" />
+          <Form.Control type="email" spellCheck={false} placeholder="E-mail" {...register("email")} />
           <Form.Label>E-mail</Form.Label>
+
+          {errors.email && (
+            <div className="error-message">
+              {errors.email.message}
+            </div>
+          )}
+
         </Form.Group>
         <Button variant="primary" type="submit">Fortfahren</Button>
       </Form>
       <p>Neu hier? <Link href={"/signup"}>Jetzt registrieren</Link></p>
+      <Toaster />
     </Modal.Body>
   )
 }
@@ -46,6 +76,9 @@ export default function Login() {
   const [password, setPassword] = useState<string>('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+
+  // Local Storage Environments
+  const [token, setToken] = useLocalStorage("token", null)
 
   const router = useRouter();
 
@@ -75,7 +108,7 @@ export default function Login() {
 
     apiCaller.post("/api/v1/auth/", payload)
       .then(response => {
-        let {data} = response;
+        let { data } = response;
 
         const userData = {
           token: data.token,
@@ -84,12 +117,10 @@ export default function Login() {
           lastName: data.user.last_name,
           isActive: data.user.is_active,
           isSuperUser: data.user.is_superuser,
-          pk:data.user.pk
+          pk: data.user.pk
         }
 
-        localStorage.setItem("token", userData.token)
-
-        // dispatch(setUserData(userData))
+        setToken(userData.token)
 
         router.push("/loginpath")
       })
@@ -134,7 +165,7 @@ export default function Login() {
         <Image src={sectionImg} alt="Section-Logo" />
       </div>
 
-      <SharedModal show={forgetPasswordModal} modalContent={<ForgetPasswordModal />} onHide={() => setForgetPasswordModal(false)} />
+      <SharedModal show={forgetPasswordModal} modalContent={<ForgetPasswordModal setForgetPasswordModal={setForgetPasswordModal}/>} onHide={() => setForgetPasswordModal(false)} />
 
       <div className="form-wrap login">
         <Row>

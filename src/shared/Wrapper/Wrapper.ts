@@ -10,8 +10,7 @@ interface WrapperProps {
 
 export default function Wrapper({ children }: WrapperProps) {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("token");
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const dispatch = useDispatch()
 
   const checkToken = async () => {
@@ -21,13 +20,7 @@ export default function Wrapper({ children }: WrapperProps) {
       }
 
       const payloadData = {
-        token: token
-      };
-
-      const payload = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        token: JSON.parse(token)
       };
 
       const response = await apiCaller.post("/api/v1/authverify/", payloadData);

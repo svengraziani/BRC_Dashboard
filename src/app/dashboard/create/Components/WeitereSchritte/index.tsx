@@ -12,21 +12,14 @@ import { apiCaller } from '@/services/apiCaller';
 function WeitereSchritte() {
   const router = useRouter();
   const reduxStore: any = useSelector(state => state)
-  const token = localStorage.getItem("token")
 
   const facilityCreationHandler = () => {
     let payload = JSON.parse(JSON.stringify(reduxStore.facility));
     delete payload.email;
     payload.energy_storage_exists = true;
     payload.wallbox_exists = true;
-    
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
 
-    apiCaller.post("/api/v1/facility", payload, config)
+    apiCaller.post("/api/v1/facility", payload)
     .then(response => {
       if(response.status === 200) {
         router.push("/dashboard")
