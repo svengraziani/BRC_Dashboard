@@ -275,9 +275,21 @@ h3 {
 .error-message {
   color: #DC493A;
   float: left;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .error-message a {
   text-decoration: none;
+}
+
+.form-block {
+  .form-control:disabled {
+    color: #92949C !important;
+    background-color: transparent !important;
+    cursor: not-allowed;
+  }
+
+  .disabled-label {
+    color: #92949C !important;
+  }
 }
