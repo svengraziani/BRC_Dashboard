@@ -37,7 +37,6 @@ function Profil() {
     
     //set user data in state
     useEffect(() => {
-
         setValue("firstName", userDetails?.first_name)
         setValue("lastName", userDetails?.last_name)
         setValue("emailId", userDetails?.email)
@@ -86,7 +85,6 @@ function Profil() {
                 toast.success("Mein Profil Erfolgreich geupdated")
             }
         }).catch((error) => {
-
         })
     }
 
@@ -212,42 +210,7 @@ function Profil() {
 
                             <Row>
                                 <Col md="4">
-                                    <Form.Group className='form-block'>
-                                        <Form.Control type="email" placeholder="E-Mail"
-                                            {...register('emailId', { required: true })}
-                                            // onChange={(e)=>setEmailId(e.target.value)} 
-                                            disabled
-                                            onChange={(e) => {
-                                                setEmailId(e.target.value);
-                                                // Clear error message when value is entered
-                                                errors.emailId && clearErrors('emailId');
-                                            }}
-                                            value={emailId} />
-                                        <Form.Label>E-Mail</Form.Label>
-                                        {errors.emailId && <div className="error-message">Please enter email-Id</div>}
-                                    </Form.Group>
-                                </Col>
-                                <Col md="4">
-                                    <Form.Group className='form-block'>
-                                        <Form.Control type="tel" placeholder="Telefonnummer"
-                                            {...register('phoneNumber', { required: true })}
-                                            // onChange={(e)=>setPhoneNumber(e.target.value)}
-                                            onChange={(e) => {
-                                                setPhoneNumber(e.target.value);
-                                                // Clear error message when value is entered
-                                                errors.phoneNumber && clearErrors('phoneNumber');
-                                            }}
-                                            value={phoneNumber} />
-                                        <Form.Label>Telefonnummer</Form.Label>
-                                        {errors.phoneNumber && <div className="error-message">Please enter phone number</div>}
-                                    </Form.Group>
-                                </Col>
-                                <Col md="4"></Col>
-                            </Row>
-
-                            <Row>
-                                <Col md="4">
-                                    <Form.Group className='form-block mb-0'>
+                                    <Form.Group className='form-block '>
                                         <Form.Control type="number" placeholder="Standort: PLZ"
                                             {...register('zipCode', { required: true })}
                                             // onChange={(e)=>setZipCode(e.target.value)}
@@ -262,7 +225,7 @@ function Profil() {
                                     </Form.Group>
                                 </Col>
                                 <Col md="4">
-                                    <Form.Group className='form-block mb-0'>
+                                    <Form.Group className='form-block '>
                                         <Form.Control type="text" placeholder="Standort: Ort"
                                             {...register('city', { required: true })}
                                             onChange={(e) => {
@@ -275,7 +238,7 @@ function Profil() {
                                     </Form.Group>
                                 </Col>
                                 <Col md="4">
-                                    <Form.Group className='form-block mb-0'>
+                                    <Form.Group className='form-block '>
                                         <Form.Select aria-label="Dropdown"
                                             {...register('countryData', { required: true })}
                                             onChange={handleCountryChange}>
@@ -290,6 +253,41 @@ function Profil() {
                                         {errors.countryData && <div className="error-message">Please select country</div>}
                                     </Form.Group>
                                 </Col>
+                            </Row>
+
+                            <Row>
+                                <Col md="4">
+                                    <Form.Group className='form-block mb-0'>
+                                        <Form.Control type="email" placeholder="E-Mail"
+                                            {...register('emailId', { required: true })}
+                                            // onChange={(e)=>setEmailId(e.target.value)} 
+                                            disabled
+                                            onChange={(e) => {
+                                                setEmailId(e.target.value);
+                                                // Clear error message when value is entered
+                                                errors.emailId && clearErrors('emailId');
+                                            }}
+                                            value={emailId} />
+                                        <Form.Label className='disabled-label'>E-Mail</Form.Label>
+                                        {errors.emailId && <div className="error-message">Please enter email-Id</div>}
+                                    </Form.Group>
+                                </Col>
+                                <Col md="4">
+                                    <Form.Group className='form-block mb-0'>
+                                        <Form.Control type="tel" placeholder="Telefonnummer"
+                                            {...register('phoneNumber', { required: true })}
+                                            // onChange={(e)=>setPhoneNumber(e.target.value)}
+                                            onChange={(e) => {
+                                                setPhoneNumber(e.target.value);
+                                                // Clear error message when value is entered
+                                                errors.phoneNumber && clearErrors('phoneNumber');
+                                            }}
+                                            value={phoneNumber} />
+                                        <Form.Label>Telefonnummer</Form.Label>
+                                        {errors.phoneNumber && <div className="error-message">Please enter phone number</div>}
+                                    </Form.Group>
+                                </Col>
+                                <Col md="4"></Col>
                             </Row>
                         </div>
                         <div className="button-wrap">
