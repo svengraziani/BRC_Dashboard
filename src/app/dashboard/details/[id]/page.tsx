@@ -16,40 +16,28 @@ import Informationen from '../../Components/Informationen';
 import Komponenten from '../../Components/Komponenten';
 import { useCallback, useEffect, useState } from 'react';
 import Livedaten from '../../Components/Livedaten';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import DashboardLogbuch from '../../Components/Logbuch';
 import Verwaltung from '../../Components/Verwaltung';
 import SharedModal from '@/shared/Modal';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
+import { apiCaller } from '@/services/apiCaller';
 
 const informationSchema = yup.object().shape({
-  anlagename: yup.string().required("Anlagename is required"),
-  aliasname: yup.string().required("Alias-Name is required"),
+  name: yup.string().required("Anlagename is required"),
+  alias_name: yup.string().required("Alias-Name is required"),
   street: yup.string().required("Street is required"),
-  streetNumber: yup.string().required("Street Number is required"),
-  addressAddon: yup.string(), // Optional field, no required validation
-  zipcode: yup.string().required("Zipcode is required"),
-  location: yup.string().required("Location is required"),
+  street_number: yup.string().required("Street Number is required"),
+  additional_address_information: yup.string().required("Address Information is required"),
+  postal_code: yup.string().required("Zipcode is required"),
+  city: yup.string().required("Location is required"),
   country: yup.string().required("Country is required"),
-  einzelaccountCheckBox: yup.string(),
-  // Define validation rules for other fields
-  firmenname: yup.string().required("Firmenname is required"),
-  vorname: yup.string().required("Vorname is required"),
-  nachname: yup.string().required("Nachname is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  telefonnummer: yup.string().required("Telefonnummer is required"),
-  auftragsnummer: yup.string().required("Auftragsnummer is required"),
-  plz: yup.string().required("PLZ is required"),
-  ort: yup.string().required("Ort is required"),
-  land: yup.string().required("Land is required"),
-  firmenname1: yup.string().required("Firmenname is required"),
-  telefonnummer1: yup.string().required("Telefonnummer is required"),
-  telefonnummer2: yup.string().required("Telefonnummer is required"),
-  vorname1: yup.string().required("Vorname is required"),
-  nachname1: yup.string().required("Nachname is required"),
-  kosten: yup.string().required("Kosten is required"),
+  order_number: yup.string().required("Auftragsnummer is required"),
+  email: yup.string().email("Invalid Email").required("Email is required"),
+  power_purchase_costs: yup.string().required("Kosten is required"),
+  notes: yup.string()
 });
 
 function DeleteAttachmentModal() {
@@ -69,6 +57,7 @@ function DashboardDetails() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
+  const {id} = useParams()
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -94,9 +83,31 @@ function DashboardDetails() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm({
     resolver: yupResolver(informationSchema),
   });
+
+  useEffect(()=> {
+    apiCaller.get(`/api/v1/facility/${id}`)
+    .then(response => {
+      let data = response.data;
+      console.log(data);
+      
+      setValue("name", data.name)
+      setValue("alias_name", data.alias_name)
+      setValue("street", data.street)
+      setValue("street_number", data.street_number)
+      setValue("additional_address_information", data.additional_address_information)
+      setValue("postal_code", data.postal_code)
+      setValue("city", data.city)
+      setValue("country", data.country)
+      setValue("order_number", data.order_number)
+      setValue("email", data.email)
+      setValue("power_purchase_costs", data.power_purchase_costs)
+      setValue("notes", data.notes)
+    })
+  }, [])
 
   const list = [
     {
@@ -128,7 +139,6 @@ function DashboardDetails() {
   const dashBoardHandleSaveChangesHandler = (formData:any) => {
     // Perform any actions you need here before saving changes
     setActiveStatus(activeStatus + 1);
-    console.log("Changes saved!",formData);
     dashboardGeneralInformationHandler(formData)
   };
 

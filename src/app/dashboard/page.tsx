@@ -33,8 +33,6 @@ export default function Dashboard() {
     const [dashboardData, setDashboardData]=useState()
     console.log("dashboardData1111",dashboardData)
 
-    const token =localStorage.getItem("token")
-
     const [searchKey,setSearchKey]=useState("")
 
     const [statusFilter,setStatusFilter]=useState( [
@@ -58,14 +56,7 @@ export default function Dashboard() {
     ])
 
     useEffect(()=>{
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-    
-      apiCaller.get("api/v1/facility/",config).then((response)=>{
+      apiCaller.get("api/v1/facility/").then((response)=>{
         setDashboardData(response?.data?.results)
       })  .catch((error) => {
         console.log("error",error)
@@ -160,7 +151,9 @@ export default function Dashboard() {
       header: "Aktionen"
     }),
     columnHelper.accessor('aliasName', {
-      cell: props => <Button variant='details' style={{cursor:"pointer"}} onClick={()=> router.push("/dashboard/details/xyz")}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
+      cell: (props: any) => <Button variant='details' style={{cursor:"pointer"}} onClick={()=> {
+        router.push(`/dashboard/details/${props.row.original?.pk}`)
+      }}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
       header: ""
     }),
   ]
@@ -171,14 +164,8 @@ export default function Dashboard() {
     const searchValue = e.target.value;
     setSearchKey(e.target.value)
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-
     if (searchValue.trim() !== '') {
-      apiCaller.get(`api/v1/facility/?search=${searchValue}`, config)
+      apiCaller.get(`api/v1/facility/?search=${searchValue}`)
           .then((response) => {
               setDashboardData(response?.data?.results);
           })
@@ -186,7 +173,7 @@ export default function Dashboard() {
               console.log("Error:", error);
           });
   } else {
-      apiCaller.get("api/v1/facility/", config)
+      apiCaller.get("api/v1/facility/")
           .then((response) => {
               setDashboardData(response?.data?.results);
           })
@@ -201,7 +188,7 @@ export default function Dashboard() {
         .join(',');
 
         if(selectedStatus && searchValue.trim() === ''){
-          apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
+          apiCaller.get(`api/v1/facility/?status=${selectedStatus}`)
           .then((response: any) => {
               setDashboardData(response?.results);
           })
@@ -212,34 +199,6 @@ export default function Dashboard() {
 
   }
 
-
-
-//   useEffect(()=>{
-//     const selectedStatus = statusFilter
-//     .filter((item: any) => item.isChecked)
-//     .map((item: any) => item.name)
-//     .join(',');
-
-// if(searchKey && selectedStatus ){
-//   const config = {
-//     headers: {
-//         Authorization: `Bearer ${token}`
-//     }
-// };
-
-// apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`, config)
-//     .then((response) => {
-//         console.log("Response:", response);
-
-//         setDashboardData(response?.results);
-//     })
-//     .catch((error) => {
-//         console.log("Error:", error);
-//     });
-// }
-//   },[statusFilter,searchKey])
-
-
   // FIlter
   const selectListHandler = (statusFilter: any) => {
     // Extract selectedStatus from the statusFilter
@@ -248,14 +207,8 @@ export default function Dashboard() {
         .map((item: any) => item.name)
         .join(',');
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
     if (selectedStatus && searchKey) {
-        apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`, config)
+        apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`)
             .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
@@ -264,7 +217,7 @@ export default function Dashboard() {
                 console.log("Error:", error);
             });
     } else if (selectedStatus) {
-        apiCaller.get(`api/v1/facility/?status=${selectedStatus}`, config)
+        apiCaller.get(`api/v1/facility/?status=${selectedStatus}`)
             .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
@@ -273,7 +226,7 @@ export default function Dashboard() {
                 console.log("Error:", error);
             });
     } else if (searchKey) {
-        apiCaller.get(`api/v1/facility/?search=${searchKey}`, config)
+        apiCaller.get(`api/v1/facility/?search=${searchKey}`)
             .then((response: any) => {
                 console.log("Response:", response);
                 setDashboardData(response?.results);
@@ -282,7 +235,7 @@ export default function Dashboard() {
                 console.log("Error:", error);
             });
     } else {
-        apiCaller.get(`api/v1/facility/`, config)
+        apiCaller.get(`api/v1/facility/`)
             .then((response: any) => {
                 console.log("Response:1111111", response);
                 setDashboardData(response?.data?.results);

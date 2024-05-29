@@ -6,9 +6,26 @@ import Image from 'next/image';
 import imgPlayStore from '../../../../../Assets/images/play-store.png';
 import imgAppStore from '../../../../../Assets/images/app-store.png';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { apiCaller } from '@/services/apiCaller';
 
 function WeitereSchritte() {
   const router = useRouter();
+  const reduxStore: any = useSelector(state => state)
+
+  const facilityCreationHandler = () => {
+    let payload = JSON.parse(JSON.stringify(reduxStore.facility));
+    delete payload.email;
+    payload.energy_storage_exists = true;
+    payload.wallbox_exists = true;
+
+    apiCaller.post("/api/v1/facility", payload)
+    .then(response => {
+      if(response.status === 200) {
+        router.push("/dashboard")
+      }
+    })
+  }
 
   return (
     <div className='weitere'>
@@ -30,7 +47,7 @@ function WeitereSchritte() {
       </Row>
       <Row className='justify-content-center'>
         <Col xs>
-        <Button onClick={() => router.push("/dashboard")}>Speichern und Schließen</Button>
+        <Button onClick={facilityCreationHandler}>Speichern und Schließen</Button>
         </Col>
       </Row>
     </div>

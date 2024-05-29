@@ -9,63 +9,48 @@ import { Form, Row, Button, Col } from "react-bootstrap";
 import "./ResetPassword.scss";
 import { useRouter } from "next/navigation";
 import { apiCaller } from "@/services/apiCaller";
+import * as yup from 'yup'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+
+const schema = yup.object().shape({
+  password_current: yup.string().required("Current Password is required"),
+  password_new: yup.string().required("New Password is required"),
+  confirm_password: yup.string().oneOf([yup.ref('password_new'), undefined], 'Passwords must match')
+    .required("Confirm Password is required")
+})
 
 function ResetPassword() {
   const router = useRouter();
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  let token = localStorage.getItem("token");
+  const userStore: any = useSelector(state => state)
 
-
-  const [userDetdails,setuserDetails]=useState<any>()
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  // User Details
-useEffect(()=>{
-  apiCaller.get("/api/v1/user/",config).then((response)=>{
-      console.log("response11112222",response)
-    setuserDetails(response?.data?.results?.[0])
-  })  .catch((error) => {
-    console.log("error",error)
-
-  })
-},[])
-
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-
-    let payload = {
-      password_current: password,
-      password_new: confirmPassword,
-    };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  
+  const onSubmit = (data: any) => {
+    delete data.confirm_password;
 
     apiCaller
-      .patch(`/api/v1/user/${userDetdails?.pk}/update_password/`, payload, config)
+      .patch(`/api/v1/user/${userStore?.user?.pk}/update_password`, data)
       .then((response) => {
         console.log("response1111", response);
-        // setBenutzerData(response?.data?.results)
+        if (response.data === "" && response.status === 204) {
+          setIsSuccess(true)
+          localStorage.clear()
+        }
       })
       .catch((error) => {
-        console.log("error", error);
+        toast.error(error.response.data.errors[0].detail)
       });
-
-    // @API Calls
-    setIsSuccess(true);
-  };
-
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = (e: any) => {
-    setConfirmPassword(e.target.value);
   };
 
   return (
@@ -85,7 +70,6 @@ useEffect(()=>{
       <div className="section-logo">
         <Image src={sectionImg} alt="Section-Logo" />
       </div>
-      {/* <SharedModal show={forgetPasswordModal} onHide={()=> setForgetPasswordModal(false)}/> */}
 
       {/* Code for Reset Passowrd  */}
       {!isSuccess && (
@@ -96,22 +80,35 @@ useEffect(()=>{
                 <Image src={logoImg} alt="Logo" />
               </div>
               <h2>Neues Passwort</h2>
-              <Form onSubmit={submitHandler} className="my-0">
+              <Form className="my-0" onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="form-block">
                   <Form.Control
                     type="password"
                     placeholder="Passwort"
-                    onChange={handlePasswordChange}
+                    {...register("password_current")}
+                  />
+                  <Form.Label>Aktuelles Passwort</Form.Label>
+                  {errors.password_current && <p className="error">{errors.password_current.message}</p>}
+                </Form.Group>
+
+                <Form.Group className="form-block">
+                  <Form.Control
+                    type="password"
+                    placeholder="Passwort"
+                    {...register("password_new")}
                   />
                   <Form.Label>Passwort</Form.Label>
+                  {errors.password_new && <p className="error">{errors.password_new.message}</p>}
                 </Form.Group>
                 <Form.Group className="form-block">
                   <Form.Control
                     type="password"
                     placeholder="Passwort bestätigen"
-                    onChange={handleConfirmPasswordChange}
+                    {...register("confirm_password")}
                   />
                   <Form.Label>Passwort bestätigen</Form.Label>
+                  {errors.confirm_password && <p className="error">{errors.confirm_password.message}</p>}
+
                 </Form.Group>
                 <Button variant="primary" type="submit">
                   Neues Passwort speichern
@@ -133,6 +130,8 @@ useEffect(()=>{
           <Button onClick={() => router.push("/login")}>Zum Login</Button>
         </div>
       )}
+
+      <Toaster />
     </section>
   );
 }

@@ -195,3 +195,17 @@
         display: block;
     }
 }
+
+.pagination {
+    float: right;
+}
+
+.paginated-input {
+    width: 36px;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    height: 36px;
+    margin: 0 10px;
+}

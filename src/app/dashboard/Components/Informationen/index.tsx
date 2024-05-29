@@ -18,40 +18,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const schema = yup.object().shape({
-  anlagename: yup.string().required("Anlagename is required"),
-  aliasname: yup.string().required("Alias-Name is required"),
-  street: yup.string().required("Street is required"),
-  streetNumber: yup.string().required("Street Number is required"),
-  addressAddon: yup.string(), // Optional field, no required validation
-  zipcode: yup.string().required("Zipcode is required"),
-  location: yup.string().required("Location is required"),
-  country: yup.string().required("Country is required"),
-  einzelaccountCheckBox: yup.string(),
-  // Define validation rules for other fields
-  firmenname: yup.string().required("Firmenname is required"),
-  vorname: yup.string().required("Vorname is required"),
-  nachname: yup.string().required("Nachname is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  telefonnummer: yup.string().required("Telefonnummer is required"),
-  auftragsnummer: yup.string().required("Auftragsnummer is required"),
-  plz: yup.string().required("PLZ is required"),
-  ort: yup.string().required("Ort is required"),
-  land: yup.string().required("Land is required"),
-  firmenname1: yup.string().required("Firmenname is required"),
-  telefonnummer1: yup.string().required("Telefonnummer is required"),
-  telefonnummer2: yup.string().required("Telefonnummer is required"),
-  vorname1: yup.string().required("Vorname is required"),
-  nachname1: yup.string().required("Nachname is required"),
-  kosten: yup.string().required("Kosten is required"),
-  vorname3: yup.string().required("Vorname is required"),
-  nachname2: yup.string().required("Nachname is required"),
-  email1: yup.string().email("Invalid email").required("Email is required"),
-  vorname4: yup.string().required("Vorname is required"),
-  nachname4: yup.string().required("Nachname is required"),
-  email4: yup.string().email("Invalid email").required("Email is required"),
-});
-
 function InviteAccessModal() {
   const [inviteModal, setInviteModal] = useState<boolean>(false);
 
@@ -90,7 +56,10 @@ function Informationen({
   generalInformationHandler,
   register,
   handleSubmit,
-  errors
+  errors,
+  setDataDepositCheck,
+  dataDepositCheck,
+  setValue
 }: any) {
   const [invitationModal, setInvitationModal] = useState<boolean>(false);
 
@@ -125,12 +94,12 @@ function Informationen({
                     <Form.Control
                       type="text"
                       placeholder="Anlagename"
-                      {...register("anlagename", { required: true })}
+                      {...register("name", { required: true })}
                     />
                     <Form.Label>Anlagename</Form.Label>
-                    {errors.anlagename && (
+                    {errors.name && (
                       <div className="error-message">
-                        {errors.anlagename.message}
+                        {errors.name.message}
                       </div>
                     )}
                   </Form.Group>
@@ -140,12 +109,12 @@ function Informationen({
                     <Form.Control
                       type="text"
                       placeholder="Alias-Name"
-                      {...register("aliasname", { required: true })}
+                      {...register("alias_name", { required: true })}
                     />
                     <Form.Label>Alias-Name</Form.Label>
-                    {errors.aliasname && (
+                    {errors.alias_name && (
                       <div className="error-message">
-                        {errors.aliasname.message}
+                        {errors.alias_name.message}
                       </div>
                     )}
                   </Form.Group>
@@ -173,12 +142,12 @@ function Informationen({
                       <Form.Control
                         type="number"
                         placeholder="Standort: Straße Nr."
-                        {...register("streetNumber")}
+                        {...register("street_number")}
                       />
                       <Form.Label>Standort: Straße Nr.</Form.Label>
-                      {errors.streetNumber && (
+                      {errors.street_number && (
                         <div className="error-message">
-                          {errors.streetNumber.message}
+                          {errors.street_number.message}
                         </div>
                       )}
                     </Form.Group>
@@ -188,12 +157,12 @@ function Informationen({
                       <Form.Control
                         type="text"
                         placeholder="Adresszusatz"
-                        {...register("addressAddon")}
+                        {...register("additional_address_information", { required: true })}
                       />
                       <Form.Label>Adresszusatz</Form.Label>
-                      {errors.addressAddon && (
+                      {errors.additional_address_information && (
                         <div className="error-message">
-                          {errors.addressAddon.message}
+                          {errors.additional_address_information.message}
                         </div>
                       )}
                     </Form.Group>
@@ -206,12 +175,12 @@ function Informationen({
                     <Form.Control
                       type="text"
                       placeholder="Standort: PLZ"
-                      {...register("zipcode", { required: true })}
+                      {...register("postal_code", { required: true })}
                     />
                     <Form.Label>Standort: PLZ</Form.Label>
-                    {errors.zipcode && (
+                    {errors.postal_code && (
                       <div className="error-message">
-                        {errors.zipcode.message}
+                        {errors.postal_code.message}
                       </div>
                     )}
                   </Form.Group>
@@ -221,12 +190,12 @@ function Informationen({
                     <Form.Control
                       type="text"
                       placeholder="Standort: Ort"
-                      {...register("location", { required: true })}
+                      {...register("city", { required: true })}
                     />
                     <Form.Label>Standort: Ort</Form.Label>
-                    {errors.location && (
+                    {errors.city && (
                       <div className="error-message">
-                        {errors.location.message}
+                        {errors.city.message}
                       </div>
                     )}
                   </Form.Group>
@@ -235,7 +204,13 @@ function Informationen({
               <Row>
                 <Col md="6">
                   <Form.Group className="form-block mb-0">
-                    <Form.Select aria-label="Dropdown" {...register("country",{ required: true })}>
+                    <Form.Select aria-label="Dropdown" onChange={e => {
+                      if (e.target.value !== "Standort: Land"){
+                        setValue("country", e.target.value)
+                      } else {
+                        setValue("country", null)
+                      }
+                    }}>
                       <option>Standort: Land</option>
                       <option value="India">India</option>
                       <option value="Russia">Russia</option>
@@ -260,12 +235,8 @@ function Informationen({
             </h2>
             <div className="general-card h-100">
               <div className="sub-card h-100">
-                <p>
-                  Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle
-                  Buchstaben da sind und wie sie aussehen. Manchmal benutzt man
-                  Worte wie Hamburgefonts, Rafgenduks oder Handgloves, um
-                  Schriften zu testen.
-                </p>
+                <textarea className="notice-textarea" spellCheck={false} placeholder="Schreiben Sie Ihre Notiz" {...register("notes")}>
+                </textarea>
               </div>
             </div>
           </Col>
@@ -279,14 +250,14 @@ function Informationen({
             Eigentümer Anlage
           </h2>
           <div className="general-card">
-            {!isDashboardDetail &&(
+            {!isDashboardDetail && (
             <Row>
             <Col md="4">
                 <Form.Group className="form-block">
                   <Form.Control
                     type="text"
                     placeholder="Vorname"
-                    {...register("vorname", { required: true })}
+                    // {...register("vorname", { required: true })}
                   />
                   <Form.Label>Vorname</Form.Label>
                   {errors.vorname && (
@@ -301,7 +272,7 @@ function Informationen({
                   <Form.Control
                     type="text"
                     placeholder="Nachname"
-                    {...register("nachname", { required: true })}
+                    // {...register("nachname", { required: true })}
                   />
                   <Form.Label>Nachname</Form.Label>
                   {errors.nachname && (
@@ -320,7 +291,7 @@ function Informationen({
                 <Form.Control
                   type="tel"
                   placeholder="Telefonnummer"
-                  {...register("telefonnummer", { required: true })}
+                  // {...register("telefonnummer", { required: true })}
                 />
                 <Form.Label>Telefonnummer</Form.Label>
                 {errors.telefonnummer && (
@@ -336,11 +307,13 @@ function Informationen({
                   <Form.Control
                     type="email"
                     placeholder="E-Mail"
-                    {...register("email", { required: true })}
+                    {...register("email")}
                   />
                   <Form.Label>E-Mail</Form.Label>
                   {errors.email && (
-                    <div className="error-message">{errors.email.message}</div>
+                    <div className="error-message">
+                      {errors.email.message}
+                    </div>
                   )}
                 </Form.Group>
               </Col>
@@ -349,12 +322,12 @@ function Informationen({
                   <Form.Control
                     type="number"
                     placeholder="Auftragsnummer"
-                    {...register("auftragsnummer", { required: true })}
+                    {...register("order_number", { required: true })}
                   />
                   <Form.Label>Auftragsnummer</Form.Label>
-                  {errors.auftragsnummer && (
+                  {errors.order_number && (
                     <div className="error-message">
-                      {errors.auftragsnummer.message}
+                      {errors.order_number.message}
                     </div>
                   )}
                 </Form.Group>
@@ -370,101 +343,16 @@ function Informationen({
                 type={"checkbox"}
                 id={`einzelaccount`}
                 label={"Eigentümer hat der Datenhinterlegung zugestimmt*"}
-                {...register("einzelaccountCheckBox")}
+                // {...register("einzelaccountCheckBox")}
+                checked={dataDepositCheck}
+                onChange={e => {
+                  setDataDepositCheck(e.target.checked)
+                }}
               />
             </Col>
           </Row>
         )}
-        {/* Craft business */}
-        <div className="primary-block">
-          <h2>
-            <i className="icon-head">
-              <Image src={imgTools} alt="Icon" />
-            </i>
-            Handwerksbetrieb
-          </h2>
-          <div className="general-card">
-            <Row>
-              <Col md="4">
-                <Form.Group className="form-block">
-                  <Form.Control
-                    type="text"
-                    placeholder="Firmenname"
-                    {...register("firmenname1", { required: true })}
-                  />
-                  <Form.Label>Firmenname</Form.Label>
-                  {errors.firmenname1 && (
-                    <div className="error-message">
-                      {errors.firmenname1.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md="4">
-                <Form.Group className="form-block">
-                  <Form.Control
-                    type="tel"
-                    placeholder="Telefonnummer"
-                    {...register("telefonnummer1", { required: true })}
-                  />
-                  <Form.Label>Telefonnummer</Form.Label>
-                  {errors.telefonnummer1 && (
-                    <div className="error-message">
-                      {errors.telefonnummer1.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md="4">
-                <Form.Group className="form-block">
-                  <Form.Control
-                    type="tel"
-                    placeholder="Telefonnummer"
-                    {...register("telefonnummer2", { required: true })}
-                  />
-                  <Form.Label>Telefonnummer</Form.Label>
-                  {errors.telefonnummer2 && (
-                    <div className="error-message">
-                      {errors.telefonnummer2.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="4">
-                <Form.Group className="form-block mb-0">
-                  <Form.Control
-                    type="text"
-                    placeholder="Vorname"
-                    {...register("vorname1", { required: true })}
-                  />
-                  <Form.Label>Vorname</Form.Label>
-                  {errors.vorname1 && (
-                    <div className="error-message">
-                      {errors.vorname1.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md="4">
-                <Form.Group className="form-block mb-0">
-                  <Form.Control
-                    type="text"
-                    placeholder="Nachname"
-                    {...register("nachname1", { required: true })}
-                  />
-                  <Form.Label>Nachname</Form.Label>
-                  {errors.nachname1 && (
-                    <div className="error-message">
-                      {errors.nachname1.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
-          </div>
-        </div>
+
         {/* Electricity purchase */}
         <div className="primary-block">
           <h2>
@@ -485,11 +373,11 @@ function Informationen({
                   <Form.Control
                     type="number"
                     placeholder="Kosten in €"
-                    {...register("kosten", { required: true })}
+                    {...register("power_purchase_costs", { required: true })}
                   />
                   <Form.Label>Kosten in €</Form.Label>
-                  {errors.kosten && (
-                    <div className="error-message">{errors.kosten.message}</div>
+                  {errors.power_purchase_costs && (
+                    <div className="error-message">{errors.power_purchase_costs.message}</div>
                   )}
                 </Form.Group>
               </Col>
