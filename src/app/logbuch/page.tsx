@@ -65,6 +65,7 @@ function Logbuch() {
   const [logbush, setLogbush] = useState(null)
   const [pageIndex, setPageIndex] = useState(1)
   const [search, setSearch] = useState("")
+  const [numberOfRecords, setNumberOfRecords] = useState(0)
   
   const columnHelper = createColumnHelper()
 
@@ -168,6 +169,7 @@ function Logbuch() {
     apiCaller.get(`api/v1/asset-datapoint-logs/${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}` : ``}?limit=10&offset=${pageIndex}&search=${search}`)
       .then(response => {
         setLogbush(response.data.results);
+        setNumberOfRecords(response.data.count)
       })
   }, [query, pageIndex, search])
 
@@ -191,7 +193,7 @@ function Logbuch() {
             </Col>
           </Row>
           {/* <DashboardTable /> */}
-          <ReactTable data={logbush ? logbush : []} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} />
+          <ReactTable data={logbush ? logbush : []} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
         </div>
       </section>
     </>

@@ -17,12 +17,12 @@ import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
 
-function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch }: any) {
+function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch, numberOfRecords, resetHandler }: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
   const [pageIndex, setPageIndex] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const totalPages = Math.ceil(data.length / pageSize);
+  const totalPages = Math.ceil(numberOfRecords / pageSize);
 
   const table = useReactTable({
     data,
@@ -125,7 +125,6 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
       isChecked: false
     },
   ])
-  
 
   return (
     <div className="dashboard-table">
@@ -145,12 +144,12 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
             <Row className="justify-content-end">
               <Col lg="10" className='d-flex align-items-center justify-content-end'>
                 {isStatusFilter && (
-                  <SelectBox statusFilter={statusFilter} setStatusFilter={setStatusFilter} isIconVisible={true}
-                    filterName={'Status Filter'} isSearchable={false} selectListHandler={selectListHandler} setSelectData={setSelectData} selectData={selectData} />
+                  <SelectBox statusFilter={statusFilter} queryName={"status"} setStatusFilter={setStatusFilter} isIconVisible={true}
+                    filterName={'Status Filter'} isSearchable={false} selectListHandler={selectListHandler} setSelectData={setSelectData} selectData={selectData} queryHandler={queryHandler} />
                 )}
                 <div className='d-flex align-items-center justify-content-end gap-4'>
                   <Button variant='synch'>
-                    <i className='icon-synch'>
+                    <i className='icon-synch' onClick={resetHandler}>
                       <Image src={imgSynch} alt='Icon' />
                     </i>
                   </Button>
@@ -231,36 +230,53 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
           </tbody>
         </table>
 
-        <div className="pagination">
-        <Button
-          onClick={() => {
-            if (pageIndex > 1) {
-              setPageIndex(pageIndex - 1)
-              pageChangeHandler(pageIndex - 1)
-            }
-          }}
-          style={{cursor:"pointer"}}
-        >
-          {"<"}
-        </Button>
-        <span>
-          <strong>
-            <input className="paginated-input" value={pageIndex} onChange={(e: any) => {
-              setPageIndex(e.target.value)
-              pageChangeHandler(e.target.value)
-            }} />
-          </strong>{' '}
-        </span>
-        <Button
-          onClick={() => {
-            setPageIndex(pageIndex + 1)
-            pageChangeHandler(pageIndex + 1)
-          }}
-          style={{cursor:"pointer"}}
-        >
-          {">"}
-        </Button>
-      </div>
+        {data?.length !== 0 && (
+          <>
+
+            <div style={{ float: "left" }}>
+              <p>Total number of records: {numberOfRecords} <span style={{ fontSize: "15px" }}>({totalPages} page{totalPages === 1 ? "" : "s"})</span></p>
+            </div>
+
+            <div className="pagination">
+              <Button
+                onClick={() => {
+                  if (pageIndex > 1) {
+                    setPageIndex(pageIndex - 1)
+                    pageChangeHandler(pageIndex - 1)
+                  }
+                }}
+                disabled={pageIndex === 1 ? true : false}
+                style={{ cursor: "pointer" }}
+              >
+                {"<"}
+              </Button>
+              <span>
+                <strong>
+                  <input className="paginated-input" value={pageIndex} onChange={(e: any) => {
+                    let value = e.target.value;
+                    if (value < 1) {
+                      value = 1;
+                    } else if (value > totalPages) {
+                      value = totalPages;
+                    }
+                    setPageIndex(value);
+                    pageChangeHandler(value);
+                  }} />
+                </strong>{' '}
+              </span>
+              <Button
+                onClick={() => {
+                  setPageIndex(pageIndex + 1)
+                  pageChangeHandler(pageIndex + 1)
+                }}
+                style={{ cursor: "pointer" }}
+                disabled={totalPages <= pageIndex ? true : false}
+              >
+                {">"}
+              </Button>
+            </div>
+          </>
+        )}
 
       </div>
       <div className="h-4" />
