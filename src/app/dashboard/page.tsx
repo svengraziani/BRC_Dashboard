@@ -20,102 +20,52 @@ import { apiCaller } from '@/services/apiCaller';
 // import { setFacilityData } from '@/redux/slice/facilitySlice';
 
 export default function Dashboard() {
-    // const statusFilter = ["Warnung", "Felher", "Offene Inbetriebnahme"]
-    const router = useRouter();
+  const router = useRouter();
 
-    const dispatch=useDispatch()
-    const reduxStore = useSelector(state => state)
-    // const facilityData=useSelector((state:any)=>state.facility)
-    console.log(reduxStore,'redux store');
+  const [dashboardData, setDashboardData] = useState(null)
+  const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
+  const [query, setQuery] = useState<any>([])
 
-    const [selectData,setSelectData]=useState()
-    
-    const [dashboardData, setDashboardData]=useState()
-    console.log("dashboardData1111",dashboardData)
+  const [statusFilter, setStatusFilter] = useState([
+    {
+      name: "ERROR",
+      isChecked: false
+    },
+    {
+      name: "WARNING",
+      isChecked: false
+    },
+    {
+      name: "PENDING",
+      isChecked: false
+    },
+    {
+      name: "OK",
+      isChecked: false
+    },
+  ])
 
-    const [searchKey,setSearchKey]=useState("")
+  const [search, setSearch] = useState("")
 
-    const [statusFilter,setStatusFilter]=useState( [
-      {
-        name: "ERROR",
-        isChecked: false
-      },
-      {
-        name: "WARNING",
-        isChecked: false
-      }, 
-    
-      {
-        name: "PENDING",
-        isChecked: false
-      }, 
-      {
-        name: "OK",
-        isChecked: false
-      }, 
-    ])
+  useEffect(() => {
+    let apiQuery = ''
 
-    useEffect(()=>{
-      apiCaller.get("api/v1/facility/").then((response)=>{
-        setDashboardData(response?.data?.results)
-      })  .catch((error) => {
-        console.log("error",error)
-
+    if (query) {
+      query.map((item: any, index: any) => {
+        apiQuery = apiQuery + `${item.name}=${item.searchQuery} ${index !== query.length - 1 ? "&" : ""}`
       })
-    },[])
-    
+    }
 
-    const defaultData = [
-        {
-            aliasName: "Satteldachanlage C",
-            anlagenId: "45465",
-            name: "Anlage C",
-            nameEigentumer: "Karina Drehmann",
-            handwerk: "Handwerksbetrieb Solar GmbH",
-            adsressder: "Beispielstraße 13, 53111 Bonn",
-            aktionen: ""
-        },
-        {
-            aliasName: "Satteldachanlage D",
-            anlagenId: "345345",
-            name: "Anlage D",
-            nameEigentumer: "Lukas Brunner",
-            handwerk: "Handwerksbetrieb Solar GmbH",
-            adsressder: "Beispielstraße 15, 53111 Bonn",
-            aktionen: ""
-        },
-        {
-            aliasName: "Satteldachanlage B",
-            anlagenId: "654124",
-            name: "Anlage B",
-            nameEigentumer: "Mario Meier",
-            handwerk: "Handwerksbetrieb Solar GmbH",
-            adsressder: "Beispielstraße 22, 53111 Bonn",
-            aktionen: [<i className='icon-repair' key={'test'} onClick={() => router.push("/dashboard/create")}><Image key={'img'} src={imgRepair} alt='Icon' /></i>]
-        },
-        {
-            aliasName: "Satteldachanlage A",
-            anlagenId: "458741",
-            name: "Anlage A",
-            nameEigentumer: "Max Mustermann",
-            handwerk: "Handwerksbetrieb Solar GmbH",
-            adsressder: "Beispielstraße 2, 53111 Bonn",
-            aktionen: ""
-        },
-        {
-            aliasName: "Satteldachanlage E",
-            anlagenId: "485962",
-            name: "Anlage E",
-            nameEigentumer: "Max Mustermann",
-            handwerk: "Handwerksbetrieb Solar GmbH",
-            adsressder: "Beispielstraße 205, 53111 Bonn",
-            aktionen: ""
-        },
-    ]
+    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}` : ``}`).then((response) => {
+      setDashboardData(response?.data?.results)
+      setNumberOfRecords(response.data.count)
+    })
 
-    const columnHelper = createColumnHelper()
-  
-    const columns = [
+  }, [search, query, statusFilter])
+
+  const columnHelper = createColumnHelper()
+
+  const columns = [
     columnHelper.accessor('aliasName', {
       header: "",
       cell: (props) => (<i className='icon-error'><Image src={imgError} alt='Icon' /></i>)
@@ -151,135 +101,104 @@ export default function Dashboard() {
       header: "Aktionen"
     }),
     columnHelper.accessor('aliasName', {
-      cell: (props: any) => <Button variant='details' style={{cursor:"pointer"}} onClick={()=> {
+      cell: (props: any) => <Button variant='details' style={{ cursor: "pointer" }} onClick={() => {
         router.push(`/dashboard/details/${props.row.original?.pk}`)
       }}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
       header: ""
     }),
   ]
 
+  const queryHandler = (type: any, queryData: any) => {
+    const nameList: any = [];
 
-  // search
-  const searchListHandler = (e:any) => {
-    const searchValue = e.target.value;
-    setSearchKey(e.target.value)
+    queryData.map((item: any) => {
+      if (item.isChecked === true) {
+        nameList.push(item.name)
+      }
+    })
 
-    if (searchValue.trim() !== '') {
-      apiCaller.get(`api/v1/facility/?search=${searchValue}`)
-          .then((response) => {
-              setDashboardData(response?.data?.results);
-          })
-          .catch((error) => {
-              console.log("Error:", error);
-          });
-  } else {
-      apiCaller.get("api/v1/facility/")
-          .then((response) => {
-              setDashboardData(response?.data?.results);
-          })
-          .catch((error) => {
-              console.log("Error:", error);
-          });
-  }
+    if (nameList.length === 0) {
 
-  const selectedStatus = statusFilter
-        .filter((item: any) => item.isChecked)
-        .map((item: any) => item.name)
-        .join(',');
+      const updatedQuery = query.filter((item: any) => item?.name !== type);
+      setQuery(updatedQuery);
 
-        if(selectedStatus && searchValue.trim() === ''){
-          apiCaller.get(`api/v1/facility/?status=${selectedStatus}`)
-          .then((response: any) => {
-              setDashboardData(response?.results);
-          })
-          .catch((error) => {
-              console.log("Error:", error);
-          });
-        }
-
-  }
-
-  // FIlter
-  const selectListHandler = (statusFilter: any) => {
-    // Extract selectedStatus from the statusFilter
-    const selectedStatus = statusFilter
-        .filter((item: any) => item.isChecked)
-        .map((item: any) => item.name)
-        .join(',');
-
-    if (selectedStatus && searchKey) {
-        apiCaller.get(`api/v1/facility/?search=${searchKey}&status=${selectedStatus}`)
-            .then((response: any) => {
-                console.log("Response:", response);
-                setDashboardData(response?.results);
-            })
-            .catch((error) => {
-                console.log("Error:", error);
-            });
-    } else if (selectedStatus) {
-        apiCaller.get(`api/v1/facility/?status=${selectedStatus}`)
-            .then((response: any) => {
-                console.log("Response:", response);
-                setDashboardData(response?.results);
-            })
-            .catch((error) => {
-                console.log("Error:", error);
-            });
-    } else if (searchKey) {
-        apiCaller.get(`api/v1/facility/?search=${searchKey}`)
-            .then((response: any) => {
-                console.log("Response:", response);
-                setDashboardData(response?.results);
-            })
-            .catch((error) => {
-                console.log("Error:", error);
-            });
-    } else {
-        apiCaller.get(`api/v1/facility/`)
-            .then((response: any) => {
-                console.log("Response:1111111", response);
-                setDashboardData(response?.data?.results);
-            })
-            .catch((error) => {
-                console.log("Error:", error);
-            });
+      return;
     }
-}
+
+    let datacheck = query?.find((item: any) => item?.name === type)
 
 
-    return (
-        <>
-        <Header />
-        <section className="dashboard">
-            <Sidebar />
-            <div className="dashboard-right">
-                <Row className='heading-wrap'>
-                    <Col md="6">
-                    <h2><i className="icon-head">
-                    <Image src={imgAnlagen} alt="Icon" />
-                    </i>Dashboard - Anlagen</h2>
-                    </Col>
-                    <Col md="6">
-                    <p>Letzte Aktualisierung: 24.10.2023, 15:00 Uhr</p>
-                    </Col>
-                </Row>
-                {/* Table component */}
-                <ReactTable  
-                selectListHandler={selectListHandler}
-                 data={dashboardData ? dashboardData : []} 
-                 columns={columns} isFilters={false} 
-                 isStatusFilter={true} isCreation={true} 
-                 isFiltersWrap={true} 
-                 statusFilter={statusFilter}
-                 setStatusFilter={setStatusFilter}
-                 setDashboardData={setDashboardData}
-                 setSelectData={setSelectData}
-                 selectData={selectData} 
-                 searchListHandler={searchListHandler}/>
-                {/* <DashboardTable statusFilter={statusFilter} filterName="Status Filter"/> */}
-                <div className="filter-wrap"></div>
-            </div>
-        </section>
-        </>
-    )
+    if (!datacheck) {
+      // Name Doesn't exists
+
+      const object = {
+        name: type,
+        searchQuery: nameList.join(",")
+      }
+
+      setQuery([...query, object])
+    } else {
+      const updatedQuery = query.map((item: any) => {
+        if (item.name === type) {
+          return { ...item, searchQuery: nameList.join(",") };
+        }
+        return item;
+      });
+
+      setQuery(updatedQuery);
+    }
+  }
+
+  const resetHandler = () => {
+    const updatedStatusFilter = statusFilter.map(item => ({
+      ...item,
+      isChecked: false
+    }));
+  
+    setStatusFilter(updatedStatusFilter);
+    
+    apiCaller.get(`api/v1/facility`)
+    .then((response) => {
+      setDashboardData(response?.data?.results)
+      setNumberOfRecords(response.data.count)
+    })
+  }
+
+  return (
+    <>
+      <Header />
+      <section className="dashboard">
+        <Sidebar />
+        <div className="dashboard-right">
+          <Row className='heading-wrap'>
+            <Col md="6">
+              <h2><i className="icon-head">
+                <Image src={imgAnlagen} alt="Icon" />
+              </i>Dashboard - Anlagen</h2>
+            </Col>
+            <Col md="6">
+              <p>Letzte Aktualisierung: 24.10.2023, 15:00 Uhr</p>
+            </Col>
+          </Row>
+          {/* Table component */}
+          <ReactTable
+            data={dashboardData ? dashboardData : []}
+            columns={columns} 
+            isFilters={false}
+            isStatusFilter={true}
+            isCreation={true}
+            isFiltersWrap={true}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            setDashboardData={setDashboardData}
+            setSearch={setSearch}
+            numberOfRecords={numberOfRecords}
+            queryHandler={queryHandler}
+            resetHandler={resetHandler}
+          />
+          <div className="filter-wrap"></div>
+        </div>
+      </section>
+    </>
+  )
 }
