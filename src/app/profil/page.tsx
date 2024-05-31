@@ -294,13 +294,13 @@ function Profil() {
                             <Button onClick={() => router.push("/resetpassword")}>Passwort ändern</Button>
                         </div>
                     </Form>
-                    <div className="notice">
+                    {/* <div className="notice">
                         <div className='notice-primary'>
                             <span className='notice-head'>HINWEIS</span>
                         </div>
                         <p>Feld Firmenname ist hier noch enthalten, kann aber entfernt werden falls er nicht angezeigt werden
                             soll</p>
-                    </div>
+                    </div> */}
                 </div>
             </section>
             <Toaster />
