@@ -166,8 +166,8 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
 
           <div className='general-card' style={{marginTop:"20px"}}>
             <h1>Systemstatus</h1>
-          </div>
-          
+          </div>    
+
         </Col>
       </Row>
     </div>
