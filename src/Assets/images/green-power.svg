@@ -1,0 +1,12 @@
+<svg id="gruen" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#306747"/>
+      <stop offset="0.498" stop-color="#58bc82"/>
+      <stop offset="1" stop-color="#306747"/>
+    </linearGradient>
+  </defs>
+  <rect id="bg" width="99.257" height="99.902" rx="4" transform="translate(0.743)" fill="#fff"/>
+  <rect id="gruen-2" data-name="gruen" width="99.256" height="99.262" rx="4" transform="translate(99.262 0.001) rotate(90)" fill="url(#linear-gradient)"/>
+  <path id="Vereinigungsmenge_9" data-name="Vereinigungsmenge 9" d="M80.216,100V75.417H66.628V100H65.8V75.417H50.074V100h-.832V75.417H33.523V100h-.832V75.417H19.039V100h-.832V75.417H0v-.833H18.207V50.417H0v-.833H18.207V25.417H0v-.833H18.207V0h.832V24.583H32.691V0h.832V24.583h15.72V0h.832V24.583H65.8V0h.832V24.583H80.216V0h.832V24.583H99.254v.833h-18.2V49.583H99.256v.833H81.049V74.583H99.256v.833H81.049V100Zm0-25.417V50.417H66.628V74.583Zm-14.42,0V50.417H50.074V74.583Zm-16.553,0V50.417H33.523V74.583Zm-16.551,0V50.417H19.039V74.583Zm47.525-25V25.417H66.628V49.583Zm-14.42,0V25.417H50.074V49.583Zm-16.553,0V25.417H33.523V49.583Zm-16.551,0V25.417H19.039V49.583Z" transform="translate(0.006)" fill="#f1f7fc" opacity="0.25"/>
+</svg>

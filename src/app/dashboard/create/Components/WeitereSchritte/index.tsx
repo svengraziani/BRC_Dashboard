@@ -19,7 +19,7 @@ function WeitereSchritte() {
     payload.energy_storage_exists = true;
     payload.wallbox_exists = true;
 
-    apiCaller.post("/api/v1/facility", payload)
+    apiCaller.post("/api/v1/facility/", payload)
     .then(response => {
       if(response.status === 200) {
         router.push("/dashboard")

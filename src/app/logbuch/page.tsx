@@ -15,6 +15,22 @@ import SharedModal from "@/shared/Modal";
 import { useSelector } from "react-redux";
 import { apiCaller } from "@/services/apiCaller";
 
+type Logbush = {
+  customer: number;
+  facility: number;
+  facility_alias_name: string;
+  facility_name: string;
+  gateway_device_id: string;
+  log_message: string;
+  optimizer_id: string;
+  severity: number;
+  severity_label: string;
+  status_code: number;
+  status_code_description: string;
+  string: number;
+  timestamp: string;
+}
+
 function MistakeModal() {
   const gloabalStore = useSelector((state: any) => state.global)
   const { isSidebarVisible } = gloabalStore
@@ -62,11 +78,11 @@ function MistakeModal() {
 function Logbuch() {
   const [mistakeModal, setMistakeModal] = useState<boolean>(false);
   const [query, setQuery] = useState<any>([])
-  const [logbush, setLogbush] = useState(null)
-  const [pageIndex, setPageIndex] = useState(1)
-  const [search, setSearch] = useState("")
-  const [numberOfRecords, setNumberOfRecords] = useState(0)
-  
+  const [logbush, setLogbush] = useState<Logbush[]>([])
+  const [pageIndex, setPageIndex] = useState<number>(1)
+  const [search, setSearch] = useState<string>("")
+  const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
+
   const columnHelper = createColumnHelper()
 
   const columns = [
@@ -130,7 +146,6 @@ function Logbuch() {
     }
 
     let datacheck = query?.find((item: any) => item?.name === type)
-
 
     if (!datacheck) {
       // Name Doesn't exists
