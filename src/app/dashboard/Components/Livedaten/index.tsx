@@ -8,6 +8,17 @@ import imgCheck from '../../../../Assets/images/icon-checkmark.svg';
 import imgBlue from '../../../../Assets/images/blue-power.svg';
 import imgGray from '../../../../Assets/images/gray-power.svg';
 import imgGreen from '../../../../Assets/images/green-power.svg';
+import imgPortal from '../../../../Assets/images/icon-portal.svg';
+import imgNetwork from '../../../../Assets/images/icon-network.svg';
+import imgAnlagen from '../../../../Assets/images/icon-anlagen-s.svg';
+import imgGreenDot from '../../../../Assets/images/icon-green.svg';
+import imgYellowDot from '../../../../Assets/images/icon-yellow.svg';
+import imgCalender from '../../../../Assets/images/icn_ertraege.svg';
+import imgHeute from '../../../../Assets/images/icn_ertraege_heute.svg';
+import imgMonat from '../../../../Assets/images/icn_ertraege_monat.svg';
+import imgWoche from '../../../../Assets/images/icn_ertraege_woche.svg';
+import imgRedDot from '../../../../Assets/images/icon-red.svg';
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
@@ -155,7 +166,7 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
             <div className='general-wrap'>
               <div className='kw-outer'>
                 <div className='kw-inner'>
-                  <span className='number'>{facilityPowerWatt.toFixed(2)}</span>
+                  <span className='number'>{facilityPowerWatt?.toFixed(2)}</span>
                   <span className='kilo-watt'>kW</span>
                 </div>
               </div>
@@ -164,9 +175,75 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
             </div>
           </div>
 
-          <div className='general-card' style={{marginTop:"20px"}}>
-            <h1>Systemstatus</h1>
-          </div>    
+          <div className='general-card system-status' style={{marginTop:"20px"}}>
+            {/* <h1>Systemstatus</h1> */}
+            <div className="general-wrap">
+            <span className="performance d-flex align-items-center gap-2">Systemstatus <i className="icon-tooltip"><IoInformationCircleOutline /></i></span>
+            <div className="boxes-wrap">
+              <div className="boxes-block">
+                <Image src={imgGreenDot} className='dots' alt='Dot' />
+                <div className="box-img">
+                <Image src={imgAnlagen} alt='Icon' />
+                </div>
+                <span className="box-head">Anlage</span>
+              </div>
+              <div className="boxes-block">
+              <Image src={imgYellowDot} className='dots' alt='Dot' />
+                <div className="box-img">
+                <Image src={imgNetwork} alt='Icon' />
+                </div>
+                <span className="box-head">Netzwerk</span>
+              </div>
+              <div className="boxes-block">
+              <Image src={imgRedDot} className='dots' alt='Dot' />
+                <div className="box-img">
+                <Image src={imgPortal} alt='Icon' />
+                </div>
+                <span className="box-head">Portal</span>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div className="general-card yeilds" style={{marginTop:"20px"}}>
+            <div className="general-wrap">
+              <span className="performance">Erträge in kWh</span>
+              <div className="boxes-wrap">
+                <div className="boxes-block">
+                  <div className="box-img">
+                    <Image src={imgHeute} alt='Icon' />
+                  </div>
+                  <span className="box-head">Heute</span>
+                  <span className="yeild-definr">437</span>
+                </div>
+                <div className="boxes-block">
+                  <div className="box-img">
+                    <Image src={imgWoche} alt='Icon' />
+                  </div>
+                  <span className="box-head">Woche</span>
+                  <span className="yeild-definr">3.059</span>
+                </div>
+                <div className="boxes-block">
+                  <div className="box-img">
+                    <Image src={imgMonat} alt='Icon' />
+                  </div>
+                  <span className="box-head">Monat</span>
+                  <span className="yeild-definr">13.110</span>
+                </div>
+                <div className="boxes-block">
+                  <div className="box-img">
+                    <Image src={imgCalender} alt='Icon' />
+                  </div>
+                  <span className="box-head">Jahr</span>
+                  <span className="yeild-definr">59.05</span>
+                </div>
+              </div>
+              <div className="buttons-wrap">
+                <Button variant='dot'></Button>
+                <Button variant='dot-white'></Button>
+              </div>
+            </div>
+          </div>
 
         </Col>
       </Row>

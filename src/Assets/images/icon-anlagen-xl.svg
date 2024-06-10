@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66.536" height="25.733" viewBox="0 0 66.536 25.733">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rechteck_412" data-name="Rechteck 412" width="66.536" height="25.733" fill="#233977"/>
+    </clipPath>
+  </defs>
+  <g id="icn_anlage_Leistung" transform="translate(-5.435 22.783)">
+    <path id="Pfad_212" data-name="Pfad 212" d="M69.323.5V11.424H94.5L89.195.5Z" transform="translate(-29.88 -23.042)" fill="#233977"/>
+    <g id="Gruppe_373" data-name="Gruppe 373" transform="translate(5.435 -22.783)">
+      <g id="Gruppe_372" data-name="Gruppe 372" clip-path="url(#clip-path)">
+        <path id="Pfad_213" data-name="Pfad 213" d="M69.323,11.424H94.5L89.193.5H69.323Z" transform="translate(-35.312 -0.256)" fill="#233977"/>
+      </g>
+    </g>
+    <path id="Pfad_214" data-name="Pfad 214" d="M21.871.5l-5.73,10.924H40.76V.5Z" transform="translate(-2.787 -23.042)" fill="#233977"/>
+    <g id="Gruppe_375" data-name="Gruppe 375" transform="translate(5.435 -22.783)">
+      <g id="Gruppe_374" data-name="Gruppe 374" clip-path="url(#clip-path)">
+        <path id="Pfad_215" data-name="Pfad 215" d="M40.766,11.424V.5H21.877L16.135,11.424Z" transform="translate(-8.227 -0.256)" fill="#233977"/>
+      </g>
+    </g>
+    <path id="Pfad_216" data-name="Pfad 216" d="M7.574,26,.823,38.867H32.958V26Z" transform="translate(5.016 -36.16)" fill="#233977"/>
+    <g id="Gruppe_377" data-name="Gruppe 377" transform="translate(5.435 -22.783)">
+      <g id="Gruppe_376" data-name="Gruppe 376" clip-path="url(#clip-path)">
+        <path id="Pfad_217" data-name="Pfad 217" d="M32.958,26H7.574L.823,38.867H32.958Z" transform="translate(-0.419 -13.377)" fill="#233977"/>
+      </g>
+    </g>
+    <path id="Pfad_218" data-name="Pfad 218" d="M69.323,26V38.867h32.135L95.207,26Z" transform="translate(-29.88 -36.16)" fill="#233977"/>
+  </g>
+</svg>

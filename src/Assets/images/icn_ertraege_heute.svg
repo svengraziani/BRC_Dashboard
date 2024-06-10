@@ -1,0 +1,12 @@
+<svg id="icn_ertraege_heute_32x25" xmlns="http://www.w3.org/2000/svg" width="32" height="25" viewBox="0 0 32 25">
+  <rect id="Rechteck_2266" data-name="Rechteck 2266" width="32" height="25" fill="none"/>
+  <g id="Gruppe_387" data-name="Gruppe 387" transform="translate(7.892 3.49)">
+    <g id="Icon_feather-calendar" data-name="Icon feather-calendar">
+      <path id="Pfad_234" data-name="Pfad 234" d="M6.3,5.25H18.915A2.555,2.555,0,0,1,21.467,7.8V20.415a2.555,2.555,0,0,1-2.552,2.552H6.3a2.555,2.555,0,0,1-2.55-2.552V7.8A2.555,2.555,0,0,1,6.3,5.25ZM18.915,21.467a1.053,1.053,0,0,0,1.052-1.052V7.8a1.053,1.053,0,0,0-1.052-1.05H6.3A1.053,1.053,0,0,0,5.25,7.8V20.415A1.053,1.053,0,0,0,6.3,21.467Z" transform="translate(-4.5 -4.198)" fill="#1174c7"/>
+      <path id="Pfad_235" data-name="Pfad 235" d="M24,7.354a.75.75,0,0,1-.75-.75V3a.75.75,0,0,1,1.5,0V6.6a.75.75,0,0,1-.75.754Z" transform="translate(-12.288 -3)" fill="#1174c7"/>
+      <path id="Pfad_236" data-name="Pfad 236" d="M12,7.354a.75.75,0,0,1-.75-.75V3a.75.75,0,0,1,1.5,0V6.6a.75.75,0,0,1-.75.754Z" transform="translate(-7.495 -3)" fill="#1174c7"/>
+      <path id="Pfad_237" data-name="Pfad 237" d="M20.717,15.75H4.5a.75.75,0,0,1,0-1.5H20.717a.75.75,0,0,1,0,1.5Z" transform="translate(-4.5 -7.793)" fill="#1174c7"/>
+    </g>
+    <path id="Pfad_238" data-name="Pfad 238" d="M-13134.9-12714.8h-1.5v-3.968a.75.75,0,0,1,.75-.75h3.959v1.5h-3.209Z" transform="translate(13147.745 12732.269)" fill="#1174c7"/>
+  </g>
+</svg>

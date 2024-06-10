@@ -1,0 +1,33 @@
+<svg id="icn_ertraege_jahr_32x25" xmlns="http://www.w3.org/2000/svg" width="32" height="25" viewBox="0 0 32 25">
+  <rect id="Rechteck_2267" data-name="Rechteck 2267" width="32" height="25" fill="none"/>
+  <g id="Gruppe_391" data-name="Gruppe 391" transform="translate(16656.367 11609.75)">
+    <g id="Gruppe_385" data-name="Gruppe 385" transform="translate(-16645.42 -11601.201)">
+      <g id="Gruppe_384" data-name="Gruppe 384">
+        <path id="Pfad_233" data-name="Pfad 233" d="M13.368,15.92H.75a.75.75,0,1,1,0-1.5H13.368a1.054,1.054,0,0,0,1.053-1.053V.75a.75.75,0,0,1,1.5,0V13.368a2.555,2.555,0,0,1-2.553,2.552Z" transform="translate(-0.75 -0.75)" fill="#1174c7"/>
+      </g>
+    </g>
+    <g id="Gruppe_390" data-name="Gruppe 390">
+      <g id="Icon_feather-calendar" data-name="Icon feather-calendar" transform="translate(-16649.734 -11607)">
+        <path id="Pfad_225" data-name="Pfad 225" d="M6.3,5.25H18.915A2.555,2.555,0,0,1,21.467,7.8V20.415a2.555,2.555,0,0,1-2.552,2.552H6.3a2.555,2.555,0,0,1-2.55-2.552V7.8A2.555,2.555,0,0,1,6.3,5.25ZM18.915,21.467a1.053,1.053,0,0,0,1.052-1.052V7.8a1.053,1.053,0,0,0-1.052-1.05H6.3A1.053,1.053,0,0,0,5.25,7.8V20.415A1.053,1.053,0,0,0,6.3,21.467Z" transform="translate(-4.5 -4.198)" fill="#1174c7"/>
+        <path id="Pfad_226" data-name="Pfad 226" d="M24,7.354a.75.75,0,0,1-.75-.75V3a.75.75,0,0,1,1.5,0V6.6a.75.75,0,0,1-.75.754Z" transform="translate(-12.288 -3)" fill="#1174c7"/>
+        <path id="Pfad_227" data-name="Pfad 227" d="M12,7.354a.75.75,0,0,1-.75-.75V3a.75.75,0,0,1,1.5,0V6.6a.75.75,0,0,1-.75.754Z" transform="translate(-7.495 -3)" fill="#1174c7"/>
+        <path id="Pfad_228" data-name="Pfad 228" d="M20.717,15.75H4.5a.75.75,0,0,1,0-1.5H20.717a.75.75,0,0,1,0,1.5Z" transform="translate(-4.5 -7.793)" fill="#1174c7"/>
+      </g>
+      <circle id="Ellipse_120" data-name="Ellipse 120" cx="0.949" cy="0.949" r="0.949" transform="translate(-16648.268 -11598.462)" fill="#0074c7"/>
+      <circle id="Ellipse_121" data-name="Ellipse 121" cx="0.949" cy="0.949" r="0.949" transform="translate(-16645.42 -11598.462)" fill="#0074c7"/>
+      <circle id="Ellipse_122" data-name="Ellipse 122" cx="0.949" cy="0.949" r="0.949" transform="translate(-16642.574 -11598.462)" fill="#0074c7"/>
+      <circle id="Ellipse_123" data-name="Ellipse 123" cx="0.949" cy="0.949" r="0.949" transform="translate(-16639.729 -11598.462)" fill="#0074c7"/>
+      <circle id="Ellipse_124" data-name="Ellipse 124" cx="0.949" cy="0.949" r="0.949" transform="translate(-16636.883 -11598.462)" fill="#0074c7"/>
+      <circle id="Ellipse_125" data-name="Ellipse 125" cx="0.949" cy="0.949" r="0.949" transform="translate(-16648.268 -11592.462)" fill="#0074c7"/>
+      <circle id="Ellipse_126" data-name="Ellipse 126" cx="0.949" cy="0.949" r="0.949" transform="translate(-16645.42 -11592.462)" fill="#0074c7"/>
+      <circle id="Ellipse_127" data-name="Ellipse 127" cx="0.949" cy="0.949" r="0.949" transform="translate(-16642.574 -11592.462)" fill="#0074c7"/>
+      <circle id="Ellipse_128" data-name="Ellipse 128" cx="0.949" cy="0.949" r="0.949" transform="translate(-16639.729 -11592.462)" fill="#0074c7"/>
+      <circle id="Ellipse_129" data-name="Ellipse 129" cx="0.949" cy="0.949" r="0.949" transform="translate(-16636.883 -11592.462)" fill="#0074c7"/>
+      <circle id="Ellipse_130" data-name="Ellipse 130" cx="0.949" cy="0.949" r="0.949" transform="translate(-16648.266 -11595.462)" fill="#0074c7"/>
+      <circle id="Ellipse_131" data-name="Ellipse 131" cx="0.949" cy="0.949" r="0.949" transform="translate(-16645.418 -11595.462)" fill="#0074c7"/>
+      <circle id="Ellipse_132" data-name="Ellipse 132" cx="0.949" cy="0.949" r="0.949" transform="translate(-16642.574 -11595.462)" fill="#0074c7"/>
+      <circle id="Ellipse_133" data-name="Ellipse 133" cx="0.949" cy="0.949" r="0.949" transform="translate(-16639.727 -11595.462)" fill="#0074c7"/>
+      <circle id="Ellipse_134" data-name="Ellipse 134" cx="0.949" cy="0.949" r="0.949" transform="translate(-16636.883 -11595.462)" fill="#0074c7"/>
+    </g>
+  </g>
+</svg>
