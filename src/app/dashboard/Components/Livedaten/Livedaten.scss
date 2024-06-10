@@ -241,4 +241,58 @@
             border-radius: 10.5px;
         }
     }
+
+    .range-slider {
+        padding: 10px 0px;
+        display: flex;
+        align-items: center;
+
+        .btn {
+            padding: 0;
+            background-color: transparent;
+            color: $dark-blue;
+            border: none;
+        }
+
+        .form-range {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-range::-webkit-slider-runnable-track {
+            background-color: $dark-blue;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background-color: $dark-blue;
+        }
+
+        .form-range:focus {
+            outline: none;
+        }
+
+        .form-range::before, .form-range::after {
+            position: absolute;
+            top: 2rem;
+            color: #333;
+            font-size: 14px;
+            line-height: 1;
+            padding: 3px 5px;
+            background-color: rgba(0,0,0,.1);
+            border-radius: 4px;
+        }
+
+        .form-range::before {
+            content: attr(data-min);
+            left: 0;
+        }
+
+        .form-range::after {
+            content: attr(data-max);
+            right: 0;
+        }
+    }
 }

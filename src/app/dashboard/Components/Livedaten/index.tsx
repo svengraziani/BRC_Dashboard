@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 import './Livedaten.scss';
 import Image from 'next/image';
 import circleImg from '../../../../Assets/images/icon-circle.svg';
@@ -157,6 +157,13 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
                 <div className='gray'></div>
                 <p style={{ marginLeft: "10px" }}>Inaktiv</p>
               </div>
+            </div>
+
+            <div className="range-slider">
+              <div id="tooltip"></div>
+              <Button>-</Button>
+              <Form.Range id="range" min="0" max="100" />
+              <Button>+</Button>
             </div>
 
           </div>
