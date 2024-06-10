@@ -19,12 +19,53 @@ import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
 // import { setFacilityData } from '@/redux/slice/facilitySlice';
 
+type QueryType = {
+  name: string;
+  searchQuery: string;
+}
+
+type Country = {
+  code: string;
+  name: string;
+}
+
+type DashboardType = {
+  additional_address_information: string;
+  alias_name: string;
+  city: string;
+  country: Country,
+  craft_business: string | null | number;
+  energy_storage_capacity_kwh: string | null | number;
+  energy_storage_exists: boolean;
+  energy_storage_manufacturer: string;
+  energy_storage_type: string;
+  gateways: number[];
+  inverter_manufacturer: string;
+  inverter_type: string;
+  module_manufacturer: string;
+  module_type: string;
+  name: string;
+  notes: string;
+  order_number: string;
+  pk: number;
+  postal_code: string;
+  power_purchase_costs: number | string | null;
+  roles: number[];
+  status: string;
+  street: string;
+  street_number: string;
+  url: string;
+  wallbox_exists: boolean;
+}
+
 export default function Dashboard() {
   const router = useRouter();
 
-  const [dashboardData, setDashboardData] = useState(null)
+  const [dashboardData, setDashboardData] = useState<DashboardType[]>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
-  const [query, setQuery] = useState<any>([])
+  const [query, setQuery] = useState<QueryType[]>([])
+
+  console.log(dashboardData, 'query');
 
   const [statusFilter, setStatusFilter] = useState([
     {
@@ -154,14 +195,14 @@ export default function Dashboard() {
       ...item,
       isChecked: false
     }));
-  
+
     setStatusFilter(updatedStatusFilter);
-    
+
     apiCaller.get(`api/v1/facility`)
-    .then((response) => {
-      setDashboardData(response?.data?.results)
-      setNumberOfRecords(response.data.count)
-    })
+      .then((response) => {
+        setDashboardData(response?.data?.results)
+        setNumberOfRecords(response.data.count)
+      })
   }
 
   return (
@@ -183,7 +224,7 @@ export default function Dashboard() {
           {/* Table component */}
           <ReactTable
             data={dashboardData ? dashboardData : []}
-            columns={columns} 
+            columns={columns}
             isFilters={false}
             isStatusFilter={true}
             isCreation={true}

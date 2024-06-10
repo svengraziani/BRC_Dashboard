@@ -54,16 +54,17 @@ function DeleteAttachmentModal() {
 function DashboardDetails() {
   const [activeStatus, setActiveStatus] = useState<string>("Informationen")
   const [attachmentModal, setAttachmentModal] = useState<boolean>(false);
+  const [facilityPowerWatt, setFacilityPowerWatt] = useState<number>(0)
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
-  const {id} = useParams()
+  const { id } = useParams()
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString())
       params.set(name, value)
- 
+
       return params.toString()
     },
     [searchParams]
@@ -74,7 +75,7 @@ function DashboardDetails() {
     router.push(pathname + '?' + createQueryString('status', statusName))
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     let searchParam = searchParams.get("status")
     setActiveStatus(searchParam ? searchParam : "Informationen")
   }, [searchParams])
@@ -83,37 +84,38 @@ function DashboardDetails() {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
+    watch
   } = useForm({
     resolver: yupResolver(informationSchema),
   });
 
-  useEffect(()=> {
+  useEffect(() => {
     apiCaller.get(`/api/v1/facility/${id}`)
-    .then(response => {
-      let data = response.data;
-      console.log(data);
-      
-      setValue("name", data.name)
-      setValue("alias_name", data.alias_name)
-      setValue("street", data.street)
-      setValue("street_number", data.street_number)
-      setValue("additional_address_information", data.additional_address_information)
-      setValue("postal_code", data.postal_code)
-      setValue("city", data.city)
-      setValue("country", data.country)
-      setValue("order_number", data.order_number)
-      setValue("email", data.email)
-      setValue("power_purchase_costs", data.power_purchase_costs)
-      setValue("notes", data.notes)
-    })
+      .then(response => {
+        let data = response.data;
+        setFacilityPowerWatt(data.power_watt)
+
+        setValue("name", data.name)
+        setValue("alias_name", data.alias_name)
+        setValue("street", data.street)
+        setValue("street_number", data.street_number)
+        setValue("additional_address_information", data.additional_address_information)
+        setValue("postal_code", data.postal_code)
+        setValue("city", data.city)
+        setValue("country", data.country)
+        setValue("order_number", data.order_number)
+        setValue("email", data.email)
+        setValue("power_purchase_costs", data.power_purchase_costs)
+        setValue("notes", data.notes)
+      })
   }, [])
 
   const list = [
     {
       name: "Informationen",
       imgSrc: imgInfo
-    }, 
+    },
     {
       name: "Livedaten",
       imgSrc: imgLive
@@ -132,77 +134,75 @@ function DashboardDetails() {
     }
   ]
 
-  const dashboardGeneralInformationHandler=(data:any)=>{
-    console.log("data7777777777",data)
-  }
+  const dashboardGeneralInformationHandler = (data: any) => { }
 
-  const dashBoardHandleSaveChangesHandler = (formData:any) => {
+  const dashBoardHandleSaveChangesHandler = (formData: any) => {
     // Perform any actions you need here before saving changes
     setActiveStatus(activeStatus + 1);
     dashboardGeneralInformationHandler(formData)
   };
 
 
-    return (
-      <section className="user-details">
+  return (
+    <section className="user-details">
 
-        <SharedModal show={attachmentModal} modalContent={<DeleteAttachmentModal />} onHide={() => setAttachmentModal(false)} />
+      <SharedModal show={attachmentModal} modalContent={<DeleteAttachmentModal />} onHide={() => setAttachmentModal(false)} />
 
-        <Header />
-        <div className="details-wrap">
-          <Sidebar />
-          <div className="details-block">
-            <div className="details-primary">
-              <Row className="heading-wrap align-items-center">
-                <Col md="6" className="d-flex align-items-center head-primary">
-                  <Col md="1">
-                    <Button variant="prev" onClick={() => router.push("/dashboard")}>
-                      <i className="icon-back">
-                        <Image src={imgPrev} alt="Icon" />
-                      </i>
-                    </Button>
-                  </Col>
-                  <Col md="5" className="heading">
-                    <h2>
-                      <i className="icon-head">
-                        <Image src={imgAnlagen} alt="Icon" />
-                      </i>
-                      Anlage A - Anlagendetails
-                    </h2>
-                  </Col>
-                </Col>
-                <Col md="6" className="d-flex justify-content-end gap-4">
-                  <Button 
-                  onClick={dashBoardHandleSaveChangesHandler}
-                  // onClick={ dashboardGeneralInformationHandler}
-                  >Änderungen Speichern</Button>
-                  <Button onClick={() => setAttachmentModal(true)}>Anlage löschen</Button>
-                </Col>
-              </Row>
-              <ul className="d-md-flex">
-                {
-                  list.map((item, index) => (
-                <li key={index}>
-                  <Button variant="tab" onClick={()=> activateStatus(item.name)} className={`${item.name === activeStatus ? "active" : ""}`}>
-                    <i>
-                      <Image src={item.imgSrc} alt="Icon" />
+      <Header />
+      <div className="details-wrap">
+        <Sidebar />
+        <div className="details-block">
+          <div className="details-primary">
+            <Row className="heading-wrap align-items-center">
+              <Col md="6" className="d-flex align-items-center head-primary">
+                <Col md="1">
+                  <Button variant="prev" onClick={() => router.push("/dashboard")}>
+                    <i className="icon-back">
+                      <Image src={imgPrev} alt="Icon" />
                     </i>
-                    {
-                      item.name
-                    }
                   </Button>
-                </li>
-                  ))
-                }
-              </ul>
-            </div>
-            <div className='details-secondary'>
+                </Col>
+                <Col md="5" className="heading">
+                  <h2>
+                    <i className="icon-head">
+                      <Image src={imgAnlagen} alt="Icon" />
+                    </i>
+                    Anlage A - Anlagendetails
+                  </h2>
+                </Col>
+              </Col>
+              <Col md="6" className="d-flex justify-content-end gap-4">
+                <Button
+                  onClick={dashBoardHandleSaveChangesHandler}
+                // onClick={ dashboardGeneralInformationHandler}
+                >Änderungen Speichern</Button>
+                <Button onClick={() => setAttachmentModal(true)}>Anlage löschen</Button>
+              </Col>
+            </Row>
+            <ul className="d-md-flex">
+              {
+                list.map((item, index) => (
+                  <li key={index}>
+                    <Button variant="tab" onClick={() => activateStatus(item.name)} className={`${item.name === activeStatus ? "active" : ""}`}>
+                      <i>
+                        <Image src={item.imgSrc} alt="Icon" />
+                      </i>
+                      {
+                        item.name
+                      }
+                    </Button>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div className='details-secondary'>
             {activeStatus === "Komponenten" && (
               <Komponenten isDashboardDetail={false} />
             )}
 
             {activeStatus === "Livedaten" && (
-              <Livedaten />
+              <Livedaten facilityPowerWatt={facilityPowerWatt}/>
             )}
 
             {activeStatus === "Logbuch" && (
@@ -210,22 +210,22 @@ function DashboardDetails() {
             )}
 
             {activeStatus === "Informationen" && (
-            <Informationen isDashboardDetail={false}
-             generalInformationHandler={dashboardGeneralInformationHandler} 
-             register={register}
-             handleSubmit={handleSubmit}
-             errors={errors}
-            />
+              <Informationen isDashboardDetail={false}
+                generalInformationHandler={dashboardGeneralInformationHandler}
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+              />
             )}
 
             {activeStatus === "Verwaltung" && (
               <Verwaltung />
             )}
-            </div>
           </div>
         </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
 }
 
 export default DashboardDetails

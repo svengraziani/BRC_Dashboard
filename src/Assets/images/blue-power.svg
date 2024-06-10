@@ -1,0 +1,12 @@
+<svg id="blau" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#233977"/>
+      <stop offset="0.498" stop-color="#0074c7"/>
+      <stop offset="1" stop-color="#233977"/>
+    </linearGradient>
+  </defs>
+  <rect id="bg" width="99.354" height="100" rx="4" fill="#fff"/>
+  <rect id="Rechteck_289" data-name="Rechteck 289" width="99.354" height="100" rx="4" transform="translate(100) rotate(90)" fill="url(#linear-gradient)"/>
+  <path id="Vereinigungsmenge_8" data-name="Vereinigungsmenge 8" d="M80.817,99.354V74.929H67.129V99.354h-.838V74.929H50.449V99.354h-.838V74.929H33.774V99.354h-.838V74.929H19.181V99.354h-.838V74.929H0V74.1H18.343V50.091H0v-.828H18.343V25.252H0v-.828H18.343V0h.838V24.424H32.936V0h.838V24.424H49.611V0h.838V24.424H66.291V0h.838V24.424H80.817V0h.838V24.424H100v.828H81.657V49.263H100v.828H81.657V74.1H100v.828H81.657V99.354Zm0-25.252V50.091H67.129V74.1Zm-14.528,0V50.091H50.449V74.1Zm-16.68,0V50.091H33.774V74.1Zm-16.675,0V50.091H19.181V74.1ZM80.815,49.263V25.252H67.129V49.263Zm-14.528,0V25.252H50.449V49.263Zm-16.68,0V25.252H33.774V49.263Zm-16.675,0V25.252H19.181V49.263Z" fill="#f1f7fc" opacity="0.25"/>
+</svg>

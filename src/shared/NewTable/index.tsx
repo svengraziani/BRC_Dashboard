@@ -172,10 +172,10 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
         <Row className='filter-secondary align-items-center'>
           <Col lg="6" className="d-flex align-items-center">
             <Col lg="5" className="px-2">
-              <SelectBox filterName={"Alias-Name Filter"} queryName={"aliasName"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={aliasNameFilter} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
+              <SelectBox filterName={"Alias-Name Filter"} queryName={"facility_alias_name"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={aliasNameFilter} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
             </Col>
             <Col lg="3" className="px-2">
-              <SelectBox filterName={"Anlagen-ID"} queryName={"anlagenId"} isIconVisible={false} statusFilter={anlagenIdFilter} setStatusFilter={setAnlagenIdFilter} queryHandler={queryHandler} isSearchable={true} />
+              <SelectBox filterName={"Anlagen-ID"} queryName={"facility"} isIconVisible={false} statusFilter={anlagenIdFilter} setStatusFilter={setAnlagenIdFilter} queryHandler={queryHandler} isSearchable={true} />
             </Col>
             <Col lg="4" className="px-2">
               <SelectBox filterName={"Gateway Filter"} queryName={"gateway"} isIconVisible={false} statusFilter={gatewayFilter} queryHandler={queryHandler} setStatusFilter={setGatewayFilter} isSearchable={true} />
@@ -186,10 +186,10 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
               <SelectBox filterName={"String"} queryName={"string"} isIconVisible={false} statusFilter={string} queryHandler={queryHandler} setStatusFilter={setString} isSearchable={false} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Optimierer"} queryName={"optimierer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
+              <SelectBox filterName={"Optimierer"} queryName={"optimizer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
             </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Status Filter"} queryName={"status"} isIconVisible={false} statusFilter={statusFilter1} queryHandler={queryHandler} setStatusFilter={setStatusFilter1} isSearchable={false} />
+              <SelectBox filterName={"Status Filter"} queryName={"severity"} isIconVisible={false} statusFilter={statusFilter1} queryHandler={queryHandler} setStatusFilter={setStatusFilter1} isSearchable={false} />
             </Col>
           </Col>
         </Row>

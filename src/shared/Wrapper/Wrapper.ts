@@ -26,8 +26,6 @@ export default function Wrapper({ children }: WrapperProps) {
       const response = await apiCaller.post("/api/v1/authverify/", payloadData);
    
       if (response.data) {
-        console.log(response.data.user,'logged in user data ????');
-
         const userData = {
           token: response.data.token,
           email: response.data.user.email,
@@ -39,16 +37,9 @@ export default function Wrapper({ children }: WrapperProps) {
         }
 
         dispatch(setUserData(userData))
-
-        
-        // setLoading(false); 
       } else {
         throw new Error("Token verification failed");
       }
-
-
-      // setLoading(false); 
-
     } catch (error) {
       console.error("Token validation error:", error);
       router.push("/login"); 
