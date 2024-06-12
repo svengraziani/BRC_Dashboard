@@ -64,6 +64,14 @@
         flex-direction: column;
     }
 
+    .kw-img {
+        width: 67px;
+
+        img {
+            width: 100%;
+        }
+    }
+
     .number {
         @include fontsize(39px);
         font-weight: 700;
@@ -258,16 +266,26 @@
             width: 80%;
             margin: 0 auto;
             position: relative;
-            -webkit-appearance: none;
             appearance: none;
+            -webkit-appearance: none;
         }
 
         .form-range::-webkit-slider-runnable-track {
             background-color: $dark-blue;
+            appearance: none;
+            -webkit-appearance: none;
+            height: 4px;
+            border-radius: 0;
         }
 
         .form-range::-webkit-slider-thumb {
-            background-color: $dark-blue;
+            background-color: $white;
+            appearance: none;
+            -webkit-appearance: none;
+            height: 30px;
+            width: 30px;
+            box-shadow: 0px 0px 10px rgb(173 182 189 / 80%);
+            margin-top: -15px;
         }
 
         .form-range:focus {
@@ -276,23 +294,21 @@
 
         .form-range::before, .form-range::after {
             position: absolute;
-            top: 2rem;
-            color: #333;
-            font-size: 14px;
-            line-height: 1;
-            padding: 3px 5px;
-            background-color: rgba(0,0,0,.1);
-            border-radius: 4px;
+            top: 10px;
+            color: $dark-blue;
+            line-height: 0;
+            @include fontsize(40px);
+            font-weight: bold;
         }
 
         .form-range::before {
-            content: attr(data-min);
-            left: 0;
+            content: "-";
+            left: -31px;
         }
 
         .form-range::after {
-            content: attr(data-max);
-            right: 0;
+            content: "+";
+            right: -39px;
         }
     }
 }

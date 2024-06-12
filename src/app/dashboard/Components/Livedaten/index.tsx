@@ -11,6 +11,7 @@ import imgGreen from '../../../../Assets/images/green-power.svg';
 import imgPortal from '../../../../Assets/images/icon-portal.svg';
 import imgNetwork from '../../../../Assets/images/icon-network.svg';
 import imgAnlagen from '../../../../Assets/images/icon-anlagen-s.svg';
+import imgAnlagenXL from '../../../../Assets/images/icon-anlagen-xl.svg';
 import imgGreenDot from '../../../../Assets/images/icon-green.svg';
 import imgYellowDot from '../../../../Assets/images/icon-yellow.svg';
 import imgCalender from '../../../../Assets/images/icn_ertraege.svg';
@@ -161,9 +162,7 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
 
             <div className="range-slider">
               <div id="tooltip"></div>
-              <Button>-</Button>
-              <Form.Range id="range" min="0" max="100" />
-              <Button>+</Button>
+              <Form.Range step={50} id="range" min="0" max="100" />
             </div>
 
           </div>
@@ -173,6 +172,9 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
             <div className='general-wrap'>
               <div className='kw-outer'>
                 <div className='kw-inner'>
+                  <div className="kw-img">
+                    <Image src={imgAnlagenXL} alt='Anlagen Icon' />
+                  </div>
                   <span className='number'>{facilityPowerWatt?.toFixed(2)}</span>
                   <span className='kilo-watt'>kW</span>
                 </div>
