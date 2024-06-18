@@ -17,6 +17,7 @@ import { MdNavigateNext } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
+import LoadingIndicator from '@/shared/Loader';
 // import { setFacilityData } from '@/redux/slice/facilitySlice';
 
 type QueryType = {
@@ -239,6 +240,8 @@ export default function Dashboard() {
           />
           <div className="filter-wrap"></div>
         </div>
+
+        <LoadingIndicator />
       </section>
     </>
   )

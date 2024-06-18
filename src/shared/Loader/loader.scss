@@ -1,0 +1,27 @@
+.loader {
+    img {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        margin: auto;
+        background-color: transparent;
+    }
+
+    &::before {
+        content: '';
+        display: inline-block;
+        min-height: 100vh;
+        min-width: 100vw;
+        background-color: rgba(94, 86, 86, 0.3);
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 998;
+        margin: auto;
+    }
+}
