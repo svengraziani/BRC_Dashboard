@@ -16,6 +16,33 @@ import { FaQuestion } from "react-icons/fa6";
 import { apiCaller } from "@/services/apiCaller";
 import toast, { Toaster } from "react-hot-toast";
 
+type BenutzerType = {
+  additional_address_information: string;
+  city: string;
+  country: {
+    code: string;
+    name: string;
+  };
+  craft_business_roles: {
+    craft_business: number;
+    pk: number;
+    type: string;
+    url: string;
+    user: number;
+  }[];
+  craft_businesses: number[];
+  email: string;
+  email_notifications_enabled: boolean;
+  first_name: string;
+  full_name: string;
+  last_name: string;
+  phone: string;
+  pk: number;
+  postal_code: string;
+  street: string;
+  street_number: string;
+  url: string;
+}
 
 function InvitationSentModal({ setInvitationModal }: { setInvitationModal: Dispatch<SetStateAction<boolean>> }) {
   return (
@@ -88,12 +115,16 @@ function Benutzer() {
   const [selectedDeleteUser, setSelectedDeleteUser] = useState<number | null>(null)
 
   const [grantAdminAccess, setGrantAdminAccess] = useState<"Add" | "Remove">("Add")
-  const [benutzerData, setBenutzerData] = useState()
+  const [benutzerData, setBenutzerData] = useState<BenutzerType>([])
+  const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
+
   const columnHelper = createColumnHelper()
 
   const getUserData = () => {
 
     apiCaller.get("/api/v1/user").then((response) => {
+      setNumberOfRecords(response.data.count);
+      
       setBenutzerData(response?.data?.results)
     }).catch((error) => { })
   }
@@ -174,7 +205,7 @@ function Benutzer() {
             </Col>
           </Row>
           {/* Table Component */}
-          <ReactTable data={benutzerData ? benutzerData : []} columns={columns} isFiltersWrap={false} />
+          <ReactTable data={benutzerData ? benutzerData : []} columns={columns} isFiltersWrap={false} numberOfRecords={numberOfRecords} />
         </div>
       </section>
 

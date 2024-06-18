@@ -17,6 +17,7 @@ import SharedModal from "@/shared/Modal";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { COUNTRY_LIST } from "@/services/constants";
 
 function InviteAccessModal() {
   const [inviteModal, setInviteModal] = useState<boolean>(false);
@@ -207,14 +208,15 @@ function Informationen({
                     <Form.Select aria-label="Dropdown" onChange={e => {
                       if (e.target.value !== "Standort: Land"){
                         setValue("country", e.target.value)
+                        console.log(e.target.value, 'e.target.value');
                       } else {
                         setValue("country", null)
                       }
                     }}>
                       <option>Standort: Land</option>
-                      <option value="India">India</option>
-                      <option value="Russia">Russia</option>
-                      <option value="Brazil">Brazil</option>
+                      {COUNTRY_LIST.map(item => (
+                        <option value={item.code}>{item.name}</option>
+                      ))}
                     </Form.Select>
                     {errors.country && (
                       <div className="error-message">

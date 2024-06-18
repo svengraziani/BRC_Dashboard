@@ -52,13 +52,20 @@ type Power = {
   voltage_volt: number;
 }
 
-function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
+type FacilityStatus = {
+  facility: string;
+  network: string;
+  portal: string;
+}
+
+function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
   const { id } = useParams();
   const [gateway, setGateway] = useState<Gateway[]>([])
   const [activeGateway, setActiveGateway] = useState<number>(1)
   const [activeString, setActiveString] = useState<number>(0)
   const [powerList, setPowerList] = useState<Power[]>([])
-  const [facilityStatus, setFacilityStatus] = useState({})
+  const [facilityStatus, setFacilityStatus] = useState<FacilityStatus>({ facility: "", network: "", portal: "" })
+  const [ertrage, setErtrage] = useState<0 | 1>(0)
 
   const gatewayHandler = (rule: "forward" | "backward") => {
     switch (rule) {
@@ -85,9 +92,9 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
       })
 
     apiCaller.get(`/api/v1/facility/${id}/status/`)
-    .then(response => {
-      setFacilityStatus(response.data)
-    })
+      .then(response => {
+        setFacilityStatus(response.data)
+      })
   }, [])
 
   useEffect(() => {
@@ -107,7 +114,7 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
     <div className='livedaten'>
       <Row>
         <Col md="8">
-          <h2><i className='icon-arrow' onClick={() => gatewayHandler("backward")}><GrPrevious /></i>Gateway {activeGateway} ({activeGateway} von {gateway.length})<i className='icon-arrow' onClick={() => gatewayHandler("forward")}><GrNext /></i></h2>
+          <h2><i className='icon-arrow' style={{cursor:"pointer"}} onClick={() => gatewayHandler("backward")}><GrPrevious /></i>Gateway {activeGateway} ({activeGateway} von {gateway.length})<i className='icon-arrow' style={{cursor:"pointer"}} onClick={() => gatewayHandler("forward")}><GrNext /></i></h2>
           <div className='gateway-card'>
             <ul className='d-md-flex justify-content-center'>
               {gateway[activeGateway - 1]?.strings.map((item, index) => (
@@ -184,37 +191,45 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
             </div>
           </div>
 
-          <div className='general-card system-status' style={{marginTop:"20px"}}>
+          <div className='general-card system-status' style={{ marginTop: "20px" }}>
             {/* <h1>Systemstatus</h1> */}
             <div className="general-wrap">
-            <span className="performance d-flex align-items-center gap-2">Systemstatus <i className="icon-tooltip"><IoInformationCircleOutline /></i></span>
-            <div className="boxes-wrap">
-              <div className="boxes-block">
-                <Image src={imgGreenDot} className='dots' alt='Dot' />
-                <div className="box-img">
-                <Image src={imgAnlagen} alt='Icon' />
+              <span className="performance d-flex align-items-center gap-2">Systemstatus <i className="icon-tooltip"><IoInformationCircleOutline /></i></span>
+              <div className="boxes-wrap">
+                <div className="boxes-block">
+                  {facilityStatus.facility === "OK" && (
+                    <Image src={imgGreenDot} className='dots' alt='Dot' />
+                  )}
+                  <div className="box-img">
+                    <Image src={imgAnlagen} alt='Icon' />
+                  </div>
+                  <span className="box-head">Anlage</span>
                 </div>
-                <span className="box-head">Anlage</span>
-              </div>
-              <div className="boxes-block">
-              <Image src={imgYellowDot} className='dots' alt='Dot' />
-                <div className="box-img">
-                <Image src={imgNetwork} alt='Icon' />
+                <div className="boxes-block">
+                  {facilityStatus.network === "OK" && (
+                    <Image src={imgGreenDot} className='dots' alt='Dot' />
+                  )}
+                  {/* <Image src={imgYellowDot} className='dots' alt='Dot' /> */}
+                  <div className="box-img">
+                    <Image src={imgNetwork} alt='Icon' />
+                  </div>
+                  <span className="box-head">Netzwerk</span>
                 </div>
-                <span className="box-head">Netzwerk</span>
-              </div>
-              <div className="boxes-block">
-              <Image src={imgRedDot} className='dots' alt='Dot' />
-                <div className="box-img">
-                <Image src={imgPortal} alt='Icon' />
+                <div className="boxes-block">
+                  {facilityStatus.portal === "OK" && (
+                    <Image src={imgGreenDot} className='dots' alt='Dot' />
+                  )}
+                  {/* <Image src={imgRedDot} className='dots' alt='Dot' /> */}
+                  <div className="box-img">
+                    <Image src={imgPortal} alt='Icon' />
+                  </div>
+                  <span className="box-head">Portal</span>
                 </div>
-                <span className="box-head">Portal</span>
               </div>
-            </div>
             </div>
           </div>
 
-          <div className="general-card yeilds" style={{marginTop:"20px"}}>
+          <div className="general-card yeilds" style={{ marginTop: "20px" }}>
             <div className="general-wrap">
               <span className="performance">Erträge in kWh</span>
               <div className="boxes-wrap">
@@ -248,8 +263,8 @@ function Livedaten({facilityPowerWatt}: {facilityPowerWatt: number}) {
                 </div>
               </div>
               <div className="buttons-wrap">
-                <Button variant='dot'></Button>
-                <Button variant='dot-white'></Button>
+                <Button variant={ertrage === 0 ? 'dot' : "dot-white"} onClick={()=> setErtrage(0)}></Button>
+                <Button variant={ertrage === 0 ? "dot-white" : "dot"} onClick={()=> setErtrage(1)}></Button>
               </div>
             </div>
           </div>

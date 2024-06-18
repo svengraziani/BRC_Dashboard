@@ -85,7 +85,6 @@ function DashboardDetails() {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch
   } = useForm({
     resolver: yupResolver(informationSchema),
   });
@@ -187,9 +186,7 @@ function DashboardDetails() {
                       <i>
                         <Image src={item.imgSrc} alt="Icon" />
                       </i>
-                      {
-                        item.name
-                      }
+                      {item.name}
                     </Button>
                   </li>
                 ))
@@ -198,11 +195,11 @@ function DashboardDetails() {
           </div>
           <div className='details-secondary'>
             {activeStatus === "Komponenten" && (
-              <Komponenten isDashboardDetail={false} />
+              <Komponenten isDashboardDetail={false} register={register} />
             )}
 
             {activeStatus === "Livedaten" && (
-              <Livedaten facilityPowerWatt={facilityPowerWatt}/>
+              <Livedaten facilityPowerWatt={facilityPowerWatt} />
             )}
 
             {activeStatus === "Logbuch" && (

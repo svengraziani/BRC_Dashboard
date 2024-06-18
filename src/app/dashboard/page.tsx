@@ -5,24 +5,21 @@ import '../../css/sass/global.scss';
 import Sidebar from "../../shared/Sidebar";
 import Image from "next/image";
 import imgAnlagen from '../../Assets/images/icon-anlagen.svg';
-import imgRepair from '../../Assets/images/icon-inbetrieb.svg';
 import imgError from '../../Assets/images/icon-error.svg';
-import imgWarning from '../../Assets/images/icon-warning.svg';
 import Header from '../../shared/Header';
 import { Button, Col, Row } from 'react-bootstrap';
 import ReactTable from '../../shared/NewTable';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { MdNavigateNext } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
 import LoadingIndicator from '@/shared/Loader';
 // import { setFacilityData } from '@/redux/slice/facilitySlice';
 
-type QueryType = {
+type QueryParams = {
   name: string;
-  searchQuery: string;
+  isChecked: boolean;
 }
 
 type Country = {
@@ -64,9 +61,7 @@ export default function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState<DashboardType[]>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
-  const [query, setQuery] = useState<QueryType[]>([])
-
-  console.log(dashboardData, 'query');
+  const [query, setQuery] = useState<string[]>([])
 
   const [statusFilter, setStatusFilter] = useState([
     {
@@ -93,12 +88,12 @@ export default function Dashboard() {
     let apiQuery = ''
 
     if (query) {
-      query.map((item: any, index: any) => {
-        apiQuery = apiQuery + `${item.name}=${item.searchQuery} ${index !== query.length - 1 ? "&" : ""}`
+      query.map(item => {
+        apiQuery = `${apiQuery}&status=${item}`
       })
     }
 
-    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}` : ``}`).then((response) => {
+    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery}`).then((response) => {
       setDashboardData(response?.data?.results)
       setNumberOfRecords(response.data.count)
     })
@@ -150,45 +145,23 @@ export default function Dashboard() {
     }),
   ]
 
-  const queryHandler = (type: any, queryData: any) => {
-    const nameList: any = [];
+  const queryHandler = (type: string, queryData: QueryParams[]) => {
+    console.log(queryData, 'queryData');
 
-    queryData.map((item: any) => {
-      if (item.isChecked === true) {
-        nameList.push(item.name)
-      }
-    })
+    let filterByCheck = queryData.filter(item => item.isChecked === true)
 
-    if (nameList.length === 0) {
-
-      const updatedQuery = query.filter((item: any) => item?.name !== type);
-      setQuery(updatedQuery);
-
+    if (filterByCheck.length <= 0) {
+      setQuery([])
       return;
     }
 
-    let datacheck = query?.find((item: any) => item?.name === type)
+    const nameList: string[] = []
 
+    filterByCheck.map((item: any) => {
+      nameList.push(item.name)
+    })
 
-    if (!datacheck) {
-      // Name Doesn't exists
-
-      const object = {
-        name: type,
-        searchQuery: nameList.join(",")
-      }
-
-      setQuery([...query, object])
-    } else {
-      const updatedQuery = query.map((item: any) => {
-        if (item.name === type) {
-          return { ...item, searchQuery: nameList.join(",") };
-        }
-        return item;
-      });
-
-      setQuery(updatedQuery);
-    }
+    setQuery(nameList)
   }
 
   const resetHandler = () => {

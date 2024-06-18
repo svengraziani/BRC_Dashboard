@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-function Komponenten({isDashboardDetail, register, handleSubmit, errors, setValue}: any) {
+function Komponenten({isDashboardDetail, register, handleSubmit, errors={}, setValue}: any) {
 
   const onSubmit = (data: any) => {
   };
@@ -20,7 +20,7 @@ function Komponenten({isDashboardDetail, register, handleSubmit, errors, setValu
   
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit && handleSubmit(onSubmit)}>
     <div className="komponenten">
 
       {isDashboardDetail && (

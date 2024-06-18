@@ -16,14 +16,19 @@ function WeitereSchritte() {
   const facilityCreationHandler = () => {
     let payload = JSON.parse(JSON.stringify(reduxStore.facility));
     delete payload.email;
+
+    let country = {
+      code: payload.country
+    }
+
+    payload.country = country;
+
     payload.energy_storage_exists = true;
     payload.wallbox_exists = true;
 
     apiCaller.post("/api/v1/facility/", payload)
-    .then(response => {
-      if(response.status === 200) {
+    .then(response => {      
         router.push("/dashboard")
-      }
     })
   }
 
