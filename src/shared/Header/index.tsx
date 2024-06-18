@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./header.scss";
 import Image from "next/image";
 import logoImg from "../../Assets/images/header-logo.svg";
@@ -10,12 +10,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSidebarVisibility } from "../../redux/slice/globalSlice";
 import { useRouter } from "next/navigation";
 
+type CraftInfo = {
+  craft_business_name: string;
+  craft_business_type: string;
+}
+
 function Header() {
-  const dispatch = useDispatch()
-  const gloabalStore = useSelector((state: any) => state.global)
-  const {isSidebarVisible} = gloabalStore
+  const dispatch = useDispatch();
+  const gloabalStore = useSelector((state: any) => state.global);
+  const {isSidebarVisible} = gloabalStore;
   const router = useRouter();
+  const [craftBusiness, setCraftBusiness] = useState<CraftInfo>()
   
+  useEffect(()=> {
+    let craftBusinessInfoString = localStorage.getItem("craft_business")
+    let craftBusinessInfo = craftBusinessInfoString ? JSON.parse(craftBusinessInfoString) : null;
+
+    setCraftBusiness(craftBusinessInfo)
+  }, [])
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -40,7 +52,7 @@ function Header() {
     <div className="user-wrap">
       <div className="user-block d-flex align-items-center">
         <i className="icon-user"><Image src={userImg} alt="User" /></i>
-        <span className="user">Handwerksbetrieb Solar GmbH (Admin Handwerksbetrieb)</span>
+        <span className="user">{craftBusiness?.craft_business_name} ({craftBusiness?.craft_business_type})</span>
       </div>
       <Button className="logout" onClick={logoutHandler}><i className="icon-logout">
         <Image src={logoutImg} alt="Logout" />

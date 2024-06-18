@@ -13,6 +13,7 @@ import { apiCaller } from '@/services/apiCaller';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import { COUNTRY_LIST } from '@/services/constants';
 
 
 function Profil() {
@@ -34,7 +35,7 @@ function Profil() {
 
     const [userDetails, setUserDetails] = useState<any>()
     const reduxStore: any = useSelector(state => state)
-    
+
     //set user data in state
     useEffect(() => {
         setValue("firstName", userDetails?.first_name)
@@ -57,12 +58,8 @@ function Profil() {
         setAddressData(userDetails?.additional_address_information)
         setZipCode(userDetails?.postal_code)
         setLocationData(userDetails?.city)
-        setCountryData(userDetails?.country)
+        setCountryData(userDetails?.country?.code)
     }, [userDetails])
-
-    const handleCountryChange = (event: any) => {
-        setCountryData(event.target.value);
-    };
 
     // Save data
     const saveChangesHandler = (data: any) => {
@@ -74,7 +71,9 @@ function Profil() {
             street_number: streetNumber,
             postal_code: zipCode,
             city: locationData,
-            country: countryData,
+            country: {
+                code: countryData
+            },
             additional_address_information: addressData,
             phone: phoneNumber,
             email_notifications_enabled: true
@@ -90,12 +89,12 @@ function Profil() {
 
     const deleteHandler = () => {
         apiCaller.delete(`/api/v1/user/${userDetails?.pk}`)
-        .then(response => {
-            console.log(response,'delete user response');
-        })
-        .catch(error => {
-            toast.error(error.response.data.errors[0].detail)
-        })
+            .then(response => {
+                console.log(response, 'delete user response');
+            })
+            .catch(error => {
+                toast.error(error.response.data.errors[0].detail)
+            })
     }
 
     // User Details
@@ -239,16 +238,18 @@ function Profil() {
                                 </Col>
                                 <Col md="4">
                                     <Form.Group className='form-block '>
-                                        <Form.Select aria-label="Dropdown"
-                                            {...register('countryData', { required: true })}
-                                            onChange={handleCountryChange}>
+                                        <Form.Select aria-label="Dropdown" value={countryData} onChange={e => {
+                                            if (e.target.value !== "Standort: Land") {
+                                                setValue("countryData", e.target.value)
+                                                setCountryData(e.target.value)
+                                            } else {
+                                                setValue("countryData", null)
+                                            }
+                                        }}>
                                             <option>Standort: Land</option>
-                                            {/* <option value="India">India</option>
-                    <option value="Russia">Russia</option>
-                    <option value="Brazil">Brazil</option> */}
-                                            <option value="India" selected={countryData === "India"}>India</option>
-                                            <option value="Russia" selected={countryData === "Russia"}>Russia</option>
-                                            <option value="Brazil" selected={countryData === "Brazil"}>Brazil</option>
+                                            {COUNTRY_LIST.map((item, key) => (
+                                                <option key={key} value={item.code}>{item.name}</option>
+                                            ))}
                                         </Form.Select>
                                         {errors.countryData && <div className="error-message">Please select country</div>}
                                     </Form.Group>

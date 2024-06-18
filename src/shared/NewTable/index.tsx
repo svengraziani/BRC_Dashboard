@@ -17,7 +17,7 @@ import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
 
-function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch, numberOfRecords, resetHandler }: any) {
+function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch, numberOfRecords, resetHandler, logbuchStatusChange, logbushFilterData }: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
   const [pageIndex, setPageIndex] = useState<number>(1);
@@ -29,7 +29,7 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
     columns,
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
-    getSortedRowModel: getSortedRowModel(), //client-side sorting
+    getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     state: {
       sorting,
@@ -51,21 +51,6 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
     },
     {
       name: "Satteldachanlage E",
-      isChecked: false
-    },
-  ])
-
-  const [anlagenIdFilter, setAnlagenIdFilter] = useState([
-    {
-      name: '1',
-      isChecked: false
-    },
-    {
-      name: '2',
-      isChecked: false
-    },
-    {
-      name: '3',
       isChecked: false
     },
   ])
@@ -171,27 +156,33 @@ function ReactTable({ statusFilter, setStatusFilter, selectListHandler, setSelec
       {isFilters && (
         <Row className='filter-secondary align-items-center'>
           <Col lg="6" className="d-flex align-items-center">
-            <Col lg="5" className="px-2">
-              <SelectBox filterName={"Alias-Name Filter"} queryName={"facility_alias_name"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={aliasNameFilter} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
-            </Col>
-            <Col lg="3" className="px-2">
-              <SelectBox filterName={"Anlagen-ID"} queryName={"facility"} isIconVisible={false} statusFilter={anlagenIdFilter} setStatusFilter={setAnlagenIdFilter} queryHandler={queryHandler} isSearchable={true} />
-            </Col>
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Gateway Filter"} queryName={"gateway"} isIconVisible={false} statusFilter={gatewayFilter} queryHandler={queryHandler} setStatusFilter={setGatewayFilter} isSearchable={true} />
+              <SelectBox filterName={"Alias-Name Filter"} logbuchStatusChange={logbuchStatusChange} isLogbushFilter={true} queryName={"facility_alias_name"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={logbushFilterData.aliasName} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
+            </Col>
+
+            <Col lg="4" className="px-2">
+              <SelectBox filterName={"Gateway Filter"} isLogbushFilter={true} logbuchStatusChange={logbuchStatusChange} queryName={"gateway"} isIconVisible={false} statusFilter={logbushFilterData.gateway} queryHandler={queryHandler} setStatusFilter={setGatewayFilter} isSearchable={true} />
+            </Col>
+
+            <Col lg="4" className="px-2">
+              <SelectBox filterName={"String"} filterDisabledObject={filterDisabledObject} isLogbushFilter={true} logbuchStatusChange={logbuchStatusChange} queryName={"string"} isIconVisible={false} statusFilter={string} queryHandler={queryHandler} setStatusFilter={setString} isSearchable={false} />
             </Col>
           </Col>
+
           <Col lg="6" className="d-flex align-items-center">
+
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"String"} queryName={"string"} isIconVisible={false} statusFilter={string} queryHandler={queryHandler} setStatusFilter={setString} isSearchable={false} />
+              <SelectBox filterName={"Optimierer"} isLogbushFilter={true} logbuchStatusChange={logbuchStatusChange} queryName={"optimizer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
             </Col>
+
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Optimierer"} queryName={"optimizer"} isIconVisible={false} statusFilter={optimierer} queryHandler={queryHandler} setStatusFilter={setOptimierer} isSearchable={false} />
+              <SelectBox filterName={"Status Filter"} isLogbushFilter={false} queryName={"severity"} isIconVisible={false} statusFilter={statusFilter1} queryHandler={queryHandler} setStatusFilter={setStatusFilter1} isSearchable={false} />
             </Col>
+
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Status Filter"} queryName={"severity"} isIconVisible={false} statusFilter={statusFilter1} queryHandler={queryHandler} setStatusFilter={setStatusFilter1} isSearchable={false} />
             </Col>
           </Col>
+
         </Row>
       )}
       <div className="table-wrap">

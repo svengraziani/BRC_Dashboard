@@ -35,7 +35,7 @@ const informationSchema = yup.object().shape({
   city: yup.string().required("Location is required"),
   country: yup.string().required("Country is required"),
   order_number: yup.string().required("Auftragsnummer is required"),
-  email: yup.string().email("Invalid Email").required("Email is required"),
+  // email: yup.string().email("Invalid Email").required("Email is required"),
   power_purchase_costs: yup.string().required("Kosten is required"),
   notes: yup.string()
 });

@@ -23,9 +23,7 @@ const schema = yup.object().shape({
   email: yup.string().email("Invalid Email").required("This field is required")
 })
 
-function ForgetPasswordModal({setForgetPasswordModal}: any) {
-  const router = useRouter();
-
+function ForgetPasswordModal({ setForgetPasswordModal }: any) {
   const {
     register,
     handleSubmit,
@@ -37,12 +35,12 @@ function ForgetPasswordModal({setForgetPasswordModal}: any) {
   const submitHandler = (formData: any) => {
     console.log(formData);
     apiCaller.post("/api/v1/password_reset/", formData)
-    .then(response => {
-      if (response.data.status === "OK") {
-        toast.success("E-Mail erfolgreich gesendet")
-        setForgetPasswordModal(false)
-      }
-    })
+      .then(response => {
+        if (response.data.status === "OK") {
+          toast.success("E-Mail erfolgreich gesendet")
+          setForgetPasswordModal(false)
+        }
+      })
   }
 
   return (
@@ -79,14 +77,12 @@ export default function Login() {
 
   // Local Storage Environments
   const [token, setToken] = useLocalStorage("token", null)
+  const [craftBusiness, setCraftBusiness] = useLocalStorage("craft_business", null)
 
   const router = useRouter();
 
-  const dispatch = useDispatch()
-
   const submitHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
 
     if (!email) {
       setEmailError('Please enter your email');
@@ -100,7 +96,6 @@ export default function Login() {
       setPasswordError('');
     }
 
-
     const payload = {
       email,
       password
@@ -110,19 +105,30 @@ export default function Login() {
       .then(response => {
         let { data } = response;
 
-        const userData = {
-          token: data.token,
-          email: data.user.email,
-          firstName: data.user.first_name,
-          lastName: data.user.last_name,
-          isActive: data.user.is_active,
-          isSuperUser: data.user.is_superuser,
-          pk: data.user.pk
-        }
+        setToken(data.token)
 
-        setToken(userData.token)
+        return data.user.pk;
+      })
+      .then(async (userId) => {
+        let response = await apiCaller.get(`/api/v1/user/${userId}/`)
+        return response.data;
+      })
+      .then(userInfo => {
+        let { craft_business_roles } = userInfo;
+        apiCaller.get('/api/v1/craft-business/')
+          .then(craftBusiness => {
+            let craftBusinessType = craftBusiness.data.results.filter((item: any) => {
+              return item.pk === craft_business_roles[0].craft_business;
+            })
 
-        router.push("/loginpath")
+            const craftInfo: any = {
+              craft_business_name: craftBusinessType[0].name,
+              craft_business_type: craft_business_roles[0].type
+            }
+
+            setCraftBusiness(craftInfo)
+            router.push("/loginpath")
+          })
       })
       .catch(error => {
         error.response.data.errors.map((item: any) => {
@@ -165,7 +171,7 @@ export default function Login() {
         <Image src={sectionImg} alt="Section-Logo" />
       </div>
 
-      <SharedModal show={forgetPasswordModal} modalContent={<ForgetPasswordModal setForgetPasswordModal={setForgetPasswordModal}/>} onHide={() => setForgetPasswordModal(false)} />
+      <SharedModal show={forgetPasswordModal} modalContent={<ForgetPasswordModal setForgetPasswordModal={setForgetPasswordModal} />} onHide={() => setForgetPasswordModal(false)} />
 
       <div className="form-wrap login">
         <Row>

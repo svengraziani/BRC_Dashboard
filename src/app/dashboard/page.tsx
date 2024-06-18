@@ -61,6 +61,7 @@ export default function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState<DashboardType[]>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
+  const [pageIndex, setPageIndex] = useState<number>(1)
   const [query, setQuery] = useState<string[]>([])
 
   const [statusFilter, setStatusFilter] = useState([
@@ -93,12 +94,12 @@ export default function Dashboard() {
       })
     }
 
-    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery}`).then((response) => {
+    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery}&limit=10&offset=${pageIndex}`).then((response) => {
       setDashboardData(response?.data?.results)
       setNumberOfRecords(response.data.count)
     })
 
-  }, [search, query, statusFilter])
+  }, [search, query, statusFilter, pageIndex])
 
   const columnHelper = createColumnHelper()
 
@@ -179,6 +180,10 @@ export default function Dashboard() {
       })
   }
 
+  const pageChangeHandler = (pageIndex: number) => {
+    setPageIndex(pageIndex);
+  }
+
   return (
     <>
       <Header />
@@ -197,7 +202,7 @@ export default function Dashboard() {
           </Row>
           {/* Table component */}
           <ReactTable
-            data={dashboardData ? dashboardData : []}
+            data={dashboardData}
             columns={columns}
             isFilters={false}
             isStatusFilter={true}
@@ -210,6 +215,7 @@ export default function Dashboard() {
             numberOfRecords={numberOfRecords}
             queryHandler={queryHandler}
             resetHandler={resetHandler}
+            pageChangeHandler={pageChangeHandler}
           />
           <div className="filter-wrap"></div>
         </div>

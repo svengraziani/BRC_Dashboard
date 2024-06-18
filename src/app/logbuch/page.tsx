@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { useSelector } from "react-redux";
 import { apiCaller } from "@/services/apiCaller";
+import { debounce } from 'lodash'
 
 type Logbush = {
   customer: number;
@@ -31,46 +32,49 @@ type Logbush = {
   timestamp: string;
 }
 
-function MistakeModal() {
-  const gloabalStore = useSelector((state: any) => state.global)
-  const { isSidebarVisible } = gloabalStore
+type LogbushFilter = {
+  id: string | number;
+  name: string;
+  typeOf?: string;
+}
+
+function MistakeModal({ logbushDetail, setMistakeModal }: any) {
   return (
     <Modal.Body>
       <h2><i className="icon-warning"><Image src={imgError} alt='Icon' /></i>Felher</h2>
       <div className="description">
         <span className="report-head">Meldung</span>
-        <p className="report-description">Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle
-          Buchstaben da sind und wie sie aussehen.</p>
+        <p className="report-description">{logbushDetail.log_message}</p>
       </div>
       <div className="description">
         <span className="report-head">Datum und Uhrzeit</span>
-        <p className="report-description">18.12.2023, 08:10:35 Uhr</p>
+        <p className="report-description">{logbushDetail.timestamp}</p>
       </div>
       <div className="description">
         <span className="report-head">Anlagename</span>
-        <p className="report-description">Satteldachanlage</p>
+        <p className="report-description">{logbushDetail.facility_name}</p>
       </div>
       <div className="description">
         <span className="report-head">Gateway-ID</span>
-        <p className="report-description">67890</p>
+        <p className="report-description">{logbushDetail.gateway_device_id}</p>
       </div>
       <div className="description">
         <span className="report-head">String</span>
-        <p className="report-description">String 1</p>
+        <p className="report-description">{logbushDetail.string}</p>
       </div>
       <div className="description">
         <span className="report-head">Optimizer</span>
-        <p className="report-description">134567</p>
+        <p className="report-description">{logbushDetail.optimizer_id}</p>
       </div>
       <div className="description">
         <span className="report-head">Kunde</span>
-        <p className="report-description">Max Mustermann</p>
+        <p className="report-description">N/A</p>
       </div>
       <div className="description">
         <span className="report-head">Anlagestandort</span>
-        <p className="report-description">Beispielstraße 2, 53111 Bonn</p>
+        <p className="report-description">N/A</p>
       </div>
-      <Button>Schließen</Button>
+      <Button onClick={() => setMistakeModal(false)}>Schließen</Button>
     </Modal.Body>
   )
 }
@@ -82,6 +86,23 @@ function Logbuch() {
   const [pageIndex, setPageIndex] = useState<number>(1)
   const [search, setSearch] = useState<string>("")
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
+  const [logbushDetail, setLogbushDetail] = useState<Logbush>()
+
+  const [aliasNameFilter, setAliasNameFilter] = useState<LogbushFilter[]>([])
+  const [gatewayFilter, setGatewayFilter] = useState<LogbushFilter[]>([])
+
+  const [isStringDisabled, setIsStringDisabled] = useState(true)
+  const [isOptimiererDisabled, setIsOptimiererDisabled] = useState(true)
+
+  const statusObject = {
+    aliasName: aliasNameFilter,
+    gateway: gatewayFilter
+  }
+
+  const filterDisabledObject = {
+    isStringDisabled,
+    isOptimiererDisabled
+  }
 
   const columnHelper = createColumnHelper()
 
@@ -123,10 +144,23 @@ function Logbuch() {
       header: "Meldung"
     }),
     columnHelper.accessor('aliasName', {
-      cell: props => <Button variant='details' style={{ cursor: "pointer" }} onClick={() => setMistakeModal(true)}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
+      cell: (props: any) => <Button variant='details' style={{ cursor: "pointer" }} onClick={() => {
+        setLogbushDetail(props.row.original)
+        setMistakeModal(true)
+      }}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
       header: ""
     }),
   ]
+
+  useEffect(()=> {
+    let stringEnabled = query.filter((item: any) => {
+      return item.name === "gateway"
+    })
+
+    if (stringEnabled.length !== 0) {
+      setIsStringDisabled(true)
+    }
+  }, [query])
 
   const queryHandler = (type: any, queryData: any) => {
     const nameList: any = [];
@@ -168,8 +202,43 @@ function Logbuch() {
     }
   }
 
+  const resetHandler = () => {
+    setQuery([])
+
+    apiCaller.get(`api/v1/asset-datapoint-logs/?limit=10&offset=1`)
+    .then(response => {
+      setLogbush(response.data.results);
+      setNumberOfRecords(response.data.count)
+    })
+  }
+
   const pageChangeHandler = (pageIndex: number) => {
     setPageIndex(pageIndex);
+  }
+
+  const aliasNameStatus = (search: string) => {
+    apiCaller.get(`/api/v1/facility/?limit=3&search=${search}`)
+      .then(response => {
+        const aliasName: LogbushFilter[] = []
+        response.data.results.map((item: any) => {
+          aliasName.push({ id: item.pk, name: item.alias_name })
+        })
+
+        setAliasNameFilter(aliasName)
+      })
+  }
+
+  const gatewayStatus = (search: string) => {
+    apiCaller.get(`/api/v1/gateway/?limit=3&search=${search}`)
+      .then(response => {
+        const gatewayFilter: LogbushFilter[] = []
+        console.log(response.data.results, 'response.data.results');
+        response.data.results.map((item: any) => {
+          gatewayFilter.push({ id: item.pk, name: item.name })
+        })
+
+        setGatewayFilter(gatewayFilter)
+      })
   }
 
   useEffect(() => {
@@ -181,19 +250,60 @@ function Logbuch() {
       })
     }
 
-    apiCaller.get(`api/v1/asset-datapoint-logs/${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}` : ``}?limit=10&offset=${pageIndex}&search=${search}`)
+    apiCaller.get(`api/v1/asset-datapoint-logs/${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}&` : `?`}limit=10&offset=${pageIndex}&search=${search}`)
       .then(response => {
         setLogbush(response.data.results);
         setNumberOfRecords(response.data.count)
       })
   }, [query, pageIndex, search])
 
+  const logbuchStatusChange = (searchKey: string, queryName: string, statusFilter: any, isVisible: boolean, selectedValue: LogbushFilter) => {
+    if (isVisible) {
+      console.log(selectedValue, 'selected val');
+
+      // Check if the type of query already exists
+      let filterByQuery = query.filter((item: any) => {
+        return item.name === selectedValue?.typeOf
+      })
+
+      if (selectedValue) {
+        if (filterByQuery.length === 0) {
+          setQuery([...query, { name: selectedValue.typeOf, searchQuery: selectedValue.name }])
+        } else {
+          const updatedQuery = query.map((item: any) => {
+            if (item.name === selectedValue?.typeOf) {
+              return { ...item, searchQuery: selectedValue.name };
+            }
+            return item;
+          });
+
+          setQuery(updatedQuery);
+        }
+      }
+
+      switch (queryName) {
+        case "facility_alias_name":
+          aliasNameStatus(searchKey)
+          break;
+        case "gateway":
+          gatewayStatus(searchKey)
+          break;
+        case "string":
+          break;
+        case "optimizer":
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
   return (
     <>
       <Header />
       <section className="dashboard logbuch">
 
-        <SharedModal show={mistakeModal} modalContent={<MistakeModal />} onHide={() => setMistakeModal(false)} />
+        <SharedModal show={mistakeModal} modalContent={<MistakeModal logbushDetail={logbushDetail} setMistakeModal={setMistakeModal} />} onHide={() => setMistakeModal(false)} />
 
         <Sidebar />
         <div className='dashboard-right'>
@@ -208,7 +318,7 @@ function Logbuch() {
             </Col>
           </Row>
           {/* <DashboardTable /> */}
-          <ReactTable data={logbush ? logbush : []} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
+          <ReactTable data={logbush} filterDisabledObject={filterDisabledObject} resetHandler={resetHandler} logbushFilterData={statusObject} logbuchStatusChange={logbuchStatusChange} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
         </div>
       </section>
     </>

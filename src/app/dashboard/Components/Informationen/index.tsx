@@ -5,51 +5,83 @@ import "./Informationen.scss";
 import Image from "next/image";
 import imgLocation from "../../../../Assets/images/icon-allgemeine.svg";
 import imgNotice from "../../../../Assets/images/icon-notizen.svg";
-import imgTools from "../../../../Assets/images/icon-tools.svg";
 import imgDatabase from "../../../../Assets/images/icon-database.svg";
 import imgEigent from "../../../../Assets/images/icon-eigentuemer.svg";
 import imgUser from "../../../../Assets/images/icon-multipleuser.svg";
 import circleImg from "../../../../Assets/images/icon-circle.svg";
 import { BsTrash3 } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import SharedModal from "@/shared/Modal";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { COUNTRY_LIST } from "@/services/constants";
+import { apiCaller } from "@/services/apiCaller";
+import * as yup from 'yup'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast, { Toaster } from "react-hot-toast";
 
-function InviteAccessModal() {
+function InviteAccessModal({ setInvitationModal }: any) {
   const [inviteModal, setInviteModal] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("")
+
+  const { id } = useParams()
+
+  const onSubmit = (e: any) => {
+    e.preventDefault()
+
+    const obj = {
+      email: email,
+      role_type: "VIEWER"
+    }
+
+    apiCaller.put(`/api/v1/facility/${id}/invite_user/`, obj)
+      .then(response => {
+        setInviteModal(true)
+      })
+      .catch(error => {
+        toast.error(error.response.data.errors[0].detail)
+      })
+  }
 
   return (
     <>
       <SharedModal
         show={inviteModal}
-        modalContent={<InviteSendModal />}
+        modalContent={<InviteSendModal setInviteModal={setInviteModal} setInvitationModal={setInvitationModal} />}
         onHide={() => setInviteModal(false)}
       />
       <Modal.Body>
         <h2>Laden Sie einen Zugriffsberechtigten ein</h2>
         <Form>
           <Form.Group className="form-block">
-            <Form.Control type="email" placeholder="E-Mail" />
+            <Form.Control type="email" placeholder="E-Mail" onChange={e => setEmail(e.target.value)} value={email} />
             <Form.Label>E-Mail</Form.Label>
           </Form.Group>
-          <Button onClick={() => setInviteModal(true)}>Einladen</Button>
+          <Button onClick={onSubmit}>Einladen</Button>
         </Form>
       </Modal.Body>
     </>
   );
 }
 
-function InviteSendModal() {
+function InviteSendModal({ setInviteModal, setInvitationModal }: any) {
   return (
     <Modal.Body>
       <h2>Einladung wurde versendet</h2>
-      <Button>OK</Button>
+      <Button onClick={() => {
+        setInviteModal(false)
+        setInvitationModal(false)
+      }}>OK</Button>
     </Modal.Body>
   );
+}
+
+type Facility = {
+  facility: number;
+  pk: number;
+  type: 'OWNER' | 'VIEWER';
+  url: string;
+  user: number;
 }
 
 function Informationen({
@@ -64,10 +96,53 @@ function Informationen({
 }: any) {
   const [invitationModal, setInvitationModal] = useState<boolean>(false);
 
+  const [facilityOwnerRole, setFacilityOwnerRole] = useState<Facility[]>([])
+  const [facilityUserRole, setFacilityUserRole] = useState<Facility[]>([])
+  const [facilityOwnerInfo, setFacilityOwnerInfo] = useState<any>()
+  const [facilityUserInfo, setFacilityUserInfo] = useState([])
+
+  const { id } = useParams()
+
+  useEffect(() => {
+    if (id) {
+      apiCaller.get(`/api/v1/facilityrole/?facility=${id}`)
+      .then(response => {
+        let owner = response.data.results.filter((item: any) => {
+          return item.type === "OWNER"
+        })
+
+        let user = response.data.results.filter((item: any) => {
+          return item.type === "VIEWER"
+        })
+
+        setFacilityOwnerRole(owner);
+        setFacilityUserRole(user)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (facilityOwnerRole.length > 0) {
+      apiCaller.get(`/api/v1/user/${facilityOwnerRole[0].user}/`)
+        .then(response => {
+          setFacilityOwnerInfo(response.data)
+        })
+    }
+
+    if (facilityUserRole.length > 0) {
+      facilityUserRole.map(item => {
+        apiCaller.get(`/api/v1/user/${item.user}/`)
+          .then((response: any) => {
+            setFacilityUserInfo([...facilityUserInfo, response.data])
+          })
+      })
+    }
+  }, [facilityOwnerRole, facilityUserRole])
+
   const onSubmit = (formData: any) => {
     generalInformationHandler(formData);
   };
-  
+
   return (
     <Form onSubmit={handleSubmit ? handleSubmit(onSubmit) : ""}>
       <div className="informationen">
@@ -75,7 +150,7 @@ function Informationen({
 
         <SharedModal
           show={invitationModal}
-          modalContent={<InviteAccessModal />}
+          modalContent={<InviteAccessModal setInvitationModal={setInvitationModal} />}
           onHide={() => setInvitationModal(false)}
         />
 
@@ -174,7 +249,7 @@ function Informationen({
                 <Col md="6">
                   <Form.Group className="form-block">
                     <Form.Control
-                      type="text"
+                      type="number"
                       placeholder="Standort: PLZ"
                       {...register("postal_code", { required: true })}
                     />
@@ -205,8 +280,8 @@ function Informationen({
               <Row>
                 <Col md="6">
                   <Form.Group className="form-block mb-0">
-                    <Form.Select aria-label="Dropdown" onChange={e => {
-                      if (e.target.value !== "Standort: Land"){
+                    <Form.Select aria-label="Dropdown" {...register("country")} onChange={e => {
+                      if (e.target.value !== "Standort: Land") {
                         setValue("country", e.target.value)
                         console.log(e.target.value, 'e.target.value');
                       } else {
@@ -214,8 +289,8 @@ function Informationen({
                       }
                     }}>
                       <option>Standort: Land</option>
-                      {COUNTRY_LIST.map(item => (
-                        <option value={item.code}>{item.name}</option>
+                      {COUNTRY_LIST.map((item, key) => (
+                        <option key={key} value={item.code}>{item.name}</option>
                       ))}
                     </Form.Select>
                     {errors.country && (
@@ -253,90 +328,70 @@ function Informationen({
           </h2>
           <div className="general-card">
             {!isDashboardDetail && (
-            <Row>
-            <Col md="4">
-                <Form.Group className="form-block">
-                  <Form.Control
-                    type="text"
-                    placeholder="Vorname"
-                    // {...register("vorname", { required: true })}
-                  />
-                  <Form.Label>Vorname</Form.Label>
-                  {errors.vorname && (
-                    <div className="error-message">
-                      {errors.vorname.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md="4">
-                <Form.Group className="form-block">
-                  <Form.Control
-                    type="text"
-                    placeholder="Nachname"
-                    // {...register("nachname", { required: true })}
-                  />
-                  <Form.Label>Nachname</Form.Label>
-                  {errors.nachname && (
-                    <div className="error-message">
-                      {errors.nachname.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
+              <Row>
+                <Col md="4">
+                  <Form.Group className="form-block">
+                    <Form.Control
+                      type="text"
+                      placeholder="Vorname"
+                      disabled={facilityOwnerRole.length !== 0 ? true : false}
+                      value={facilityOwnerInfo && facilityOwnerInfo.first_name}
+                    />
+                    <Form.Label>Vorname</Form.Label>
+                  </Form.Group>
+                </Col>
+                <Col md="4">
+                  <Form.Group className="form-block">
+                    <Form.Control
+                      type="text"
+                      placeholder="Nachname"
+                      disabled={facilityOwnerRole.length !== 0 ? true : false}
+                      value={facilityOwnerInfo && facilityOwnerInfo.last_name}
+                    />
+                    <Form.Label>Nachname</Form.Label>
+                  </Form.Group>
+                </Col>
+
+                <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
+                  <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
+                    <Form.Control
+                      type="email"
+                      placeholder="E-Mail"
+                      disabled={facilityOwnerRole.length !== 0 ? true : false}
+                      value={facilityOwnerInfo && facilityOwnerInfo.email}
+                    />
+                    <Form.Label>E-Mail</Form.Label>
+                  </Form.Group>
+                </Col>
+              </Row>
             )}
-            <Row>
-            {!isDashboardDetail &&(
-              <Col md="4">
-              <Form.Group className="form-block">
-                <Form.Control
-                  type="tel"
-                  placeholder="Telefonnummer"
-                  // {...register("telefonnummer", { required: true })}
-                />
-                <Form.Label>Telefonnummer</Form.Label>
-                {errors.telefonnummer && (
-                  <div className="error-message">
-                    {errors.telefonnummer.message}
-                  </div>
-                )}
-              </Form.Group>
-            </Col>
+
+            {isDashboardDetail && (
+              <Row>
+                <Col md='6'>
+                  <Form.Group className="form-block">
+                    <Form.Control
+                      type="number"
+                      placeholder="Auftragsnummer"
+                      {...register("order_number")}
+                    />
+                    <Form.Label>Auftragsnummer</Form.Label>
+                    <p className="error-message">{errors.order_number && errors.order_number.message}</p>
+                  </Form.Group>
+                </Col>
+
+                <Col md='6'></Col>
+              </Row>
             )}
-              <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
-                <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
-                  <Form.Control
-                    type="email"
-                    placeholder="E-Mail"
-                    {...register("email")}
-                  />
-                  <Form.Label>E-Mail</Form.Label>
-                  {errors.email && (
-                    <div className="error-message">
-                      {errors.email.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md={isDashboardDetail ? "6" : "4"} className={isDashboardDetail ? "mb-0" : ""}>
-                <Form.Group className={isDashboardDetail ? "form-block mb-0" : "form-block"}>
-                  <Form.Control
-                    type="number"
-                    placeholder="Auftragsnummer"
-                    {...register("order_number", { required: true })}
-                  />
-                  <Form.Label>Auftragsnummer</Form.Label>
-                  {errors.order_number && (
-                    <div className="error-message">
-                      {errors.order_number.message}
-                    </div>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
           </div>
         </div>
+
+        {(!isDashboardDetail && facilityOwnerRole.length === 0) && (
+          <Button onClick={() => setInvitationModal(true)} style={{ marginBottom: "20px", marginTop: "-10px" }}>
+            Besitzer hinzufügen
+          </Button>
+        )}
+
         {/* Checkbox */}
         {isDashboardDetail && (
           <Row className="data-deposite">
@@ -386,6 +441,7 @@ function Informationen({
             </Row>
           </div>
         </div>
+
         {/* Access rights */}
         {!isDashboardDetail && (
           <div className="primary-block">
@@ -395,130 +451,68 @@ function Informationen({
               </i>
               Zugriffsrechte
             </h2>
-            <div className="general-card mb-3">
-              <Row>
-                <Col md="10" className="d-md-flex gap-4">
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="Vorname"
-                        {...register("vorname3", { required: true })}
-                      />
-                      <Form.Label>Vorname</Form.Label>
-                      {errors.vorname3 && (
-                        <div className="error-message">
-                          {errors.vorname3.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="Nachname"
-                        {...register("nachname2", { required: true })}
-                      />
-                      <Form.Label>Nachname</Form.Label>
-                      {errors.nachname2 && (
-                        <div className="error-message">
-                          {errors.nachname2.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="email"
-                        placeholder="E-Mail"
-                        {...register("email1", { required: true })}
-                      />
-                      <Form.Label>E-Mail</Form.Label>
-                      {errors.email1 && (
-                        <div className="error-message">
-                          {errors.email1.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Col>
-                <Col md="2" className="d-flex justify-content-end">
-                  <Button variant="trash">
-                    <i className="icon-trash">
-                      <BsTrash3 />
-                    </i>
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-            <div className="general-card">
-              <Row>
-                <Col md="10" className="d-md-flex gap-4">
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="Vorname"
-                        {...register("vorname4", { required: true })}
-                      />
-                      <Form.Label>Vorname</Form.Label>
-                      {errors.vorname4 && (
-                        <div className="error-message">
-                          {errors.vorname4.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="Nachname"
-                        {...register("nachname4", { required: true })}
-                      />
-                      <Form.Label>Nachname</Form.Label>
-                      {errors.nachname4 && (
-                        <div className="error-message">
-                          {errors.nachname4.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                  <Col md="4">
-                    <Form.Group className="form-block mb-0">
-                      <Form.Control
-                        type="email"
-                        placeholder="E-Mail"
-                        {...register("email4", { required: true })}
-                      />
-                      <Form.Label>E-Mail</Form.Label>
-                      {errors.email4 && (
-                        <div className="error-message">
-                          {errors.email4.message}
-                        </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-                </Col>
-                <Col md="2" className="d-flex justify-content-end">
-                  <Button variant="trash">
-                    <i className="icon-trash">
-                      <BsTrash3 />
-                    </i>
-                  </Button>
-                </Col>
-              </Row>
-            </div>
+
+            {facilityUserInfo.map(item => {
+              return (
+                <div className="general-card mb-3">
+                  <Row>
+                    <Col md="10" className="d-md-flex gap-4">
+                      <Col md="4">
+                        <Form.Group className="form-block mb-0">
+                          <Form.Control
+                            type="text"
+                            placeholder="Vorname"
+                            value={item.first_name}
+                            disabled
+                          />
+                          <Form.Label>Vorname</Form.Label>
+                        </Form.Group>
+                      </Col>
+                      <Col md="4">
+                        <Form.Group className="form-block mb-0">
+                          <Form.Control
+                            type="text"
+                            placeholder="Nachname"
+                            value={item.last_name}
+                            disabled
+                          />
+                          <Form.Label>Nachname</Form.Label>
+                        </Form.Group>
+                      </Col>
+                      <Col md="4">
+                        <Form.Group className="form-block mb-0">
+                          <Form.Control
+                            type="email"
+                            placeholder="E-Mail"
+                            value={item.email}
+                            disabled
+                          />
+                          <Form.Label>E-Mail</Form.Label>
+                        </Form.Group>
+                      </Col>
+                    </Col>
+                    <Col md="2" className="d-flex justify-content-end">
+                      <Button variant="trash">
+                        <i className="icon-trash">
+                          <BsTrash3 />
+                        </i>
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+              )
+            })}
           </div>
         )}
+
         {!isDashboardDetail && (
           <Button onClick={() => setInvitationModal(true)}>
             User hinzufügen
           </Button>
         )}
       </div>
+
+      <Toaster />
     </Form>
   );
 }

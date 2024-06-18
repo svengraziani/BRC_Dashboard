@@ -102,7 +102,7 @@ function DashboardDetails() {
         setValue("additional_address_information", data.additional_address_information)
         setValue("postal_code", data.postal_code)
         setValue("city", data.city)
-        setValue("country", data.country)
+        setValue("country", data.country.code)
         setValue("order_number", data.order_number)
         setValue("email", data.email)
         setValue("power_purchase_costs", data.power_purchase_costs)
@@ -173,7 +173,6 @@ function DashboardDetails() {
               <Col md="6" className="d-flex justify-content-end gap-4">
                 <Button
                   onClick={dashBoardHandleSaveChangesHandler}
-                // onClick={ dashboardGeneralInformationHandler}
                 >Änderungen Speichern</Button>
                 <Button onClick={() => setAttachmentModal(true)}>Anlage löschen</Button>
               </Col>

@@ -11,10 +11,21 @@ import ReactTable from "../../shared/NewTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { BsTrash3 } from "react-icons/bs";
 import SharedModal from "@/shared/Modal";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaQuestion } from "react-icons/fa6";
 import { apiCaller } from "@/services/apiCaller";
 import toast, { Toaster } from "react-hot-toast";
+import * as yup from 'yup'
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const inviteUserSchema = yup.object().shape({
+  email: yup.string().email("Invalid Email").required("This field is required")
+})
+
+type EmailSchema = {
+  email: string;
+}
 
 type BenutzerType = {
   additional_address_information: string;
@@ -54,19 +65,42 @@ function InvitationSentModal({ setInvitationModal }: { setInvitationModal: Dispa
 }
 
 function TechnicianModal({ setInvitationModal, setTechnicianModal }: { setInvitationModal: Dispatch<SetStateAction<boolean>>; setTechnicianModal: Dispatch<SetStateAction<boolean>> }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(inviteUserSchema),
+  });
+
+  const onSubmit = (data: EmailSchema) => {
+    console.log(data);
+    apiCaller.post("/api/v1/user/invite_user/", data)
+      .then(response => {
+        if (response.status === 204) {
+          setTechnicianModal(false)
+          setInvitationModal(true)
+        }
+      })
+  }
+
   return (
     <div>
       <Modal.Body>
         <h2>Laden Sie einen Servicetechniker ein</h2>
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="form-block">
-            <Form.Control type='email' placeholder="E-Mail" />
+            <Form.Control type='email' placeholder="E-Mail" {...register("email")} />
             <Form.Label>E-Mail</Form.Label>
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
           </Form.Group>
-          <Button onClick={() => {
-            setTechnicianModal(false)
-            setInvitationModal(true)
-          }}>Einladen</Button>
+          <Button
+            type="submit"
+          // onClick={() => {
+          //   setTechnicianModal(false)
+          //   setInvitationModal(true)
+          // }}
+          >Einladen</Button>
         </Form>
       </Modal.Body>
     </div>
@@ -115,7 +149,7 @@ function Benutzer() {
   const [selectedDeleteUser, setSelectedDeleteUser] = useState<number | null>(null)
 
   const [grantAdminAccess, setGrantAdminAccess] = useState<"Add" | "Remove">("Add")
-  const [benutzerData, setBenutzerData] = useState<BenutzerType>([])
+  const [benutzerData, setBenutzerData] = useState<BenutzerType[]>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
 
   const columnHelper = createColumnHelper()
@@ -124,7 +158,7 @@ function Benutzer() {
 
     apiCaller.get("/api/v1/user").then((response) => {
       setNumberOfRecords(response.data.count);
-      
+
       setBenutzerData(response?.data?.results)
     }).catch((error) => { })
   }
