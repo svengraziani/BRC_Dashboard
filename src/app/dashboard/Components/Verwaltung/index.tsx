@@ -135,10 +135,15 @@ function Verwaltung() {
             item.optimization_status === "ACTIVE" ? imgGreen :
                 imgBlue;
 
+                const dropRef = (node: HTMLDivElement | null) => {
+                    // Your logic here
+                    ref(drop(node))
+                  };
+
         return (
-            <div ref={(node) => ref(drop(node))} className='power-cell'>
+            <div ref={dropRef as React.RefCallback<HTMLDivElement>} className='power-cell'>
                 <div className='power-info'>
-                    <h3>{item.power_watt.toFixed(2)} W</h3>
+                    <h3>{item?.power_watt?.toFixed(2)} W</h3>
                     <p>PosNr.</p>
                 </div>
                 <Image src={imageSrc} className='blue-bg' alt='Power Status' />

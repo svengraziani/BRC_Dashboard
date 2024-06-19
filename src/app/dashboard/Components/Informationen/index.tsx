@@ -101,7 +101,7 @@ function Informationen({
   const [facilityOwnerRole, setFacilityOwnerRole] = useState<Facility[]>([])
   const [facilityUserRole, setFacilityUserRole] = useState<Facility[]>([])
   const [facilityOwnerInfo, setFacilityOwnerInfo] = useState<any>()
-  const [facilityUserInfo, setFacilityUserInfo] = useState([])
+  const [facilityUserInfo, setFacilityUserInfo] = useState<any>([])
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -466,7 +466,7 @@ function Informationen({
               Zugriffsrechte
             </h2>
 
-            {facilityUserInfo.map(item => {
+            {facilityUserInfo.map((item: any) => {
               return (
                 <div className="general-card mb-3">
                   <Row>
