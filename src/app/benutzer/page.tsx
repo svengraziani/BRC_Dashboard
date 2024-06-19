@@ -75,7 +75,6 @@ function TechnicianModal({ setInvitationModal, setTechnicianModal }: { setInvita
   });
 
   const onSubmit = (data: EmailSchema) => {
-    console.log(data);
     apiCaller.post("/api/v1/user/invite_user/", data)
       .then(response => {
         if (response.status === 204) {
@@ -113,7 +112,6 @@ function DeleteUserModal({ deleteUserId, getUserData }: any) {
 
     apiCaller.delete(`/api/v1/user/${deleteUserId}/`)
       .then(response => {
-        console.log(response, 'delete user response');
         getUserData()
       })
       .catch(error => {
@@ -206,7 +204,6 @@ function Benutzer() {
     }),
     columnHelper.accessor('handwerksbetrieb', {
       cell: (info: any) => {
-        // console.log("infoinfoinfoinfo", info);
         return (
           <Button variant="trash"
             onClick={() => {

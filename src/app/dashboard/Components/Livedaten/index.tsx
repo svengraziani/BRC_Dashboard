@@ -19,6 +19,8 @@ import imgHeute from '../../../../Assets/images/icn_ertraege_heute.svg';
 import imgMonat from '../../../../Assets/images/icn_ertraege_monat.svg';
 import imgWoche from '../../../../Assets/images/icn_ertraege_woche.svg';
 import imgRedDot from '../../../../Assets/images/icon-red.svg';
+import stormImage from '../../../../Assets/images/storm.svg';
+import co2Image from '../../../../Assets/images/co2.svg';
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
@@ -59,7 +61,7 @@ type FacilityStatus = {
   portal: string;
 }
 
-function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
+function Livedaten({ facility }: any) {
   const { id } = useParams();
   const [gateway, setGateway] = useState<Gateway[]>([])
   const [activeGateway, setActiveGateway] = useState<number>(1)
@@ -67,11 +69,14 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
   const [powerList, setPowerList] = useState<Power[]>([])
   const [facilityStatus, setFacilityStatus] = useState<FacilityStatus>({ facility: "", network: "", portal: "" })
   const [ertrage, setErtrage] = useState<0 | 1>(0)
-  
+
   // Loaders
   const [isGatewayLoading, setIsGatewayLoading] = useState(true)
   const [isFacilityLoading, setIsFacilityLoading] = useState(true)
-  const [isOptimizersLoading, setIsOptimizersLoading] = useState(true)
+  const [isOptimizersLoading, setIsOptimizersLoading] = useState(false)
+
+  console.log(isGatewayLoading, isFacilityLoading, isOptimizersLoading, 'loading ????');
+  
 
   const gatewayHandler = (rule: "forward" | "backward") => {
     switch (rule) {
@@ -120,16 +125,20 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
       apiCaller.get(`/api/v1/optimizer/?string=${stringId}`)
         .then(response => {
           setPowerList(response.data.results);
+          
           setIsOptimizersLoading(false)
         })
     }
   }, [activeGateway, activeString, gateway])
 
+  console.log(facilityStatus, 'facility facilityStatus');
+
+
   return (
     <div className='livedaten'>
       <Row>
         <Col md="8">
-          <h2><i className='icon-arrow' style={{cursor:"pointer"}} onClick={() => gatewayHandler("backward")}><GrPrevious /></i>Gateway {activeGateway} ({activeGateway} von {gateway.length})<i className='icon-arrow' style={{cursor:"pointer"}} onClick={() => gatewayHandler("forward")}><GrNext /></i></h2>
+          <h2><i className='icon-arrow' style={{ cursor: "pointer" }} onClick={() => gatewayHandler("backward")}><GrPrevious /></i>Gateway {activeGateway} ({activeGateway} von {gateway.length})<i className='icon-arrow' style={{ cursor: "pointer" }} onClick={() => gatewayHandler("forward")}><GrNext /></i></h2>
           <div className='gateway-card'>
             <ul className='d-md-flex justify-content-center'>
               {gateway[activeGateway - 1]?.strings.map((item, index) => (
@@ -141,7 +150,7 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
 
             {/* Power List */}
             <div className='power-list'>
-              {powerList?.map(item => {
+              {powerList.length !== 0 ? powerList?.map(item => {
                 let imageSrc = imgBlue;
                 if (item.optimization_status === "THERMAL_SHUTDOWN") {
                   imageSrc = imgGray;
@@ -162,7 +171,11 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
                     <Image src={imageSrc} className='blue-bg' alt='Blue Background' />
                   </div>
                 )
-              })}
+              }) : (
+                <>
+                <h1>No Optimizers Found !!</h1>
+                </>
+              )}
             </div>
 
             <div className='power-color-info'>
@@ -197,7 +210,7 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
                   <div className="kw-img">
                     <Image src={imgAnlagenXL} alt='Anlagen Icon' />
                   </div>
-                  <span className='number'>{facilityPowerWatt?.toFixed(2)}</span>
+                  <span className='number'>{facility?.power_watt?.toFixed(2)}</span>
                   <span className='kilo-watt'>kW</span>
                 </div>
               </div>
@@ -215,14 +228,30 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
                   {facilityStatus.facility === "OK" && (
                     <Image src={imgGreenDot} className='dots' alt='Dot' />
                   )}
+
+                  {facilityStatus.facility === "UNKNOWN" && (
+                    <Image src={imgYellowDot} className='dots' alt='Dot' />
+                  )}
+
+                  {facilityStatus.facility === "PENDING" && (
+                    <Image src={imgRedDot} className='dots' alt='Dot' />
+                  )}
                   <div className="box-img">
                     <Image src={imgAnlagen} alt='Icon' />
                   </div>
                   <span className="box-head">Anlage</span>
                 </div>
                 <div className="boxes-block">
-                  {facilityStatus.network === "OK" && (
+                {facilityStatus.network === "OK" && (
                     <Image src={imgGreenDot} className='dots' alt='Dot' />
+                  )}
+
+                  {facilityStatus.network === "UNKNOWN" && (
+                    <Image src={imgYellowDot} className='dots' alt='Dot' />
+                  )}
+
+                  {facilityStatus.network === "PENDING" && (
+                    <Image src={imgRedDot} className='dots' alt='Dot' />
                   )}
                   {/* <Image src={imgYellowDot} className='dots' alt='Dot' /> */}
                   <div className="box-img">
@@ -231,8 +260,16 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
                   <span className="box-head">Netzwerk</span>
                 </div>
                 <div className="boxes-block">
-                  {facilityStatus.portal === "OK" && (
+                {facilityStatus.portal === "OK" && (
                     <Image src={imgGreenDot} className='dots' alt='Dot' />
+                  )}
+
+                  {facilityStatus.portal === "UNKNOWN" && (
+                    <Image src={imgYellowDot} className='dots' alt='Dot' />
+                  )}
+
+                  {facilityStatus.portal === "PENDING" && (
+                    <Image src={imgRedDot} className='dots' alt='Dot' />
                   )}
                   {/* <Image src={imgRedDot} className='dots' alt='Dot' /> */}
                   <div className="box-img">
@@ -247,39 +284,59 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
           <div className="general-card yeilds" style={{ marginTop: "20px" }}>
             <div className="general-wrap">
               <span className="performance">Erträge in kWh</span>
-              <div className="boxes-wrap">
-                <div className="boxes-block">
-                  <div className="box-img">
-                    <Image src={imgHeute} alt='Icon' />
+              {ertrage === 0 ? (
+                <div className="boxes-wrap">
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={imgHeute} alt='Icon' />
+                    </div>
+                    <span className="box-head">Heute</span>
+                    <span className="yeild-definr">{facility?.electrical_energy_one_day_kwh?.toFixed(2)}</span>
                   </div>
-                  <span className="box-head">Heute</span>
-                  <span className="yeild-definr">437</span>
-                </div>
-                <div className="boxes-block">
-                  <div className="box-img">
-                    <Image src={imgWoche} alt='Icon' />
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={imgWoche} alt='Icon' />
+                    </div>
+                    <span className="box-head">Woche</span>
+                    <span className="yeild-definr">{facility?.electrical_energy_one_week_kwh?.toFixed(2)}</span>
                   </div>
-                  <span className="box-head">Woche</span>
-                  <span className="yeild-definr">3.059</span>
-                </div>
-                <div className="boxes-block">
-                  <div className="box-img">
-                    <Image src={imgMonat} alt='Icon' />
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={imgMonat} alt='Icon' />
+                    </div>
+                    <span className="box-head">Monat</span>
+                    <span className="yeild-definr">{facility.electrical_energy_one_month_kwh?.toFixed(2)}</span>
                   </div>
-                  <span className="box-head">Monat</span>
-                  <span className="yeild-definr">13.110</span>
-                </div>
-                <div className="boxes-block">
-                  <div className="box-img">
-                    <Image src={imgCalender} alt='Icon' />
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={imgCalender} alt='Icon' />
+                    </div>
+                    <span className="box-head">Jahr</span>
+                    <span className="yeild-definr">{facility.electrical_energy_one_year_mwh?.toFixed(2)}</span>
                   </div>
-                  <span className="box-head">Jahr</span>
-                  <span className="yeild-definr">59.05</span>
                 </div>
-              </div>
+              ) : (
+                <div className="boxes-wrap">
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={stormImage} alt='Icon' />
+                    </div>
+                    <span className="box-head">Storm</span>
+                    <span className="yeild-definr">{facility.electrical_energy_one_year_mwh?.toFixed(2)}</span>
+                  </div>
+
+                  <div className="boxes-block">
+                    <div className="box-img">
+                      <Image src={co2Image} alt='Icon' />
+                    </div>
+                    <span className="box-head">Co2</span>
+                    <span className="yeild-definr">{facility.electrical_energy_one_year_mwh?.toFixed(2)}</span>
+                  </div>
+                </div>
+              )}
               <div className="buttons-wrap">
-                <Button variant={ertrage === 0 ? 'dot' : "dot-white"} onClick={()=> setErtrage(0)}></Button>
-                <Button variant={ertrage === 0 ? "dot-white" : "dot"} onClick={()=> setErtrage(1)}></Button>
+                <Button variant={ertrage === 0 ? 'dot' : "dot-white"} onClick={() => setErtrage(0)}></Button>
+                <Button variant={ertrage === 0 ? "dot-white" : "dot"} onClick={() => setErtrage(1)}></Button>
               </div>
             </div>
           </div>

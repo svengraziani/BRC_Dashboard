@@ -13,7 +13,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import { MdNavigateNext } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import { apiCaller } from '@/services/apiCaller';
+import { API, apiCaller } from '@/services/apiCaller';
 import LoadingIndicator from '@/shared/Loader';
 
 type QueryParams = {
@@ -27,42 +27,50 @@ type Country = {
 }
 
 type DashboardType = {
-  additional_address_information: string;
-  alias_name: string;
-  city: string;
-  country: Country,
-  craft_business: string | null | number;
-  energy_storage_capacity_kwh: string | null | number;
-  energy_storage_exists: boolean;
-  energy_storage_manufacturer: string;
-  energy_storage_type: string;
-  gateways: number[];
-  inverter_manufacturer: string;
-  inverter_type: string;
-  module_manufacturer: string;
-  module_type: string;
-  name: string;
-  notes: string;
-  order_number: string;
-  pk: number;
-  postal_code: string;
-  power_purchase_costs: number | string | null;
-  roles: number[];
-  status: string;
-  street: string;
-  street_number: string;
-  url: string;
-  wallbox_exists: boolean;
+  next: string | null;
+  count: number;
+  previous: string;
+  results: {
+    additional_address_information: string;
+    alias_name: string;
+    city: string;
+    country: Country,
+    craft_business: string | null | number;
+    energy_storage_capacity_kwh: string | null | number;
+    energy_storage_exists: boolean;
+    energy_storage_manufacturer: string;
+    energy_storage_type: string;
+    gateways: number[];
+    inverter_manufacturer: string;
+    inverter_type: string;
+    module_manufacturer: string;
+    module_type: string;
+    name: string;
+    notes: string;
+    order_number: string;
+    pk: number;
+    postal_code: string;
+    power_purchase_costs: number | string | null;
+    roles: number[];
+    status: string;
+    street: string;
+    street_number: string;
+    url: string;
+    wallbox_exists: boolean;
+  }[]
 }
 
 export default function Dashboard() {
   const router = useRouter();
 
-  const [dashboardData, setDashboardData] = useState<DashboardType[]>([])
+  const [dashboardData, setDashboardData] = useState<any>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
   const [pageIndex, setPageIndex] = useState<number>(1)
   const [query, setQuery] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const pageLimit = 10;
+
+  const [apiUrl, setApiUrl] = useState<string>(`/api/v1/facility/?limit=${pageLimit}&offset=1`)
 
   const [statusFilter, setStatusFilter] = useState([
     {
@@ -96,14 +104,15 @@ export default function Dashboard() {
       })
     }
 
-    apiCaller.get(`api/v1/facility/?search=${search}${apiQuery}&limit=10&offset=${pageIndex}`).then((response) => {
-      setDashboardData(response?.data?.results)
-      setNumberOfRecords(response.data.count)
+    apiCaller.get(`${apiUrl}&search=${search}${apiQuery}`)
+      .then(response => {
+        setDashboardData(response?.data)
+        setNumberOfRecords(response.data.count)
 
-      setIsLoading(false)
-    })
+        setIsLoading(false)
+      })
 
-  }, [search, query, statusFilter, pageIndex])
+  }, [search, query, pageIndex])
 
   const columnHelper = createColumnHelper()
 
@@ -124,10 +133,10 @@ export default function Dashboard() {
       cell: info => info.getValue(),
       header: "Name"
     }),
-    columnHelper.accessor('nameEigentumer', {
-      cell: info => info.getValue(),
-      header: "Name Eigentümer"
-    }),
+    // columnHelper.accessor('nameEigentumer', {
+    //   cell: info => info.getValue(),
+    //   header: "Name Eigentümer"
+    // }),
     columnHelper.accessor('craft_business', {
       cell: info => info.getValue(),
       header: "Handwerksbetrieb"
@@ -138,10 +147,10 @@ export default function Dashboard() {
       },
       header: "Adresse der Anlage"
     }),
-    columnHelper.accessor('Aktionen', {
-      cell: info => info.getValue(),
-      header: "Aktionen"
-    }),
+    // columnHelper.accessor('Aktionen', {
+    //   cell: info => info.getValue(),
+    //   header: "Aktionen"
+    // }),
     columnHelper.accessor('aliasName', {
       cell: (props: any) => <Button variant='details' style={{ cursor: "pointer" }} onClick={() => {
         router.push(`/dashboard/details/${props.row.original?.pk}`)
@@ -178,13 +187,20 @@ export default function Dashboard() {
 
     apiCaller.get(`api/v1/facility`)
       .then((response) => {
-        setDashboardData(response?.data?.results)
+        setDashboardData(response?.data)
         setNumberOfRecords(response.data.count)
         setIsLoading(false)
       })
   }
 
-  const pageChangeHandler = (pageIndex: number) => {
+  const pageChangeHandler = (pageIndex: number, action: 'decrease' | 'increase') => {
+    let nextUrl = action === "increase" ? dashboardData.next : dashboardData.previous;
+    let queryUrl = nextUrl.split(API)[1];
+    let splittedQuery = queryUrl.split("&");
+
+    let extractedUrl = `${splittedQuery[0]}&${splittedQuery[1]}`;
+    setApiUrl(extractedUrl)
+
     setPageIndex(pageIndex);
   }
 
@@ -206,7 +222,7 @@ export default function Dashboard() {
           </Row>
           {/* Table component */}
           <ReactTable
-            data={dashboardData}
+            data={dashboardData.results ? dashboardData?.results : []}
             columns={columns}
             isFilters={false}
             isStatusFilter={true}
@@ -220,6 +236,7 @@ export default function Dashboard() {
             queryHandler={queryHandler}
             resetHandler={resetHandler}
             pageChangeHandler={pageChangeHandler}
+            query={query}
           />
           <div className="filter-wrap"></div>
         </div>

@@ -34,6 +34,8 @@ function Profil() {
     const [locationData, setLocationData] = useState<string>()
     const [countryData, setCountryData] = useState<string>()
 
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false)
+
     const [isLoading, setIsLoading] = useState(true)
 
     const [userDetails, setUserDetails] = useState<any>()
@@ -66,6 +68,7 @@ function Profil() {
 
     // Save data
     const saveChangesHandler = (data: any) => {
+        setIsBtnDisabled(true)
 
         let payload = {
             first_name: firstName,
@@ -86,14 +89,15 @@ function Profil() {
             if (response.status) {
                 toast.success("Mein Profil Erfolgreich geupdated")
             }
+            setIsBtnDisabled(false)
         }).catch((error) => {
+            setIsBtnDisabled(false)
         })
     }
 
     const deleteHandler = () => {
         apiCaller.delete(`/api/v1/user/${userDetails?.pk}`)
             .then(response => {
-                console.log(response, 'delete user response');
             })
             .catch(error => {
                 toast.error(error.response.data.errors[0].detail)
@@ -106,7 +110,6 @@ function Profil() {
             setUserDetails(response?.data)
             setIsLoading(false)
         }).catch((error) => {
-            console.log("error", error)
         })
     }, [reduxStore.user])
 
@@ -123,7 +126,7 @@ function Profil() {
                             </i>Mein Profil</h2>
                         </Col>
                         <Col md="6" className='d-flex gap-4 justify-content-end'>
-                            <Button onClick={handleSubmit(saveChangesHandler)}>Änderungen Speichern</Button>
+                            <Button onClick={handleSubmit(saveChangesHandler)} disabled={isBtnDisabled}>Änderungen Speichern</Button>
                             <Button onClick={deleteHandler}>Account löschen</Button>
                         </Col>
                     </Row>

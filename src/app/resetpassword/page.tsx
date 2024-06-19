@@ -42,7 +42,6 @@ function ResetPassword() {
     apiCaller
       .patch(`/api/v1/user/${userStore?.user?.pk}/update_password`, data)
       .then((response) => {
-        console.log("response1111", response);
         if (response.data === "" && response.status === 204) {
           setIsSuccess(true)
           localStorage.clear()

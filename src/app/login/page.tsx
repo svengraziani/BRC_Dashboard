@@ -30,14 +30,22 @@ function ForgetPasswordModal({ setForgetPasswordModal }: any) {
     resolver: yupResolver(schema),
   });
 
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false)
+
   const submitHandler = (formData: any) => {
-    console.log(formData);
+    setIsBtnDisabled(true)
+
     apiCaller.post("/api/v1/password_reset/", formData)
       .then(response => {
         if (response.data.status === "OK") {
           toast.success("E-Mail erfolgreich gesendet")
           setForgetPasswordModal(false)
         }
+
+        setIsBtnDisabled(false)
+      })
+      .catch(error => {
+        setIsBtnDisabled(false)
       })
   }
 
@@ -58,7 +66,7 @@ function ForgetPasswordModal({ setForgetPasswordModal }: any) {
           )}
 
         </Form.Group>
-        <Button variant="primary" type="submit">Fortfahren</Button>
+        <Button variant="primary" type="submit" disabled={isBtnDisabled}>Fortfahren</Button>
       </Form>
       <p>Neu hier? <Link href={"/signup"}>Jetzt registrieren</Link></p>
       <Toaster />
@@ -72,6 +80,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false)
 
   // Local Storage Environments
   const [token, setToken] = useLocalStorage("token", null)
@@ -94,10 +103,16 @@ export default function Login() {
       setPasswordError('');
     }
 
+    if (!email || !password) {
+      return;
+    }
+
     const payload = {
       email,
       password
     }
+
+    setIsBtnDisabled(true)
 
     apiCaller.post("/api/v1/auth/", payload)
       .then(response => {
@@ -127,12 +142,15 @@ export default function Login() {
             setCraftBusiness(craftInfo)
             router.push("/loginpath")
           })
+
+          setIsBtnDisabled(false)
       })
       .catch(error => {
         error.response.data.errors.map((item: any) => {
           toast.error(item.detail)
         })
 
+        setIsBtnDisabled(false)
       })
 
   }, [router, email, password])
@@ -182,15 +200,15 @@ export default function Login() {
               <Form.Group className="form-block">
                 <Form.Control type="email" placeholder="E-mail" spellCheck={false} value={email} onChange={handleEmailChange} />
                 <Form.Label>E-mail</Form.Label>
-                {emailError && <p className="error" >{emailError}</p>}
+                {emailError && <p className="error-message" >{emailError}</p>}
               </Form.Group>
               <Form.Group className="form-block">
                 <Form.Control type="password" placeholder="Passwort" value={password} onChange={handlePasswordChange} />
                 <Form.Label>Passwort</Form.Label>
-                {passwordError && <p className="error">{passwordError}</p>}
+                {passwordError && <p className="error-message">{passwordError}</p>}
               </Form.Group>
               <p onClick={() => setForgetPasswordModal(true)}>Passwort vergessen</p> <br></br>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={isBtnDisabled}>
                 Login
               </Button>
             </Form>

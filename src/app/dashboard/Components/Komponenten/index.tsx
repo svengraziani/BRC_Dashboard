@@ -16,7 +16,6 @@ function Komponenten({isDashboardDetail, register, handleSubmit, errors={}, setV
   const onSubmit = (data: any) => {
   };
 
-  console.log(errors);
   
 
   return (

@@ -9,7 +9,6 @@ const useLocalStorage = <T,>(key: string, initialValue: T): [T, SetValue<T>] => 
       const value = window.localStorage.getItem(key);
       return value ? JSON.parse(value) : initialValue;
     } catch (error) {
-      console.log(error);
       return initialValue;
     }
   });
@@ -20,7 +19,6 @@ const useLocalStorage = <T,>(key: string, initialValue: T): [T, SetValue<T>] => 
       setState(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.log(error);
     }
   };
 

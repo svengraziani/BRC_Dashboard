@@ -42,12 +42,19 @@ export default function Wrapper({ children }: WrapperProps) {
       }
     } catch (error) {
       console.error("Token validation error:", error);
+
       router.push("/login"); 
     }
   };
   
   useEffect(() => {
-    checkToken();
+    console.log(window);
+    let {pathname} = window.location;
+
+    if (pathname !== "/signup" && pathname !== "/login" && pathname !== "/register") {
+      checkToken();
+    }
+    
   }, []);
   
   return children;

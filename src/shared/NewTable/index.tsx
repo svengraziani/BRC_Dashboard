@@ -17,7 +17,7 @@ import imgPlus from '../../Assets/images/icon-plus.svg';
 import SelectBox from '../SelectBox';
 import { useRouter } from "next/navigation";
 
-function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch, numberOfRecords, resetHandler, logbuchStatusChange, logbushFilterData }: any) {
+function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selectListHandler, setSelectData, selectData, data, columns, isFilters, isStatusFilter, isCreation, isFiltersWrap, queryHandler, pageChangeHandler, setSearch, numberOfRecords, resetHandler, logbuchStatusChange, logbushFilterData, query }: any) {
   const router = useRouter();
   const [sorting, setSorting] = React.useState<any>([])
   const [pageIndex, setPageIndex] = useState<number>(1);
@@ -130,7 +130,7 @@ function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selec
               <Col lg="10" className='d-flex align-items-center justify-content-end'>
                 {isStatusFilter && (
                   <SelectBox statusFilter={statusFilter} queryName={"status"} setStatusFilter={setStatusFilter} isIconVisible={true}
-                    filterName={'Status Filter'} isSearchable={false} selectListHandler={selectListHandler} setSelectData={setSelectData} selectData={selectData} queryHandler={queryHandler} />
+                    filterName={'Status Filter'} isSearchable={false} selectListHandler={selectListHandler} setSelectData={setSelectData} selectData={selectData} queryHandler={queryHandler} query={query} />
                 )}
                 <div className='d-flex align-items-center justify-content-end gap-4'>
                   <Button variant='synch'>
@@ -157,7 +157,7 @@ function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selec
         <Row className='filter-secondary align-items-center'>
           <Col lg="6" className="d-flex align-items-center">
             <Col lg="4" className="px-2">
-              <SelectBox filterName={"Alias-Name Filter"} logbuchStatusChange={logbuchStatusChange} isLogbushFilter={true} queryName={"facility_alias_name"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={logbushFilterData.aliasName} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
+              <SelectBox filterName={"Alias-Name Filter"} logbuchStatusChange={logbuchStatusChange} isLogbushFilter={true} queryName={"facility"} selectListHandler={selectListHandler} isIconVisible={true} statusFilter={logbushFilterData.aliasName} queryHandler={queryHandler} setStatusFilter={setAliasNameFilter} isSearchable={true} />
             </Col>
 
             <Col lg="4" className="px-2">
@@ -233,7 +233,7 @@ function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selec
                 onClick={() => {
                   if (pageIndex > 1) {
                     setPageIndex(pageIndex - 1)
-                    pageChangeHandler(pageIndex - 1)
+                    pageChangeHandler(pageIndex - 1, 'decrease')
                   }
                 }}
                 disabled={pageIndex === 1 ? true : false}
@@ -258,7 +258,7 @@ function ReactTable({ statusFilter, setStatusFilter, filterDisabledObject, selec
               <Button
                 onClick={() => {
                   setPageIndex(pageIndex + 1)
-                  pageChangeHandler(pageIndex + 1)
+                  pageChangeHandler(pageIndex + 1, 'increase')
                 }}
                 style={{ cursor: "pointer" }}
                 disabled={totalPages <= pageIndex ? true : false}

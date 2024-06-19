@@ -160,7 +160,6 @@ export default function Register() {
         setRegistrationModal(true)
       })
       .catch(error => {
-        console.log(error.response.data.errors, 'error');
         toast.error(error.response.data.errors[0].detail)
       })
   }  

@@ -297,7 +297,6 @@ function Informationen({
                     <Form.Select aria-label="Dropdown" {...register("country")} onChange={e => {
                       if (e.target.value !== "Standort: Land") {
                         setValue("country", e.target.value)
-                        console.log(e.target.value, 'e.target.value');
                       } else {
                         setValue("country", null)
                       }

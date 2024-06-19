@@ -54,7 +54,7 @@ function DeleteAttachmentModal() {
 function DashboardDetails() {
   const [activeStatus, setActiveStatus] = useState<string>("Informationen")
   const [attachmentModal, setAttachmentModal] = useState<boolean>(false);
-  const [facilityPowerWatt, setFacilityPowerWatt] = useState<number>(0)
+  const [facility, setFacility] = useState<any>([])
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
@@ -97,7 +97,7 @@ function DashboardDetails() {
     apiCaller.get(`/api/v1/facility/${id}`)
       .then(response => {
         let data = response.data;
-        setFacilityPowerWatt(data.power_watt)
+        setFacility(data)
 
         setValue("name", data.name)
         setValue("alias_name", data.alias_name)
@@ -204,7 +204,7 @@ function DashboardDetails() {
             )}
 
             {activeStatus === "Livedaten" && (
-              <Livedaten facilityPowerWatt={facilityPowerWatt} />
+              <Livedaten facility={facility} />
             )}
 
             {activeStatus === "Logbuch" && (

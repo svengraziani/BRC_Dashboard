@@ -55,8 +55,7 @@ function Verwaltung() {
 
     // Loaders
     const [isGatewayLoading, setIsGatewayLoading] = useState(true)
-    const [isOptimizersLoading, setIsOptimizersLoading] = useState(true)
-
+    const [isOptimizersLoading, setIsOptimizersLoading] = useState(false)
 
     useEffect(() => {
         setIsGatewayLoading(true)
@@ -72,18 +71,19 @@ function Verwaltung() {
             setIsOptimizersLoading(true)
 
             const presentGateway = gateway[activeGateway - 1];
-            setStrings(presentGateway?.strings);
-
-            console.log(presentGateway, 'presentGateway ????');
-            
+            setStrings(presentGateway?.strings);            
 
             let stringId = strings[activeString];
 
-            apiCaller.get(`/api/v1/optimizer/?string=${stringId}`)
+            if (stringId) {
+                apiCaller.get(`/api/v1/optimizer/?string=${stringId}`)
                 .then(response => {
                     setPowerList(response.data.results);
                     setIsOptimizersLoading(false)
                 })
+            } else {
+                setIsOptimizersLoading(false)
+            }
         }
     }, [gateway, activeGateway, activeString]);
 
@@ -197,14 +197,16 @@ function Verwaltung() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <Button variant='edit'><Image src={imgEdit} alt='Icon' /></Button>
+                                    {powerList.length !== 0 && <Button variant='edit'><Image src={imgEdit} alt='Icon' /></Button>}
                                 </div>
 
                                 {/* Power List */}
                                 <div className='power-list'>
-                                    {powerList?.map((item, index) => (
+                                    {powerList.length !== 0 ? powerList?.map((item, index) => (
                                         <PowerItem key={item.pk} item={item} index={index} />
-                                    ))}
+                                    )) : (
+                                        <h1>No Optimizers Found !!</h1>
+                                    )}
                                 </div>
                             </div>
                         </div>

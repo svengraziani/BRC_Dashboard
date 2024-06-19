@@ -100,14 +100,12 @@ function DashboardCreation() {
     }
   ]
 
-  console.log(errors);  
 
   const generalInformationHandler = (data: any) => {
     // setActiveStatus(activeStatus + 1);
   }
 
   const onSubmit = (values: any) => {
-    console.log(values, 'Submitted values');
     if (activeStatus === 0 && !dataDepositCheck) {
       return toast.error("Eigentümer hat der Datenhinterlegung zugestimmt")
     }

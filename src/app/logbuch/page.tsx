@@ -13,7 +13,7 @@ import { MdNavigateNext } from 'react-icons/md';
 import { useEffect, useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { useSelector } from "react-redux";
-import { apiCaller } from "@/services/apiCaller";
+import { API, apiCaller } from "@/services/apiCaller";
 import { debounce } from 'lodash'
 import LoadingIndicator from "@/shared/Loader";
 
@@ -83,7 +83,7 @@ function MistakeModal({ logbushDetail, setMistakeModal }: any) {
 function Logbuch() {
   const [mistakeModal, setMistakeModal] = useState<boolean>(false);
   const [query, setQuery] = useState<any>([])
-  const [logbush, setLogbush] = useState<Logbush[]>([])
+  const [logbush, setLogbush] = useState<any>([])
   const [pageIndex, setPageIndex] = useState<number>(1)
   const [search, setSearch] = useState<string>("")
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
@@ -96,6 +96,8 @@ function Logbuch() {
   const [isOptimiererDisabled, setIsOptimiererDisabled] = useState(true)
 
   const [isLoading, setIsLoading] = useState(true)
+
+  const [apiUrl, setApiUrl] = useState<string>("/api/v1/asset-datapoint-logs/?limit=10&offset=1")
 
   const statusObject = {
     aliasName: aliasNameFilter,
@@ -155,7 +157,7 @@ function Logbuch() {
     }),
   ]
 
-  useEffect(()=> {
+  useEffect(() => {
     let stringEnabled = query.filter((item: any) => {
       return item.name === "gateway"
     })
@@ -210,16 +212,23 @@ function Logbuch() {
 
     setQuery([])
 
-    apiCaller.get(`api/v1/asset-datapoint-logs/?limit=10&offset=1`)
-    .then(response => {
-      setLogbush(response.data.results);
-      setNumberOfRecords(response.data.count)
+    apiCaller.get(`${apiUrl}`)
+      .then(response => {
+        setLogbush(response.data);
+        setNumberOfRecords(response.data.count)
 
-      setIsLoading(false)
-    })
+        setIsLoading(false)
+      })
   }
 
-  const pageChangeHandler = (pageIndex: number) => {
+  const pageChangeHandler = (pageIndex: number, action: 'decrease' | 'increase') => {
+    let nextUrl = action === "increase" ? logbush.next : logbush.previous;
+    let queryUrl = nextUrl.split(API)[1];
+    let splittedQuery = queryUrl.split("&");
+
+    let extractedUrl = `${splittedQuery[0]}&${splittedQuery[1]}`;
+    setApiUrl(extractedUrl)
+
     setPageIndex(pageIndex);
   }
 
@@ -244,7 +253,6 @@ function Logbuch() {
     apiCaller.get(`/api/v1/gateway/?limit=3&search=${search}`)
       .then(response => {
         const gatewayFilter: LogbushFilter[] = []
-        console.log(response.data.results, 'response.data.results');
         response.data.results.map((item: any) => {
           gatewayFilter.push({ id: item.pk, name: item.name })
         })
@@ -260,14 +268,16 @@ function Logbuch() {
     let apiQuery = ''
 
     if (query) {
+      console.log(query,'query ?????');
+      
       query.map((item: any, index: any) => {
         apiQuery = apiQuery + `${item.name}=${item.searchQuery} ${index !== query.length - 1 ? "&" : ""}`
       })
     }
 
-    apiCaller.get(`api/v1/asset-datapoint-logs/${apiQuery.length !== 0 ? `?${apiQuery.replace(/\s/g, "")}&` : `?`}limit=10&offset=${pageIndex}&search=${search}`)
+    apiCaller.get(`${apiUrl}&search=${search}${apiQuery.length !== 0 ? `&${apiQuery.replace(/\s/g, "")}` : ``}`)
       .then(response => {
-        setLogbush(response.data.results);
+        setLogbush(response.data);
         setNumberOfRecords(response.data.count)
 
         setIsLoading(false)
@@ -276,7 +286,6 @@ function Logbuch() {
 
   const logbuchStatusChange = (searchKey: string, queryName: string, statusFilter: any, isVisible: boolean, selectedValue: LogbushFilter) => {
     if (isVisible) {
-      console.log(selectedValue, 'selected val');
 
       // Check if the type of query already exists
       let filterByQuery = query.filter((item: any) => {
@@ -284,12 +293,14 @@ function Logbuch() {
       })
 
       if (selectedValue) {
+        // console.log(selectedValue,'selected value');
+        
         if (filterByQuery.length === 0) {
-          setQuery([...query, { name: selectedValue.typeOf, searchQuery: selectedValue.name }])
+          setQuery([...query, { name: selectedValue.typeOf, searchQuery: selectedValue.id }])
         } else {
           const updatedQuery = query.map((item: any) => {
             if (item.name === selectedValue?.typeOf) {
-              return { ...item, searchQuery: selectedValue.name };
+              return { ...item, searchQuery: selectedValue.id };
             }
             return item;
           });
@@ -299,7 +310,7 @@ function Logbuch() {
       }
 
       switch (queryName) {
-        case "facility_alias_name":
+        case "facility":
           aliasNameStatus(searchKey)
           break;
         case "gateway":
@@ -335,7 +346,7 @@ function Logbuch() {
             </Col>
           </Row>
           {/* <DashboardTable /> */}
-          <ReactTable data={logbush} filterDisabledObject={filterDisabledObject} resetHandler={resetHandler} logbushFilterData={statusObject} logbuchStatusChange={logbuchStatusChange} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
+          <ReactTable data={logbush.results ? logbush.results : []} filterDisabledObject={filterDisabledObject} resetHandler={resetHandler} logbushFilterData={statusObject} logbuchStatusChange={logbuchStatusChange} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
         </div>
       </section>
 

@@ -14,13 +14,11 @@ type Value = {
     typeOf: string;
 }
 
-function SelectBox({ statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName, isLogbushFilter, logbuchStatusChange, filterDisabledObject }: any) {
+function SelectBox({ statusFilter, filterName, isSearchable, isIconVisible, setStatusFilter, queryHandler, queryName, isLogbushFilter, logbuchStatusChange, filterDisabledObject, query }: any) {
+
     const [isVisible, setIsVisible] = useState<boolean>(false)
     const [search, setSearch] = useState<string>("")
     const [selectedValue, setSelectedValue] = useState<Value>()
-
-    console.log(filterDisabledObject, 'filterDisabledObject');
-
 
     const closeHandler = () => {
         setIsVisible(false)
@@ -49,11 +47,14 @@ function SelectBox({ statusFilter, filterName, isSearchable, isIconVisible, setS
         setStatusFilter(updatedStatusFilter)
     }
 
+    console.log(query, statusFilter, 'status filter');
+
+
     return (
         <div className='select-box'>
             <div className="dropdown">
                 <Button variant='dropdown' onClick={() => {
-                    if (filterDisabledObject) {                        
+                    if (filterDisabledObject) {
                         if (filterDisabledObject.isOptimiererDisabled && queryName === "optimizer") {
                             return;
                         }
@@ -92,6 +93,7 @@ function SelectBox({ statusFilter, filterName, isSearchable, isIconVisible, setS
                                         onClick={() => {
                                             setSelectedValue({ id: item.id, name: item.name, typeOf: queryName })
                                         }}
+                                        checked={item.isChecked}
                                         type={isLogbushFilter ? "radio" : "checkbox"}
                                         label={item?.name}
                                         name="group1"
