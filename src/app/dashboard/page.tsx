@@ -154,7 +154,7 @@ export default function Dashboard() {
     columnHelper.accessor('aliasName', {
       cell: (props: any) => <Button variant='details' style={{ cursor: "pointer" }} onClick={() => {
         router.push(`/dashboard/details/${props.row.original?.pk}`)
-      }}>Details<i className='icon-next'><MdNavigateNext size={18} /></i> </Button>,
+      }}><i className='icon-next'><MdNavigateNext size={24} /></i> </Button>,
       header: ""
     }),
   ]
