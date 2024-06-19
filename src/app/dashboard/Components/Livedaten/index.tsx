@@ -24,6 +24,7 @@ import { GrPrevious, GrNext } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
 import { useParams } from 'next/navigation';
+import LoadingIndicator from '@/shared/Loader';
 
 type Gateway = {
   facility: number;
@@ -66,6 +67,11 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
   const [powerList, setPowerList] = useState<Power[]>([])
   const [facilityStatus, setFacilityStatus] = useState<FacilityStatus>({ facility: "", network: "", portal: "" })
   const [ertrage, setErtrage] = useState<0 | 1>(0)
+  
+  // Loaders
+  const [isGatewayLoading, setIsGatewayLoading] = useState(true)
+  const [isFacilityLoading, setIsFacilityLoading] = useState(true)
+  const [isOptimizersLoading, setIsOptimizersLoading] = useState(true)
 
   const gatewayHandler = (rule: "forward" | "backward") => {
     switch (rule) {
@@ -85,15 +91,21 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
   }
 
   useEffect(() => {
+    setIsGatewayLoading(true)
+    setIsFacilityLoading(true)
+
     apiCaller.get(`/api/v1/gateway/?facility=${id}`)
       .then(response => {
         setGateway(response.data.results);
+        setIsGatewayLoading(false)
+
         return response.data.results;
       })
 
     apiCaller.get(`/api/v1/facility/${id}/status/`)
       .then(response => {
         setFacilityStatus(response.data)
+        setIsFacilityLoading(false)
       })
   }, [])
 
@@ -103,9 +115,12 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
 
       let stringId = activeGatwayStrings[activeString]
 
+      setIsOptimizersLoading(true)
+
       apiCaller.get(`/api/v1/optimizer/?string=${stringId}`)
         .then(response => {
           setPowerList(response.data.results);
+          setIsOptimizersLoading(false)
         })
     }
   }, [activeGateway, activeString, gateway])
@@ -271,6 +286,8 @@ function Livedaten({ facilityPowerWatt }: { facilityPowerWatt: number }) {
 
         </Col>
       </Row>
+
+      {(isGatewayLoading || isFacilityLoading || isOptimizersLoading) && <LoadingIndicator />}
     </div>
   )
 }

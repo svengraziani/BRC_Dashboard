@@ -12,6 +12,7 @@ import imgError from '../../../../Assets/images/icon-error.svg';
 import { useEffect, useState } from 'react';
 import SharedModal from '@/shared/Modal';
 import { apiCaller } from '@/services/apiCaller';
+import LoadingIndicator from '@/shared/Loader';
 
 type Logbush = {
     customer: number;
@@ -78,6 +79,8 @@ function DashboardLogbuch() {
     const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
     const [logbush, setLogbush] = useState<Logbush[]>([])
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const {id} = useParams()
 
     const columnHelper = createColumnHelper();
@@ -91,6 +94,8 @@ function DashboardLogbuch() {
         .then(response => {
             setNumberOfRecords(response.data.count)
             setLogbush(response.data.results)
+
+            setIsLoading(false)
         })
     }, [pageIndex, search])
 
@@ -126,6 +131,8 @@ function DashboardLogbuch() {
         <div className='logbuch-details'>
             <SharedModal show={mistakeModal} modalContent={<MistakeModal />} onHide={() => setMistakeModal(false)} />
             <ReactTable data={logbush ? logbush : []} columns={columns} pageChangeHandler={pageChangeHandler} setSearch={setSearch} numberOfRecords={numberOfRecords}/>
+
+            {isLoading && <LoadingIndicator />}
         </div>
     )
 }

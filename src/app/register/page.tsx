@@ -9,10 +9,11 @@ import "./register.scss";
 import { Button, Row, Col, Form, Modal } from "react-bootstrap";
 import { useSearchParams, useRouter } from "next/navigation";
 import { capitalizeFirstLetter } from "../../services/genericFunctions";
-import { FormEvent, Suspense, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import SharedModal from "@/shared/Modal";
 import { apiCaller } from "@/services/apiCaller";
 import toast, { Toaster } from "react-hot-toast";
+import { COUNTRY_LIST } from "@/services/constants";
 
 type Payload = {
   first_name: string;
@@ -22,11 +23,13 @@ type Payload = {
   street_number: string;
   postal_code: string;
   city: string;
-  country: string;
+  country: {
+    code: string
+  };
   additional_address_information: string;
   phone: string;
   email_notifications_enabled: boolean;
-  business_name?: string; // Make this property optional
+  business_name?: string;
 };
 
 function CompleteRegistartionModal() {
@@ -63,7 +66,6 @@ export default function Register() {
   const [telephone, setTelephone] = useState<string>("")
   const [email, setEmail] = useState<string>("")
 
-  
   const [businessName, setBusinessName] = useState<string>("")
 
   const [errors, setErrors] = useState<any>({});
@@ -71,12 +73,14 @@ export default function Register() {
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [privacyAccepted, setPrivacyAccepted] = useState<boolean>(false);
 
-
-  // const router = useRouter();
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const errors: any = {};
+
+    if (!businessName.trim() && query === "unternehmensaccount") {
+      errors.businessName = "Firmenname ist erforderlich"
+    }
 
     if (!firstName.trim()) {
       errors.firstName = "Vorname ist erforderlich";
@@ -124,7 +128,11 @@ export default function Register() {
 
     setErrors(errors);
 
-    let payload : Payload = {
+    if (!termsAccepted || !privacyAccepted) {
+      return;
+    }
+
+    let payload: Payload = {
       first_name: firstName,
       last_name: lastName,
       email: email,
@@ -132,7 +140,9 @@ export default function Register() {
       street_number: addressNumber,
       postal_code: postcode,
       city: location,
-      country: country,
+      country: {
+        code: country
+      },
       additional_address_information: address,
       phone: telephone,
       email_notifications_enabled: true,
@@ -146,17 +156,14 @@ export default function Register() {
     }
 
     apiCaller.post("/api/v1/user/register/", payload)
-    .then(response => {
-      console.log(response,'response ???????????????????');
-      setRegistrationModal(true)
-    })
-    .catch(error => {
-      console.log(error.response.data.errors,'error');
-      toast.error(error.response.data.errors[0].detail)
-    })
-
-    // setRegistrationModal(true);
-  }
+      .then(response => {
+        setRegistrationModal(true)
+      })
+      .catch(error => {
+        console.log(error.response.data.errors, 'error');
+        toast.error(error.response.data.errors[0].detail)
+      })
+  }  
 
   const handleChange = (field: string, value: string | boolean) => {
     switch (field) {
@@ -175,7 +182,7 @@ export default function Register() {
       case "street":
         setStreet(value as string);
         if (errors.street) {
-          setErrors((prevState: any) => ({ ...prevState, street: "" })); 
+          setErrors((prevState: any) => ({ ...prevState, street: "" }));
         }
         break;
       case "addressNumber":
@@ -220,16 +227,23 @@ export default function Register() {
           setErrors((prevState: any) => ({ ...prevState, businessName: "" }));
         }
         break;
-        case "termsAccepted":
-          setTermsAccepted(value as boolean);
-          break;
-        case "privacyAccepted":
-          setPrivacyAccepted(value as boolean);
-          break;
-        default:
-          break;
+      case "termsAccepted":
+        setTermsAccepted(value as boolean);
+        break;
+      case "privacyAccepted":
+        setPrivacyAccepted(value as boolean);
+        break;
+      default:
+        break;
     }
   };
+
+  useEffect(()=> {
+    if (country && errors?.country) {
+      delete errors.country;
+      setErrors(errors)
+    }
+  }, [country])
 
   return (
     <Suspense fallback={<div>Loading....</div>}>
@@ -269,10 +283,9 @@ export default function Register() {
               <Row>
                 <Col md="12">
                   <Form.Group className="form-block">
-                    <Form.Control value={businessName} 
-                    // onChange={e => setBusinessName(e.target.value)} 
-                    onChange={(e) => handleChange("businessName", e.target.value)} 
-                    type="text" placeholder="Firmenname*" spellCheck={false} />
+                    <Form.Control value={businessName}
+                      onChange={(e) => handleChange("businessName", e.target.value)}
+                      type="text" placeholder="Firmenname*" spellCheck={false} />
                     <Form.Label>Firmenname*</Form.Label>
                     {errors.businessName && <p className="error-message">{errors.businessName}</p>}
                   </Form.Group>
@@ -284,19 +297,19 @@ export default function Register() {
               <Col md="6">
                 <Form.Group className="form-block">
                   <Form.Control type="text" value={firstName}
-                  //  onChange={e => setFirstName(e.target.value)} 
-                   onChange={(e) => handleChange("firstName", e.target.value)} 
-                   placeholder="Vorname*" spellCheck={false} />
+                    //  onChange={e => setFirstName(e.target.value)} 
+                    onChange={(e) => handleChange("firstName", e.target.value)}
+                    placeholder="Vorname*" spellCheck={false} />
                   <Form.Label>Vorname*</Form.Label>
                   {errors.firstName && <p className="error-message">{errors.firstName}</p>}
                 </Form.Group>
               </Col>
               <Col md="6">
                 <Form.Group className="form-block">
-                  <Form.Control type="text" value={lastName} 
-                  // onChange={e => setLastName(e.target.value)}
-                  onChange={(e) => handleChange("lastName", e.target.value)} 
-                  placeholder="Nachname*" spellCheck={false} />
+                  <Form.Control type="text" value={lastName}
+                    // onChange={e => setLastName(e.target.value)}
+                    onChange={(e) => handleChange("lastName", e.target.value)}
+                    placeholder="Nachname*" spellCheck={false} />
                   <Form.Label>Nachname*</Form.Label>
                   {errors.lastName && <p className="error-message">{errors.lastName}</p>}
                 </Form.Group>
@@ -306,9 +319,9 @@ export default function Register() {
               <Col md="6">
                 <Form.Group className="form-block">
                   <Form.Control type="text" value={street}
-                  //  onChange={e => setStreet(e.target.value)}
-                  onChange={(e) => handleChange("street", e.target.value)} 
-                   placeholder="Straße*" spellCheck={false} />
+                    //  onChange={e => setStreet(e.target.value)}
+                    onChange={(e) => handleChange("street", e.target.value)}
+                    placeholder="Straße*" spellCheck={false} />
                   <Form.Label>Straße*</Form.Label>
                   {errors.street && <p className="error-message">{errors.street}</p>}
                 </Form.Group>
@@ -317,10 +330,10 @@ export default function Register() {
                 <Row>
                   <Col md="4">
                     <Form.Group className="form-block">
-                      <Form.Control type="number" value={addressNumber} 
-                      // onChange={e => setAddressNumber(e.target.value)}
-                      onChange={(e) => handleChange("addressNumber", e.target.value)} 
-                       placeholder="Nr.*" spellCheck={false} />
+                      <Form.Control type="number" value={addressNumber}
+                        // onChange={e => setAddressNumber(e.target.value)}
+                        onChange={(e) => handleChange("addressNumber", e.target.value)}
+                        placeholder="Nr.*" spellCheck={false} />
                       <Form.Label>Nr.*</Form.Label>
                       {errors.addressNumber && <p className="error-message">{errors.addressNumber}</p>}
                     </Form.Group>
@@ -328,9 +341,9 @@ export default function Register() {
                   <Col md="8">
                     <Form.Group className="form-block">
                       <Form.Control type="text" placeholder="Adresszusatz" spellCheck={false} value={address}
-                       onChange={e => setAddress(e.target.value)} 
-                       
-                       />
+                        onChange={e => setAddress(e.target.value)}
+
+                      />
                       <Form.Label>Adresszusatz</Form.Label>
                     </Form.Group>
                   </Col>
@@ -340,20 +353,20 @@ export default function Register() {
             <Row>
               <Col md="6">
                 <Form.Group className="form-block">
-                  <Form.Control type="number" value={postcode} 
-                  // onChange={e => setPostcode(e.target.value)} 
-                  onChange={(e) => handleChange("postcode", e.target.value)}
-                  placeholder="PLZ*" spellCheck={false} />
+                  <Form.Control type="number" value={postcode}
+                    // onChange={e => setPostcode(e.target.value)} 
+                    onChange={(e) => handleChange("postcode", e.target.value)}
+                    placeholder="PLZ*" spellCheck={false} />
                   <Form.Label>PLZ*</Form.Label>
                   {errors.postcode && <p className="error-message">{errors.postcode}</p>}
                 </Form.Group>
               </Col>
               <Col md="6">
                 <Form.Group className="form-block">
-                  <Form.Control type="text" value={location} 
-                  onChange={(e) => handleChange("location", e.target.value)}
-                  // onChange={e => setLocation(e.target.value)} 
-                  placeholder="Ort*" spellCheck={false} />
+                  <Form.Control type="text" value={location}
+                    onChange={(e) => handleChange("location", e.target.value)}
+                    // onChange={e => setLocation(e.target.value)} 
+                    placeholder="Ort*" spellCheck={false} />
                   <Form.Label>Ort*</Form.Label>
                   {errors.location && <p className="error-message">{errors.location}</p>}
                 </Form.Group>
@@ -362,23 +375,26 @@ export default function Register() {
             <Row>
               <Col md="6">
                 <Form.Group className="form-block">
-                  <Form.Select aria-label="Dropdown"
-                  onChange={(e) => handleChange("country", e.target.value)}
-                  // onChange={e => setCountry(e.target.value)}
-                  >
+                  <Form.Select aria-label="Dropdown" value={country} onChange={e => {
+                    if (e.target.value !== "Land*") {
+                      setCountry(e.target.value)
+                    } else {
+                      setCountry('')
+                    }
+                  }}>
                     <option>Land*</option>
-                    <option value="India">India</option>
-                    <option value="Russia">Russia</option>
-                    <option value="Brazil">Brazil</option>
+                    {COUNTRY_LIST.map((item, key) => (
+                      <option key={key} value={item.code}>{item.name}</option>
+                    ))}
                   </Form.Select>
-                  {errors.country && <p className="error-message">{errors.country}</p>}
+                  {errors.country ? <p className="error-message">{errors.country}</p> : ""}
                 </Form.Group>
               </Col>
               <Col md="6">
                 <Form.Group className="form-block">
-                  <Form.Control type="tel" placeholder="Telefonnummer*" spellCheck={false} value={telephone} 
-                  // onChange={e => setTelephone(e.target.value)} 
-                   onChange={(e) => handleChange("telephone", e.target.value)} />
+                  <Form.Control type="tel" placeholder="Telefonnummer*" spellCheck={false} value={telephone}
+                    // onChange={e => setTelephone(e.target.value)} 
+                    onChange={(e) => handleChange("telephone", e.target.value)} />
                   <Form.Label>Telefonnummer*</Form.Label>
                   {errors.telephone && <p className="error-message">{errors.telephone}</p>}
                 </Form.Group>
@@ -387,9 +403,9 @@ export default function Register() {
             <Row>
               <Col xs>
                 <Form.Group className="form-block">
-                  <Form.Control type="email" placeholder="E-Mail*" spellCheck={false} value={email} 
-                  // onChange={e => setEmail(e.target.value)}
-                  onChange={(e) => handleChange("email", e.target.value)} ></Form.Control>
+                  <Form.Control type="email" placeholder="E-Mail*" spellCheck={false} value={email}
+                    // onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => handleChange("email", e.target.value)} ></Form.Control>
                   <Form.Label>E-Mail*</Form.Label>
                   {errors.email && <p className="error-message">{errors.email}</p>}
                 </Form.Group>
@@ -405,11 +421,11 @@ export default function Register() {
 
                   id={`einzelaccount`}
                   label={<div className="conditions d-flex"><Link href="#">Nutzungsbedingungen</Link>
-                    <span>akzeptieren*</span></div>} 
-                    checked={termsAccepted}
-                    onChange={(e) => handleChange("termsAccepted", e.target.checked)}
-                     />
-                    {errors.termsAccepted && <p className="error-message">{errors.termsAccepted}</p>}
+                    <span>akzeptieren*</span></div>}
+                  checked={termsAccepted}
+                  onChange={(e) => handleChange("termsAccepted", e.target.checked)}
+                />
+                {errors.termsAccepted && <p className="error-message">{errors.termsAccepted}</p>}
               </Col>
               <Col md="6">
                 <Form.Check
@@ -419,10 +435,10 @@ export default function Register() {
 
                   id={`datenschutzerklärung`}
                   label={<div className="conditions d-flex"><Link href="#">Datenschutzerklärung</Link>
-                    <span>akzeptieren*</span></div>} 
-                      checked={privacyAccepted}
-                      onChange={(e) => handleChange("privacyAccepted", e.target.checked)}/>
-                       {errors.privacyAccepted && <p className="error-message">{errors.privacyAccepted}</p>}
+                    <span>akzeptieren*</span></div>}
+                  checked={privacyAccepted}
+                  onChange={(e) => handleChange("privacyAccepted", e.target.checked)} />
+                {errors.privacyAccepted && <p className="error-message">{errors.privacyAccepted}</p>}
               </Col>
             </Row>
             <Button type="submit">Registrieren</Button>

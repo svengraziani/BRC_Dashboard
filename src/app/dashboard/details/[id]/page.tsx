@@ -60,6 +60,8 @@ function DashboardDetails() {
   const router = useRouter()
   const { id } = useParams()
 
+  const [informationLoading, setInformationLoading] = useState(false)
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString())
@@ -90,6 +92,8 @@ function DashboardDetails() {
   });
 
   useEffect(() => {
+    setInformationLoading(true)
+
     apiCaller.get(`/api/v1/facility/${id}`)
       .then(response => {
         let data = response.data;
@@ -107,6 +111,8 @@ function DashboardDetails() {
         setValue("email", data.email)
         setValue("power_purchase_costs", data.power_purchase_costs)
         setValue("notes", data.notes)
+
+        setInformationLoading(false)
       })
   }, [])
 
@@ -211,6 +217,7 @@ function DashboardDetails() {
                 register={register}
                 handleSubmit={handleSubmit}
                 errors={errors}
+                informationLoading={informationLoading}
               />
             )}
 

@@ -15,6 +15,7 @@ import SharedModal from "@/shared/Modal";
 import { useSelector } from "react-redux";
 import { apiCaller } from "@/services/apiCaller";
 import { debounce } from 'lodash'
+import LoadingIndicator from "@/shared/Loader";
 
 type Logbush = {
   customer: number;
@@ -93,6 +94,8 @@ function Logbuch() {
 
   const [isStringDisabled, setIsStringDisabled] = useState(true)
   const [isOptimiererDisabled, setIsOptimiererDisabled] = useState(true)
+
+  const [isLoading, setIsLoading] = useState(true)
 
   const statusObject = {
     aliasName: aliasNameFilter,
@@ -203,12 +206,16 @@ function Logbuch() {
   }
 
   const resetHandler = () => {
+    setIsLoading(true)
+
     setQuery([])
 
     apiCaller.get(`api/v1/asset-datapoint-logs/?limit=10&offset=1`)
     .then(response => {
       setLogbush(response.data.results);
       setNumberOfRecords(response.data.count)
+
+      setIsLoading(false)
     })
   }
 
@@ -217,6 +224,8 @@ function Logbuch() {
   }
 
   const aliasNameStatus = (search: string) => {
+    setIsLoading(true)
+
     apiCaller.get(`/api/v1/facility/?limit=3&search=${search}`)
       .then(response => {
         const aliasName: LogbushFilter[] = []
@@ -225,10 +234,13 @@ function Logbuch() {
         })
 
         setAliasNameFilter(aliasName)
+
+        setIsLoading(false)
       })
   }
 
   const gatewayStatus = (search: string) => {
+    setIsLoading(true)
     apiCaller.get(`/api/v1/gateway/?limit=3&search=${search}`)
       .then(response => {
         const gatewayFilter: LogbushFilter[] = []
@@ -238,10 +250,13 @@ function Logbuch() {
         })
 
         setGatewayFilter(gatewayFilter)
+        setIsLoading(false)
       })
   }
 
   useEffect(() => {
+    setIsLoading(true)
+
     let apiQuery = ''
 
     if (query) {
@@ -254,6 +269,8 @@ function Logbuch() {
       .then(response => {
         setLogbush(response.data.results);
         setNumberOfRecords(response.data.count)
+
+        setIsLoading(false)
       })
   }, [query, pageIndex, search])
 
@@ -321,6 +338,8 @@ function Logbuch() {
           <ReactTable data={logbush} filterDisabledObject={filterDisabledObject} resetHandler={resetHandler} logbushFilterData={statusObject} logbuchStatusChange={logbuchStatusChange} setSearch={setSearch} pageChangeHandler={pageChangeHandler} queryHandler={queryHandler} columns={columns} isFilters={true} isStatusFilter={false} isCreation={false} isFiltersWrap={true} numberOfRecords={numberOfRecords} />
         </div>
       </section>
+
+      {isLoading && <LoadingIndicator />}
     </>
   )
 }

@@ -19,6 +19,7 @@ import * as yup from 'yup'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingIndicator from "@/shared/Loader";
 
 function InviteAccessModal({ setInvitationModal }: any) {
   const [inviteModal, setInviteModal] = useState<boolean>(false);
@@ -92,7 +93,8 @@ function Informationen({
   errors,
   setDataDepositCheck,
   dataDepositCheck,
-  setValue
+  setValue,
+  informationLoading
 }: any) {
   const [invitationModal, setInvitationModal] = useState<boolean>(false);
 
@@ -101,10 +103,14 @@ function Informationen({
   const [facilityOwnerInfo, setFacilityOwnerInfo] = useState<any>()
   const [facilityUserInfo, setFacilityUserInfo] = useState([])
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const { id } = useParams()
 
   useEffect(() => {
     if (id) {
+      setIsLoading(true)
+
       apiCaller.get(`/api/v1/facilityrole/?facility=${id}`)
       .then(response => {
         let owner = response.data.results.filter((item: any) => {
@@ -117,16 +123,22 @@ function Informationen({
 
         setFacilityOwnerRole(owner);
         setFacilityUserRole(user)
+
+        setIsLoading(false)
       })
     }
   }, [])
 
   useEffect(() => {
+    setIsLoading(true)
+
     if (facilityOwnerRole.length > 0) {
       apiCaller.get(`/api/v1/user/${facilityOwnerRole[0].user}/`)
         .then(response => {
           setFacilityOwnerInfo(response.data)
         })
+
+        setIsLoading(false)
     }
 
     if (facilityUserRole.length > 0) {
@@ -136,6 +148,8 @@ function Informationen({
             setFacilityUserInfo([...facilityUserInfo, response.data])
           })
       })
+
+      setIsLoading(false)
     }
   }, [facilityOwnerRole, facilityUserRole])
 
@@ -513,6 +527,8 @@ function Informationen({
       </div>
 
       <Toaster />
+
+      {(informationLoading || isLoading) && <LoadingIndicator />}
     </Form>
   );
 }

@@ -15,7 +15,6 @@ import { MdNavigateNext } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { apiCaller } from '@/services/apiCaller';
 import LoadingIndicator from '@/shared/Loader';
-// import { setFacilityData } from '@/redux/slice/facilitySlice';
 
 type QueryParams = {
   name: string;
@@ -63,6 +62,7 @@ export default function Dashboard() {
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
   const [pageIndex, setPageIndex] = useState<number>(1)
   const [query, setQuery] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const [statusFilter, setStatusFilter] = useState([
     {
@@ -86,6 +86,8 @@ export default function Dashboard() {
   const [search, setSearch] = useState("")
 
   useEffect(() => {
+    setIsLoading(true)
+
     let apiQuery = ''
 
     if (query) {
@@ -97,6 +99,8 @@ export default function Dashboard() {
     apiCaller.get(`api/v1/facility/?search=${search}${apiQuery}&limit=10&offset=${pageIndex}`).then((response) => {
       setDashboardData(response?.data?.results)
       setNumberOfRecords(response.data.count)
+
+      setIsLoading(false)
     })
 
   }, [search, query, statusFilter, pageIndex])
@@ -147,7 +151,6 @@ export default function Dashboard() {
   ]
 
   const queryHandler = (type: string, queryData: QueryParams[]) => {
-    console.log(queryData, 'queryData');
 
     let filterByCheck = queryData.filter(item => item.isChecked === true)
 
@@ -177,6 +180,7 @@ export default function Dashboard() {
       .then((response) => {
         setDashboardData(response?.data?.results)
         setNumberOfRecords(response.data.count)
+        setIsLoading(false)
       })
   }
 
@@ -220,7 +224,7 @@ export default function Dashboard() {
           <div className="filter-wrap"></div>
         </div>
 
-        <LoadingIndicator />
+        {isLoading && <LoadingIndicator />}
       </section>
     </>
   )

@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { COUNTRY_LIST } from '@/services/constants';
+import LoadingIndicator from '@/shared/Loader';
 
 
 function Profil() {
@@ -32,6 +33,8 @@ function Profil() {
     const [zipCode, setZipCode] = useState<string>()
     const [locationData, setLocationData] = useState<string>()
     const [countryData, setCountryData] = useState<string>()
+
+    const [isLoading, setIsLoading] = useState(true)
 
     const [userDetails, setUserDetails] = useState<any>()
     const reduxStore: any = useSelector(state => state)
@@ -101,6 +104,7 @@ function Profil() {
     useEffect(() => {
         apiCaller.get(`/api/v1/user/${reduxStore?.user.pk}`).then((response) => {
             setUserDetails(response?.data)
+            setIsLoading(false)
         }).catch((error) => {
             console.log("error", error)
         })
@@ -304,6 +308,8 @@ function Profil() {
                     </div> */}
                 </div>
             </section>
+
+            {isLoading && <LoadingIndicator />}
             <Toaster />
         </>
     )

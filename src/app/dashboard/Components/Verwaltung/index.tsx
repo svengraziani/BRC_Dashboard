@@ -16,6 +16,7 @@ import imgGreen from '../../../../Assets/images/green-power.svg';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import {FallingLines} from 'react-loader-spinner'
+import LoadingIndicator from '@/shared/Loader';
 
 type Gateway = {
     facility: number;
@@ -52,15 +53,24 @@ function Verwaltung() {
     const [activeString, setActiveString] = useState<number>(0);
     const [powerList, setPowerList] = useState<Power[]>([]);
 
+    // Loaders
+    const [isGatewayLoading, setIsGatewayLoading] = useState(true)
+    const [isOptimizersLoading, setIsOptimizersLoading] = useState(true)
+
+
     useEffect(() => {
+        setIsGatewayLoading(true)
         apiCaller.get(`/api/v1/gateway/?facility=${id}`)
             .then(response => {
                 setGateway(response.data.results);
+                setIsGatewayLoading(false)
             })
     }, []);
 
     useEffect(() => {
         if (gateway.length !== 0) {
+            setIsOptimizersLoading(true)
+
             const presentGateway = gateway[activeGateway - 1];
             setStrings(presentGateway?.strings);
 
@@ -72,6 +82,7 @@ function Verwaltung() {
             apiCaller.get(`/api/v1/optimizer/?string=${stringId}`)
                 .then(response => {
                     setPowerList(response.data.results);
+                    setIsOptimizersLoading(false)
                 })
         }
     }, [gateway, activeGateway, activeString]);
@@ -195,6 +206,8 @@ function Verwaltung() {
                     </Col>
                 </Row>
             </div>
+
+            {(isGatewayLoading || isOptimizersLoading) && <LoadingIndicator />}
         </DndProvider>
     );
 }

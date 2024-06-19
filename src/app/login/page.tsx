@@ -12,8 +12,6 @@ import { useRouter } from "next/navigation";
 import backgroundImage from '../../Assets/images/background.jpg'
 import { apiCaller } from "@/services/apiCaller";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { setUserData } from "@/redux/slice/userSlice";
 import useLocalStorage from "@/services/useLocalStorage";
 import * as yup from 'yup'
 import { useForm } from "react-hook-form";
@@ -182,7 +180,7 @@ export default function Login() {
             <h2>Login</h2>
             <Form onSubmit={submitHandler}>
               <Form.Group className="form-block">
-                <Form.Control type="email" placeholder="E-mail" value={email} onChange={handleEmailChange} />
+                <Form.Control type="email" placeholder="E-mail" spellCheck={false} value={email} onChange={handleEmailChange} />
                 <Form.Label>E-mail</Form.Label>
                 {emailError && <p className="error" >{emailError}</p>}
               </Form.Group>

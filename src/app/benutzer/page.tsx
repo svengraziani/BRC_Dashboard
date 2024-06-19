@@ -18,6 +18,7 @@ import toast, { Toaster } from "react-hot-toast";
 import * as yup from 'yup'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import LoadingIndicator from "@/shared/Loader";
 
 const inviteUserSchema = yup.object().shape({
   email: yup.string().email("Invalid Email").required("This field is required")
@@ -152,14 +153,19 @@ function Benutzer() {
   const [benutzerData, setBenutzerData] = useState<BenutzerType[]>([])
   const [numberOfRecords, setNumberOfRecords] = useState<number>(0)
 
+  const [isLoading, setIsLoading] = useState(true)
+
   const columnHelper = createColumnHelper()
 
   const getUserData = () => {
+    setIsLoading(true)
 
     apiCaller.get("/api/v1/user").then((response) => {
       setNumberOfRecords(response.data.count);
 
       setBenutzerData(response?.data?.results)
+
+      setIsLoading(false)
     }).catch((error) => { })
   }
 
@@ -243,6 +249,7 @@ function Benutzer() {
         </div>
       </section>
 
+      {isLoading && <LoadingIndicator />}
       <Toaster />
     </>
   )

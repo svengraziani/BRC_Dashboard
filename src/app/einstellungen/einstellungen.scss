@@ -56,12 +56,12 @@
         border-radius: 10px;
         border: 2px dashed $light-grey;
         padding: 30px 0px;
-        text-align: center;
 
         p {
             color: $black;
             @include fontsize(25px);
             margin: 0;
+            text-align: center;
         }
     }
 

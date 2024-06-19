@@ -30,7 +30,7 @@ function Header() {
   }, [])
 
   const logoutHandler = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     router.push("/login")
   }
   

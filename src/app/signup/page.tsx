@@ -25,34 +25,34 @@ export default function Signup() {
     }
   }, [router, signupRadio]);
 
-  return(
+  return (
     <section className="form-bg">
-    <Image
-      alt="backgroun-image"
-      src={backgroundImage}
-      placeholder="blur"
-      fill
-      quality={100}
-      sizes="100vw"
-      style={{
-        objectFit:"cover",
-        zIndex:"-1"
-      }}
-    />
+      <Image
+        alt="backgroun-image"
+        src={backgroundImage}
+        placeholder="blur"
+        fill
+        quality={100}
+        sizes="100vw"
+        style={{
+          objectFit: "cover",
+          zIndex: "-1"
+        }}
+      />
       <div className="section-logo">
-            <Image src={sectionImg} alt="Section-Logo" />
+        <Image src={sectionImg} alt="Section-Logo" />
       </div>
       <div className="form-wrap text-left">
         <Row>
           <Col xs>
             <div className="back-btn">
-            <Link href={"/login"} className="d-flex align-items-center">
-              <i className="icon-back">
-              <Image src={arrowImg} alt="arrow-image"></Image>
-              </i>Zurück zum Login</Link>
+              <Link href={"/login"} className="d-flex align-items-center">
+                <i className="icon-back">
+                  <Image src={arrowImg} alt="arrow-image"></Image>
+                </i>Zurück zum Login</Link>
             </div>
             <div className="logo">
-                <Image src={logoImg} alt="Logo" />
+              <Image src={logoImg} alt="Logo" />
             </div>
             <h2>Registrierung</h2>
             <Form onSubmit={submitHandler} className="my-0">
@@ -61,26 +61,26 @@ export default function Signup() {
                 name={"registration"}
                 id={`einzelaccount`}
                 value={'einzelaccount'}
-                label={<div style={{display: "flex", gap: "10px"}}><span>Einzelaccount</span><i className="icon-circle">
+                label={<div style={{ display: "flex", gap: "10px" }}><span>Einzelaccount</span><i className="icon-circle">
                   <Image src={circleImg} alt="Icon" />
-                </i></div>} 
+                </i></div>}
                 onChange={e => {
                   setSignupRadio(e.target.value)
                 }}
-                />
+              />
 
               <Form.Check
                 type={"radio"}
                 name={"registration"}
                 id={`unternehmensaccount`}
                 value={'unternehmensaccount'}
-                label={<div style={{display: "flex", gap: "10px"}}><span>Unternehmensaccount</span><i className="icon-circle">
+                label={<div style={{ display: "flex", gap: "10px" }}><span>Unternehmensaccount</span><i className="icon-circle">
                   <Image src={circleImg} alt="Icon" />
                 </i></div>}
                 onChange={e => {
                   setSignupRadio(e.target.value)
                 }}
-                />
+              />
 
               <Button type="submit">Weiter</Button>
             </Form>
