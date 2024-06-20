@@ -158,14 +158,19 @@ function Benutzer() {
   const getUserData = () => {
     setIsLoading(true)
 
-    apiCaller.get("/api/v1/user").then((response) => {
+    apiCaller.get("/api/v1/craft-business-role/").then((response) => {
       setNumberOfRecords(response.data.count);
 
       setBenutzerData(response?.data?.results)
 
       setIsLoading(false)
-    }).catch((error) => { })
+    }).catch((error) => { 
+      setIsLoading(false)
+    })
   }
+
+  console.log(benutzerData , 'benutzerData ');
+  
 
   useEffect(() => {
     getUserData()
@@ -180,13 +185,9 @@ function Benutzer() {
       cell: info => info.getValue(),
       header: "E-Mail Adresse"
     }),
-    columnHelper.accessor('role', {
-      cell: (info: any) => {
-        return (
-          <span>{info.row.original.craft_business_roles[0].type}</span>
-        )
-      },
-      header: "Rolle",
+    columnHelper.accessor('type', {
+      cell: info => info.getValue(),
+      header: "Role"
     }),
     columnHelper.accessor('nameEigentümer', {
       cell: info => (
@@ -207,7 +208,7 @@ function Benutzer() {
         return (
           <Button variant="trash"
             onClick={() => {
-              setSelectedDeleteUser(info?.row?.original?.pk)
+              setSelectedDeleteUser(info?.row?.original?.user)
               setDeleteModal(true)
             }}
           >
