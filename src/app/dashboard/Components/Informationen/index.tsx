@@ -465,9 +465,9 @@ function Informationen({
               Zugriffsrechte
             </h2>
 
-            {facilityUserInfo.map((item: any) => {
+            {facilityUserInfo.map((item: any, key: number) => {
               return (
-                <div className="general-card mb-3">
+                <div className="general-card mb-3" key={key}>
                   <Row>
                     <Col md="10" className="d-md-flex gap-4">
                       <Col md="4">

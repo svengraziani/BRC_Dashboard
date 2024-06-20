@@ -150,7 +150,7 @@ function Livedaten({ facility }: any) {
 
             {/* Power List */}
             <div className='power-list'>
-              {powerList.length !== 0 ? powerList?.map(item => {
+              {powerList.length !== 0 ? powerList?.map((item, index) => {
                 let imageSrc = imgBlue;
                 if (item.optimization_status === "THERMAL_SHUTDOWN") {
                   imageSrc = imgGray;
@@ -163,7 +163,7 @@ function Livedaten({ facility }: any) {
                 }
 
                 return (
-                  <div className='power-cell'>
+                  <div className='power-cell' key={index}>
                     <div className='power-info'>
                       <h3>{item.power_watt.toFixed(2)} W</h3>
                       <p>PosNr.</p>
